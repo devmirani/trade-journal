@@ -7,7 +7,6 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #080c10; font-family: 'Courier New', monospace; color: #c9d1d9; min-height: 100vh; }
-
   header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; display: flex; justify-content: space-between; align-items: flex-end; }
   header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
   header p { font-size: 13px; color: #8b949e; margin-top: 4px; }
@@ -15,38 +14,31 @@
   .stat-label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; }
   .stat-value { font-size: 20px; font-weight: 700; color: #00e676; margin-top: 2px; }
   .stat-value.loss { color: #e05c5c; }
-
   .filters { padding: 20px 40px; display: flex; gap: 10px; flex-wrap: wrap; }
   .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; transition: all 0.15s; }
   .filter-btn:hover { border-color: #444; color: #c9d1d9; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
-
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 24px; padding: 20px 40px 60px; }
-
   .card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border-left: 3px solid #00e676; transition: transform 0.15s; }
   .card.loss { border-left-color: #e05c5c; }
   .card:hover { transform: translateY(-2px); }
-
   .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
   .card-price { font-size: 24px; font-weight: 700; color: #00e676; }
   .card.loss .card-price { color: #e05c5c; }
   .card-label { font-size: 16px; color: #c9d1d9; margin-left: 10px; }
   .card-timestamp { font-size: 12px; color: #8b949e; }
   .badge { display: inline-block; margin-top: 10px; padding: 3px 12px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
-
   .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px 8px; margin: 16px 0 14px; }
   .field-label { font-size: 11px; color: #8b949e; margin-bottom: 3px; }
   .field-value { font-size: 14px; font-weight: 700; color: #c9d1d9; }
   .field-value.win { color: #00e676; }
   .field-value.loss { color: #e05c5c; }
   .sub { font-size: 11px; color: #8b949e; font-weight: 400; }
-
-  .time-row { display: grid; gap: 8px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #21262d; }
+  .time-row { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #21262d; }
   .time-row-inner { display: flex; gap: 6px; flex-wrap: wrap; }
   .time-chip { padding: 4px 10px; background: #161b22; border-radius: 4px; font-size: 11px; color: #8b949e; }
   .time-chip span { color: #c9d1d9; font-weight: 700; }
-
-  .targets { display: grid; gap: 8px; margin: 0 0 14px; }
+  .targets { margin: 0 0 14px; }
   .targets-inner { display: flex; gap: 8px; flex-wrap: wrap; }
   .tp-btn { flex: 1; min-width: 80px; padding: 8px 4px; border-radius: 6px; font-size: 12px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; background: transparent; line-height: 1.5; }
   .tp-hit { border: 1.5px solid #00e676; color: #00e676; }
@@ -54,14 +46,13 @@
   .tp-stopped { border: 1.5px solid #e05c5c; color: #e05c5c; }
   .tp-miss { border: 1.5px solid #444; color: #555; }
   .tp-return { font-size: 10px; font-weight: 400; display: block; }
-
   .divider { border: none; border-top: 1px solid #21262d; margin: 14px 0; }
   .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
   .footer-label { font-size: 12px; color: #8b949e; }
-  .footer-nums { text-align: right; }
-  .pts { font-size: 22px; font-weight: 700; color: #00e676; display: block; }
-  .dollars { font-size: 18px; font-weight: 700; color: #00e676; display: block; }
-
+  .pts { font-size: 22px; font-weight: 700; color: #00e676; display: block; text-align: right; }
+  .pts.loss { color: #e05c5c; }
+  .dollars { font-size: 18px; font-weight: 700; color: #00e676; display: block; text-align: right; }
+  .dollars.loss { color: #e05c5c; }
   .journal-toggle { margin-top: 14px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 6px; }
   .journal-toggle:hover { color: #c9d1d9; }
   .journal-body { display: none; margin-top: 10px; font-size: 12px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
@@ -76,18 +67,9 @@
     <p>MES / ES — Apex Funded</p>
   </div>
   <div class="header-stats">
-    <div>
-      <div class="stat-label">Total P&L</div>
-      <div class="stat-value" id="total-pnl">—</div>
-    </div>
-    <div>
-      <div class="stat-label">Win Rate</div>
-      <div class="stat-value" id="win-rate">—</div>
-    </div>
-    <div>
-      <div class="stat-label">Trades</div>
-      <div class="stat-value" id="trade-count">—</div>
-    </div>
+    <div><div class="stat-label">Total P&L</div><div class="stat-value" id="total-pnl">—</div></div>
+    <div><div class="stat-label">Win Rate</div><div class="stat-value" id="win-rate">—</div></div>
+    <div><div class="stat-label">Trades</div><div class="stat-value" id="trade-count">—</div></div>
   </div>
 </header>
 
@@ -103,10 +85,30 @@
 <div class="grid" id="grid"></div>
 
 <script>
-// ============================================================
-// TRADE DATA — add new trades here at the top of this array
-// ============================================================
 const trades = [
+  {
+    id: 4,
+    date: "05/06/2026",
+    entryTime: "9:48:04 AM",
+    entryPrice: 7343.50,
+    stopPrice: 7325.00,
+    setup: "LEVEL_RECLAIM",
+    result: "win",
+    contracts: 3,
+    targets: [
+      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00 },
+      { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00 }
+    ],
+    times: [
+      { label: "Entry", value: "9:48:04 AM" },
+      { label: "T1", value: "36m 59s" },
+      { label: "T2", value: "53m 12s" }
+    ],
+    totalPts: 40.00,
+    totalPnl: 200.00,
+    exitNote: "Position fully exited",
+    journal: ""
+  },
   {
     id: 3,
     date: "05/07/2026",
@@ -119,11 +121,11 @@ const trades = [
     targets: [
       { label: "T1", price: 7387.00, contracts: 3, status: "miss", pnl: 0 },
       { label: "T2", price: 7394.00, contracts: 3, status: "miss", pnl: 0 },
-      { label: "T3", price: 7402.00, contracts: 3, status: "miss", pnl: 0 },
+      { label: "T3", price: 7402.00, contracts: 3, status: "miss", pnl: 0 }
     ],
     times: [
       { label: "Entry", value: "12:32:18 PM" },
-      { label: "Stopped", value: "24m 24s" },
+      { label: "Stopped", value: "24m 24s" }
     ],
     totalPts: -13.50,
     totalPnl: -213.75,
@@ -142,13 +144,13 @@ const trades = [
     targets: [
       { label: "T1", price: 7368.50, contracts: 7, status: "hit", pnl: 175.00 },
       { label: "T2", price: 7383.00, contracts: 2, status: "eod", exitPrice: 7369.00, pnl: 55.00 },
-      { label: "T3", price: null, contracts: 1, status: "stopped", exitPrice: 7356.50, pnl: -35.00 },
+      { label: "T3", price: null, contracts: 1, status: "stopped", exitPrice: 7356.50, pnl: -35.00 }
     ],
     times: [
       { label: "Entry", value: "1:40:15 PM" },
       { label: "T1", value: "27m 34s" },
       { label: "T2", value: "2h 22m" },
-      { label: "T3", value: "3h 9m" },
+      { label: "T3", value: "3h 9m" }
     ],
     totalPts: 46.50,
     totalPnl: 195.00,
@@ -168,14 +170,14 @@ const trades = [
       { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00 },
       { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00 },
       { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50 },
-      { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50 },
+      { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50 }
     ],
     times: [
       { label: "Entry", value: "6:20:35 PM" },
       { label: "T1", value: "33s" },
       { label: "T2", value: "1h 42m" },
       { label: "T3", value: "6h 52m" },
-      { label: "T4", value: "11h 7m" },
+      { label: "T4", value: "11h 7m" }
     ],
     totalPts: 123.50,
     totalPnl: 615.00,
@@ -183,7 +185,6 @@ const trades = [
     journal: "Post market Thursday, after a long grind down all day in ETH, we got the FBD of the Daily RTH Low at 7345. 6pm opened with a gap down below this low. We flushed to about 7337 then quickly recovered 7345 by 6:15pm. I took 10 contracts here using the NAP, entry was at 6:20pm at 7353.50 and I had my TP1 at 7358.50 which hit seconds later. TP2 hit around 8pm at 7366.50. I left my last 2 runners to run overnight. I had my TP3 set at 7380 and my 4th set at 7402. We hit both of these overnight. When I checked price in the morning (Friday), ES was repeatedly testing 7402. Total on this trade was $604.60."
   }
 ];
-// ============================================================
 
 function statusClass(s) {
   if (s === "hit") return "tp-hit";
@@ -193,106 +194,69 @@ function statusClass(s) {
 }
 
 function statusLabel(t) {
-  if (t.status === "hit") return `${t.label} HIT`;
-  if (t.status === "eod") return `${t.label} EOD ${t.exitPrice}`;
-  if (t.status === "stopped") return `${t.label} STOPPED`;
-  return `${t.label} —`;
+  if (t.status === "hit") return t.label + " HIT";
+  if (t.status === "eod") return t.label + " EOD " + t.exitPrice;
+  if (t.status === "stopped") return t.label + " STOPPED";
+  return t.label + " —";
 }
 
 function renderCard(trade) {
   const isWin = trade.result === "win";
-  const tpsHtml = trade.targets.map(t => `
-    <div class="tp-btn ${statusClass(t.status)}">
-      ${statusLabel(t)} <span class="sub">(${t.contracts}x)</span>
-      <span class="tp-return">${t.pnl >= 0 ? '+' : ''}$${t.pnl.toFixed(2)}</span>
-    </div>
-  `).join('');
+  const tpsHtml = trade.targets.map(function(t) {
+    const ret = t.pnl !== 0 ? (t.pnl >= 0 ? "+$" : "-$") + Math.abs(t.pnl).toFixed(2) : "—";
+    return '<div class="tp-btn ' + statusClass(t.status) + '">' + statusLabel(t) + ' <span class="sub">(' + t.contracts + 'x)</span><span class="tp-return">' + ret + '</span></div>';
+  }).join('');
 
-  const timesHtml = trade.times.map((t, i) => `
-    <div class="time-chip">${t.label}: <span>${t.value}</span></div>
-  `).join('');
+  const timesHtml = trade.times.map(function(t) {
+    return '<div class="time-chip">' + t.label + ': <span>' + t.value + '</span></div>';
+  }).join('');
 
-  const tpInfoHtml = trade.targets.map(t => `
-    <div>
-      <div class="field-label">${t.label}:</div>
-      <div class="field-value">${t.price ? t.price.toFixed(2) : '—'} <span class="sub">(${t.contracts}x)</span></div>
-    </div>
-  `).join('');
+  const tpInfoHtml = trade.targets.map(function(t) {
+    return '<div><div class="field-label">' + t.label + ':</div><div class="field-value">' + (t.price ? t.price.toFixed(2) : "—") + ' <span class="sub">(' + t.contracts + 'x)</span></div></div>';
+  }).join('');
 
-  const journalHtml = trade.journal ? `
-    <button class="journal-toggle" onclick="toggleJournal(${trade.id})">▶ journal entry</button>
-    <div class="journal-body" id="journal-${trade.id}">${trade.journal}</div>
-  ` : '';
+  const journalHtml = trade.journal ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">▶ journal entry</button><div class="journal-body" id="journal-' + trade.id + '">' + trade.journal + '</div>' : '';
 
-  return `
-    <div class="card ${isWin ? '' : 'loss'}" data-result="${trade.result}" data-setup="${trade.setup}">
-      <div class="card-header-row">
-        <div>
-          <span class="card-price">${trade.entryPrice.toFixed(2)}</span>
-          <span class="card-label">Support Buy</span>
-        </div>
-        <span class="card-timestamp">${trade.date}</span>
-      </div>
-      <div class="badge">${trade.setup}</div>
+  const ptsClass = trade.totalPts < 0 ? "pts loss" : "pts";
+  const dolClass = trade.totalPnl < 0 ? "dollars loss" : "dollars";
+  const ptsStr = (trade.totalPts >= 0 ? "+" : "") + trade.totalPts.toFixed(2) + " pts";
+  const dolStr = (trade.totalPnl >= 0 ? "+$" : "-$") + Math.abs(trade.totalPnl).toFixed(2);
 
-      <div class="time-row">
-        <div class="time-row-inner">${timesHtml}</div>
-      </div>
-
-      <div class="info-grid">
-        <div><div class="field-label">Entry:</div><div class="field-value">${trade.entryPrice.toFixed(2)}</div></div>
-        <div><div class="field-label">Stop:</div><div class="field-value">${trade.stopPrice.toFixed(2)}</div></div>
-        <div><div class="field-label">Result:</div><div class="field-value ${trade.result}">${trade.result.charAt(0).toUpperCase() + trade.result.slice(1)}</div></div>
-        <div><div class="field-label">Contracts:</div><div class="field-value">${trade.contracts}</div></div>
-        ${tpInfoHtml}
-      </div>
-
-      <div class="targets">
-        <div class="targets-inner">${tpsHtml}</div>
-      </div>
-
-      <hr class="divider">
-
-      <div class="card-footer">
-        <div class="footer-label">${trade.exitNote}</div>
-        <div class="footer-nums">
-          <span class="pts">${trade.totalPts >= 0 ? '+' : ''}${trade.totalPts.toFixed(2)} pts</span>
-          <span class="dollars">${trade.totalPnl >= 0 ? '+' : ''}$${trade.totalPnl.toFixed(2)}</span>
-        </div>
-      </div>
-
-      ${journalHtml}
-    </div>
-  `;
+  return '<div class="card ' + (isWin ? "" : "loss") + '" data-result="' + trade.result + '" data-setup="' + trade.setup + '">' +
+    '<div class="card-header-row"><div><span class="card-price">' + trade.entryPrice.toFixed(2) + '</span><span class="card-label">Support Buy</span></div><span class="card-timestamp">' + trade.date + '</span></div>' +
+    '<div class="badge">' + trade.setup + '</div>' +
+    '<div class="time-row"><div class="time-row-inner">' + timesHtml + '</div></div>' +
+    '<div class="info-grid"><div><div class="field-label">Entry:</div><div class="field-value">' + trade.entryPrice.toFixed(2) + '</div></div><div><div class="field-label">Stop:</div><div class="field-value">' + trade.stopPrice.toFixed(2) + '</div></div><div><div class="field-label">Result:</div><div class="field-value ' + trade.result + '">' + (isWin ? "Win" : "Loss") + '</div></div><div><div class="field-label">Contracts:</div><div class="field-value">' + trade.contracts + '</div></div>' + tpInfoHtml + '</div>' +
+    '<div class="targets"><div class="targets-inner">' + tpsHtml + '</div></div>' +
+    '<hr class="divider">' +
+    '<div class="card-footer"><div class="footer-label">' + trade.exitNote + '</div><div><span class="' + ptsClass + '">' + ptsStr + '</span><span class="' + dolClass + '">' + dolStr + '</span></div></div>' +
+    journalHtml +
+    '</div>';
 }
 
 function renderAll(filtered) {
-  const grid = document.getElementById('grid');
-  grid.innerHTML = filtered.map(renderCard).join('');
-  updateStats(filtered);
-}
-
-function updateStats(filtered) {
-  const total = filtered.reduce((s, t) => s + t.totalPnl, 0);
-  const wins = filtered.filter(t => t.result === 'win').length;
-  document.getElementById('total-pnl').textContent = `${total >= 0 ? '+' : ''}$${total.toFixed(2)}`;
-  document.getElementById('total-pnl').className = `stat-value ${total < 0 ? 'loss' : ''}`;
-  document.getElementById('win-rate').textContent = filtered.length ? `${Math.round(wins / filtered.length * 100)}%` : '—';
+  document.getElementById('grid').innerHTML = filtered.map(renderCard).join('');
+  const total = filtered.reduce(function(s, t) { return s + t.totalPnl; }, 0);
+  const wins = filtered.filter(function(t) { return t.result === "win"; }).length;
+  const totalEl = document.getElementById('total-pnl');
+  totalEl.textContent = (total >= 0 ? "+$" : "-$") + Math.abs(total).toFixed(2);
+  totalEl.className = "stat-value" + (total < 0 ? " loss" : "");
+  document.getElementById('win-rate').textContent = filtered.length ? Math.round(wins / filtered.length * 100) + "%" : "—";
   document.getElementById('trade-count').textContent = filtered.length;
 }
 
 function filter(type, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   if (type === 'all') return renderAll(trades);
-  if (type === 'win' || type === 'loss') return renderAll(trades.filter(t => t.result === type));
-  renderAll(trades.filter(t => t.setup === type));
+  if (type === 'win' || type === 'loss') return renderAll(trades.filter(function(t) { return t.result === type; }));
+  renderAll(trades.filter(function(t) { return t.setup === type; }));
 }
 
 function toggleJournal(id) {
-  const el = document.getElementById(`journal-${id}`);
+  const el = document.getElementById("journal-" + id);
   const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.journal-body').forEach(j => j.classList.remove('open'));
+  document.querySelectorAll('.journal-body').forEach(function(j) { j.classList.remove('open'); });
   if (!isOpen) el.classList.add('open');
 }
 
