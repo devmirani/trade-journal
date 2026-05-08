@@ -9,76 +9,70 @@
   body { background: #080c10; font-family: 'Courier New', monospace; color: #c9d1d9; min-height: 100vh; }
   header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; display: flex; justify-content: space-between; align-items: flex-end; }
   header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
-  header p { font-size: 13px; color: #8b949e; margin-top: 4px; }
   .header-stats { display: flex; gap: 32px; text-align: right; }
   .stat-label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; }
   .stat-value { font-size: 20px; font-weight: 700; color: #00e676; margin-top: 2px; }
-  .stat-value.loss { color: #e05c5c; }
+  .stat-value.neg { color: #e05c5c; }
   .filters { padding: 20px 40px; display: flex; gap: 10px; flex-wrap: wrap; }
-  .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; transition: all 0.15s; }
-  .filter-btn:hover { border-color: #444; color: #c9d1d9; }
+  .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
   .day-section { padding: 0 40px 40px; }
   .day-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 14px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
   .day-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
-  .day-date { font-size: 12px; color: #8b949e; }
+  .day-date { font-size: 12px; color: #8b949e; margin-left: 12px; }
   .day-pnl { font-size: 14px; font-weight: 700; }
   .day-pnl.pos { color: #00e676; }
   .day-pnl.neg { color: #e05c5c; }
   .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
-  .card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border-left: 3px solid #00e676; transition: transform 0.15s; }
+  .no-trades { color: #8b949e; font-size: 13px; padding: 10px 0; }
+  .card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border-left: 3px solid #00e676; }
   .card.loss { border-left-color: #e05c5c; }
-  .card:hover { transform: translateY(-2px); }
   .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
   .card-price { font-size: 24px; font-weight: 700; color: #00e676; }
   .card.loss .card-price { color: #e05c5c; }
   .card-label { font-size: 14px; color: #c9d1d9; margin-left: 10px; }
   .card-timestamp { font-size: 12px; color: #8b949e; }
   .badge { display: inline-block; margin-top: 10px; padding: 3px 12px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px 8px; margin: 16px 0 14px; }
+  .time-row { margin: 14px 0; padding-bottom: 14px; border-bottom: 1px solid #21262d; }
+  .time-row-inner { display: flex; gap: 6px; flex-wrap: wrap; }
+  .time-chip { padding: 4px 10px; background: #161b22; border-radius: 4px; font-size: 11px; color: #8b949e; }
+  .time-chip span { color: #c9d1d9; font-weight: 700; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px 8px; margin-bottom: 14px; }
   .field-label { font-size: 11px; color: #8b949e; margin-bottom: 3px; }
   .field-value { font-size: 14px; font-weight: 700; color: #c9d1d9; }
   .field-value.win { color: #00e676; }
   .field-value.loss { color: #e05c5c; }
   .sub { font-size: 11px; color: #8b949e; font-weight: 400; }
-  .time-row { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #21262d; }
-  .time-row-inner { display: flex; gap: 6px; flex-wrap: wrap; }
-  .time-chip { padding: 4px 10px; background: #161b22; border-radius: 4px; font-size: 11px; color: #8b949e; }
-  .time-chip span { color: #c9d1d9; font-weight: 700; }
-  .targets { margin: 0 0 14px; }
-  .targets-inner { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tp-btn { flex: 1; min-width: 80px; padding: 8px 4px; border-radius: 6px; font-size: 12px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; background: transparent; line-height: 1.5; }
+  .targets-inner { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tp-btn { flex: 1; min-width: 80px; padding: 8px 4px; border-radius: 6px; font-size: 12px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; background: transparent; line-height: 1.5; position: relative; cursor: default; }
   .tp-hit { border: 1.5px solid #00e676; color: #00e676; }
   .tp-eod { border: 1.5px solid #f0a500; color: #f0a500; }
   .tp-stopped { border: 1.5px solid #e05c5c; color: #e05c5c; }
   .tp-miss { border: 1.5px solid #444; color: #555; }
   .tp-return { font-size: 10px; font-weight: 400; display: block; }
+  .tp-tooltip { display: none; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: #161b22; border: 1px solid #21262d; border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 400; color: #c9d1d9; white-space: nowrap; z-index: 10; }
+  .tp-btn:hover .tp-tooltip { display: block; }
   .divider { border: none; border-top: 1px solid #21262d; margin: 14px 0; }
   .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
   .footer-label { font-size: 12px; color: #8b949e; }
   .pts { font-size: 22px; font-weight: 700; color: #00e676; display: block; text-align: right; }
-  .pts.loss { color: #e05c5c; }
+  .pts.neg { color: #e05c5c; }
   .dollars { font-size: 18px; font-weight: 700; color: #00e676; display: block; text-align: right; }
-  .dollars.loss { color: #e05c5c; }
-  .journal-toggle { margin-top: 14px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 6px; }
+  .dollars.neg { color: #e05c5c; }
+  .journal-toggle { margin-top: 14px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 0; }
   .journal-toggle:hover { color: #c9d1d9; }
   .journal-body { display: none; margin-top: 10px; font-size: 12px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
   .journal-body.open { display: block; }
-  .chart-img { width: 100%; border-radius: 6px; margin-top: 12px; border: 1px solid #21262d; cursor: zoom-in; transition: opacity 0.15s; }
-  .chart-img:hover { opacity: 0.85; }
+  .chart-img { width: 100%; border-radius: 6px; margin-top: 12px; border: 1px solid #21262d; cursor: zoom-in; }
   .img-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
   .img-overlay.open { display: flex; }
   .img-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 1px solid #21262d; }
-  .no-trades { color: #8b949e; font-size: 13px; padding: 10px 0; }
 </style>
 </head>
 <body>
 
 <header>
-  <div>
-    <h1>// TRADE JOURNAL</h1>
-
-  </div>
+  <div><h1>// TRADE JOURNAL</h1></div>
   <div class="header-stats">
     <div><div class="stat-label">Total P&L</div><div class="stat-value" id="total-pnl">—</div></div>
     <div><div class="stat-label">Win Rate</div><div class="stat-value" id="win-rate">—</div></div>
@@ -87,353 +81,241 @@
 </header>
 
 <div class="filters">
-  <button class="filter-btn active" onclick="filter('all', this)">ALL</button>
-  <button class="filter-btn" onclick="filter('win', this)">WINS</button>
-  <button class="filter-btn" onclick="filter('loss', this)">LOSSES</button>
-  <button class="filter-btn" onclick="filter('FBD', this)">FBD</button>
-  <button class="filter-btn" onclick="filter('SUPPORT_BOUNCE', this)">SUPPORT BOUNCE</button>
-  <button class="filter-btn" onclick="filter('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
+  <button class="filter-btn active" onclick="filterTrades('all', this)">ALL</button>
+  <button class="filter-btn" onclick="filterTrades('win', this)">WINS</button>
+  <button class="filter-btn" onclick="filterTrades('loss', this)">LOSSES</button>
+  <button class="filter-btn" onclick="filterTrades('FBD', this)">FBD</button>
+  <button class="filter-btn" onclick="filterTrades('SUPPORT_BOUNCE', this)">SUPPORT BOUNCE</button>
+  <button class="filter-btn" onclick="filterTrades('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
 </div>
 
-<div id="img-overlay" class="img-overlay" onclick="closeImg()"><img id="overlay-img" src="" alt="chart fullscreen" /></div>
+<div id="img-overlay" class="img-overlay" onclick="closeImg()">
+  <img id="overlay-img" src="" alt="chart" />
+</div>
+
 <div id="journal"></div>
 
 <script>
+var chartMap = {
+  1: "https://i.imgur.com/go0WawU.png"
+};
+
+var days = [
+  { name: "Sunday",    date: "05/03/2026" },
+  { name: "Monday",    date: "05/04/2026" },
+  { name: "Tuesday",   date: "05/05/2026" },
+  { name: "Wednesday", date: "05/06/2026" },
+  { name: "Thursday",  date: "05/07/2026" },
+  { name: "Friday",    date: "05/08/2026" }
+];
+
 var trades = [
   {
-    id: 8,
-    date: "05/04/2026",
-    entryTime: "12:20:29 PM",
-    entryPrice: 7222.25,
-    stopPrice: 7198.00,
-    setup: "FBD",
-    result: "win",
-    contracts: 10,
-    tradeLabel: "7214 Failed Breakdown",
+    id: 8, date: "05/04/2026", entryTime: "12:20:29 PM", entryPrice: 7222.25, stopPrice: 7198.00,
+    setup: "FBD", result: "win", contracts: 10, tradeLabel: "7214 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7227.25, contracts: 7, status: "hit", pnl: 175.00 },
-      { label: "T2", price: 7225.75, contracts: 3, status: "eod", exitPrice: 7225.75, pnl: 52.50 }
+      { label: "T1", price: 7227.25, contracts: 7, status: "hit",  pnl: 175.00, exitTime: "12:22 PM" },
+      { label: "T2", price: 7225.75, contracts: 3, status: "eod",  pnl: 52.50,  exitTime: "1:11 PM", exitPrice: 7225.75 }
     ],
-    times: [
-      { label: "Entry", value: "12:20:29 PM" },
-      { label: "T1", value: "1m 47s" },
-      { label: "T2", value: "50m 32s" }
-    ],
-    totalPts: 44.50,
-    totalPnl: 227.50,
-    exitNote: "Position fully exited",
-    journal: ""
+    times: [{ label: "Entry", value: "12:20:29 PM" }, { label: "T1", value: "1m 47s" }, { label: "T2", value: "50m 32s" }],
+    totalPts: 44.50, totalPnl: 227.50, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 7,
-    date: "05/04/2026",
-    entryTime: "12:39:04 PM",
-    entryPrice: 7219.75,
-    stopPrice: 7198.00,
-    setup: "FBD",
-    result: "win",
-    contracts: 3,
-    tradeLabel: "7214 Failed Breakdown",
+    id: 7, date: "05/04/2026", entryTime: "12:39:04 PM", entryPrice: 7219.75, stopPrice: 7198.00,
+    setup: "FBD", result: "win", contracts: 3, tradeLabel: "7214 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50 },
-      { label: "T2", price: 7225.50, contracts: 2, status: "eod", exitPrice: 7225.50, pnl: 57.50 }
+      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50,  exitTime: "1:17 PM" },
+      { label: "T2", price: 7225.50, contracts: 2, status: "eod", pnl: 57.50,  exitTime: "4:05 PM", exitPrice: 7225.50 }
     ],
-    times: [
-      { label: "Entry", value: "12:39:04 PM" },
-      { label: "T1", value: "38m 15s" },
-      { label: "T2", value: "3h 25m" }
-    ],
-    totalPts: 18.25,
-    totalPnl: 120.00,
-    exitNote: "Position fully exited",
-    journal: ""
+    times: [{ label: "Entry", value: "12:39:04 PM" }, { label: "T1", value: "38m 15s" }, { label: "T2", value: "3h 25m" }],
+    totalPts: 18.25, totalPnl: 120.00, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 6,
-    date: "05/04/2026",
-    entryTime: "11:27:02 PM",
-    entryPrice: 7240.50,
-    stopPrice: 7230.00,
-    setup: "LEVEL_RECLAIM",
-    result: "win",
-    contracts: 7,
-    tradeLabel: "7240 Level Reclaim",
+    id: 6, date: "05/04/2026", entryTime: "11:27:02 PM", entryPrice: 7240.50, stopPrice: 7230.00,
+    setup: "LEVEL_RECLAIM", result: "win", contracts: 7, tradeLabel: "7240 Level Reclaim",
     targets: [
-      { label: "T1", price: 7247.75, contracts: 6, status: "hit", pnl: 211.25 },
-      { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25 }
+      { label: "T1", price: 7247.75, contracts: 6, status: "hit", pnl: 211.25, exitTime: "2:55 AM" },
+      { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25,  exitTime: "6:39 AM" }
     ],
-    times: [
-      { label: "Entry", value: "11:27:02 PM" },
-      { label: "T1", value: "3h 28m" },
-      { label: "T2", value: "7h 11m" }
-    ],
-    totalPts: 60.75,
-    totalPnl: 297.50,
-    exitNote: "Position fully exited",
-    journal: ""
+    times: [{ label: "Entry", value: "11:27:02 PM" }, { label: "T1", value: "3h 28m" }, { label: "T2", value: "7h 11m" }],
+    totalPts: 60.75, totalPnl: 297.50, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 5,
-    date: "05/05/2026",
-    entryTime: "7:15:13 PM",
-    entryPrice: 7319.00,
-    stopPrice: 7306.75,
-    setup: "LEVEL_RECLAIM",
-    result: "loss",
-    contracts: 5,
-    tradeLabel: "7300 Level Reclaim",
+    id: 5, date: "05/05/2026", entryTime: "7:15:13 PM", entryPrice: 7319.00, stopPrice: 7306.75,
+    setup: "LEVEL_RECLAIM", result: "loss", contracts: 5, tradeLabel: "7300 Level Reclaim",
     targets: [
-      { label: "T1", price: 7324.00, contracts: 5, status: "miss", pnl: 0 },
-      { label: "T2", price: 7331.00, contracts: 5, status: "miss", pnl: 0 },
-      { label: "T3", price: 7339.00, contracts: 5, status: "miss", pnl: 0 }
+      { label: "T1", price: 7324.00, contracts: 5, status: "miss", pnl: 0, exitTime: null },
+      { label: "T2", price: 7331.00, contracts: 5, status: "miss", pnl: 0, exitTime: null },
+      { label: "T3", price: 7339.00, contracts: 5, status: "miss", pnl: 0, exitTime: null }
     ],
-    times: [
-      { label: "Entry", value: "7:15:13 PM" },
-      { label: "Stopped", value: "59m 57s" }
-    ],
-    totalPts: -12.25,
-    totalPnl: -306.25,
-    exitNote: "Stopped out — no scale outs",
-    journal: ""
+    times: [{ label: "Entry", value: "7:15:13 PM" }, { label: "Stopped", value: "59m 57s" }],
+    totalPts: -12.25, totalPnl: -306.25, exitNote: "Stopped out", journal: ""
   },
   {
-    id: 4,
-    date: "05/06/2026",
-    entryTime: "9:48:04 AM",
-    entryPrice: 7343.50,
-    stopPrice: 7325.00,
-    setup: "LEVEL_RECLAIM",
-    result: "win",
-    contracts: 3,
-    tradeLabel: "7340 Level Reclaim",
+    id: 4, date: "05/06/2026", entryTime: "9:48:04 AM", entryPrice: 7343.50, stopPrice: 7325.00,
+    setup: "LEVEL_RECLAIM", result: "win", contracts: 3, tradeLabel: "7340 Level Reclaim",
     targets: [
-      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00 },
-      { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00 }
+      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00,  exitTime: "10:25 AM" },
+      { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00, exitTime: "10:41 AM" }
     ],
-    times: [
-      { label: "Entry", value: "9:48:04 AM" },
-      { label: "T1", value: "36m 59s" },
-      { label: "T2", value: "53m 12s" }
-    ],
-    totalPts: 40.00,
-    totalPnl: 200.00,
-    exitNote: "Position fully exited",
-    journal: ""
+    times: [{ label: "Entry", value: "9:48:04 AM" }, { label: "T1", value: "36m 59s" }, { label: "T2", value: "53m 12s" }],
+    totalPts: 40.00, totalPnl: 200.00, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 3,
-    date: "05/07/2026",
-    entryTime: "12:32:18 PM",
-    entryPrice: 7382.00,
-    stopPrice: 7368.50,
-    setup: "FBD",
-    result: "loss",
-    contracts: 3,
-    tradeLabel: "7377 Failed Breakdown",
+    id: 3, date: "05/07/2026", entryTime: "12:32:18 PM", entryPrice: 7382.00, stopPrice: 7368.50,
+    setup: "FBD", result: "loss", contracts: 3, tradeLabel: "7377 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7387.00, contracts: 3, status: "miss", pnl: 0 },
-      { label: "T2", price: 7394.00, contracts: 3, status: "miss", pnl: 0 },
-      { label: "T3", price: 7402.00, contracts: 3, status: "miss", pnl: 0 }
+      { label: "T1", price: 7387.00, contracts: 3, status: "miss", pnl: 0, exitTime: null },
+      { label: "T2", price: 7394.00, contracts: 3, status: "miss", pnl: 0, exitTime: null },
+      { label: "T3", price: 7402.00, contracts: 3, status: "miss", pnl: 0, exitTime: null }
     ],
-    times: [
-      { label: "Entry", value: "12:32:18 PM" },
-      { label: "Stopped", value: "24m 24s" }
-    ],
-    totalPts: -13.50,
-    totalPnl: -213.75,
-    exitNote: "Stopped out — no scale outs",
-    journal: ""
+    times: [{ label: "Entry", value: "12:32:18 PM" }, { label: "Stopped", value: "24m 24s" }],
+    totalPts: -13.50, totalPnl: -213.75, exitNote: "Stopped out", journal: ""
   },
   {
-    id: 2,
-    date: "05/07/2026",
-    entryTime: "1:40:15 PM",
-    entryPrice: 7363.50,
-    stopPrice: 7344.00,
-    setup: "FBD",
-    result: "win",
-    contracts: 10,
-    tradeLabel: "7355 Failed Breakdown",
+    id: 2, date: "05/07/2026", entryTime: "1:40:15 PM", entryPrice: 7363.50, stopPrice: 7344.00,
+    setup: "FBD", result: "win", contracts: 10, tradeLabel: "7355 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7368.50, contracts: 7, status: "hit", pnl: 175.00 },
-      { label: "T2", price: 7383.00, contracts: 2, status: "eod", exitPrice: 7369.00, pnl: 55.00 },
-      { label: "T3", price: null, contracts: 1, status: "stopped", exitPrice: 7356.50, pnl: -35.00 }
+      { label: "T1", price: 7368.50, contracts: 7, status: "hit",     pnl: 175.00, exitTime: "2:08 PM" },
+      { label: "T2", price: 7383.00, contracts: 2, status: "eod",     pnl: 55.00,  exitTime: "4:02 PM", exitPrice: 7369.00 },
+      { label: "T3", price: null,    contracts: 1, status: "stopped", pnl: -35.00, exitTime: "4:50 PM", exitPrice: 7356.50 }
     ],
-    times: [
-      { label: "Entry", value: "1:40:15 PM" },
-      { label: "T1", value: "27m 34s" },
-      { label: "T2", value: "2h 22m" },
-      { label: "T3", value: "3h 9m" }
-    ],
-    totalPts: 46.50,
-    totalPnl: 195.00,
-    exitNote: "Position fully exited",
-    journal: ""
+    times: [{ label: "Entry", value: "1:40:15 PM" }, { label: "T1", value: "27m 34s" }, { label: "T2", value: "2h 22m" }, { label: "T3", value: "3h 9m" }],
+    totalPts: 46.50, totalPnl: 195.00, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 1,
-    date: "05/07/2026",
-    entryTime: "6:20:35 PM",
-    entryPrice: 7353.50,
-    stopPrice: 7335.00,
-    setup: "FBD",
-    result: "win",
-    contracts: 10,
-    tradeLabel: "7345 Failed Breakdown",
+    id: 1, date: "05/07/2026", entryTime: "6:20:35 PM", entryPrice: 7353.50, stopPrice: 7335.00,
+    setup: "FBD", result: "win", contracts: 10, tradeLabel: "7345 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00 },
-      { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00 },
-      { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50 },
-      { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50 }
+      { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00,  exitTime: "6:21 PM" },
+      { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00,   exitTime: "8:03 PM" },
+      { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50,  exitTime: "1:13 AM" },
+      { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50,  exitTime: "5:28 AM" }
     ],
-    times: [
-      { label: "Entry", value: "6:20:35 PM" },
-      { label: "T1", value: "33s" },
-      { label: "T2", value: "1h 42m" },
-      { label: "T3", value: "6h 52m" },
-      { label: "T4", value: "11h 7m" }
-    ],
-    totalPts: 123.50,
-    totalPnl: 615.00,
-    exitNote: "Position fully exited",
+    times: [{ label: "Entry", value: "6:20:35 PM" }, { label: "T1", value: "33s" }, { label: "T2", value: "1h 42m" }, { label: "T3", value: "6h 52m" }, { label: "T4", value: "11h 7m" }],
+    totalPts: 123.50, totalPnl: 615.00, exitNote: "Position fully exited",
     journal: "Post market Thursday, after a long grind down all day in ETH, we got the FBD of the Daily RTH Low at 7345. 6pm opened with a gap down below this low. We flushed to about 7337 then quickly recovered 7345 by 6:15pm. I took 10 contracts here using the NAP, entry was at 6:20pm at 7353.50 and I had my TP1 at 7358.50 which hit seconds later. TP2 hit around 8pm at 7366.50. I left my last 2 runners to run overnight. I had my TP3 set at 7380 and my 4th set at 7402. We hit both of these overnight. When I checked price in the morning (Friday), ES was repeatedly testing 7402. Total on this trade was $604.60."
   }
 ];
 
-var days = [
-  { name: "Sunday", date: "05/03/2026" },
-  { name: "Monday", date: "05/04/2026" },
-  { name: "Tuesday", date: "05/05/2026" },
-  { name: "Wednesday", date: "05/06/2026" },
-  { name: "Thursday", date: "05/07/2026" },
-  { name: "Friday", date: "05/08/2026" }
-];
-
-function statusClass(s) {
+function scClass(s) {
   if (s === "hit") return "tp-hit";
   if (s === "eod") return "tp-eod";
   if (s === "stopped") return "tp-stopped";
   return "tp-miss";
 }
 
-function statusLabel(t) {
+function scLabel(t) {
   if (t.status === "hit") return t.label + " HIT";
   if (t.status === "eod") return t.label + " EOD " + t.exitPrice;
   if (t.status === "stopped") return t.label + " STOPPED";
-  return t.label + " —";
+  return t.label + " --";
 }
 
-function renderCard(trade) {
-  var isWin = trade.result === "win";
-  var tpsHtml = "";
-  for (var i = 0; i < trade.targets.length; i++) {
-    var t = trade.targets[i];
-    var ret = t.pnl !== 0 ? (t.pnl >= 0 ? "+$" : "-$") + Math.abs(t.pnl).toFixed(2) : "—";
-    tpsHtml += '<div class="tp-btn ' + statusClass(t.status) + '">' + statusLabel(t) + ' <span class="sub">(' + t.contracts + 'x)</span><span class="tp-return">' + ret + '</span></div>';
+function renderCard(tr) {
+  var win = tr.result === "win";
+  var tps = "";
+  for (var i = 0; i < tr.targets.length; i++) {
+    var t = tr.targets[i];
+    var ret = t.pnl !== 0 ? (t.pnl >= 0 ? "+$" : "-$") + Math.abs(t.pnl).toFixed(2) : "--";
+    var tip = t.exitTime ? "<span class='tp-tooltip'>Exited " + t.exitTime + "</span>" : "";
+    tps += "<div class='tp-btn " + scClass(t.status) + "'>" + tip + scLabel(t) + " <span class='sub'>(" + t.contracts + "x)</span><span class='tp-return'>" + ret + "</span></div>";
   }
-  var timesHtml = "";
-  for (var i = 0; i < trade.times.length; i++) {
-    timesHtml += '<div class="time-chip">' + trade.times[i].label + ': <span>' + trade.times[i].value + '</span></div>';
+  var chips = "";
+  for (var i = 0; i < tr.times.length; i++) {
+    chips += "<div class='time-chip'>" + tr.times[i].label + ": <span>" + tr.times[i].value + "</span></div>";
   }
-  var tpInfoHtml = "";
-  for (var i = 0; i < trade.targets.length; i++) {
-    var t = trade.targets[i];
-    tpInfoHtml += '<div><div class="field-label">' + t.label + ':</div><div class="field-value">' + (t.price ? t.price.toFixed(2) : "—") + ' <span class="sub">(' + t.contracts + 'x)</span></div></div>';
+  var tpInfo = "";
+  for (var i = 0; i < tr.targets.length; i++) {
+    var t = tr.targets[i];
+    tpInfo += "<div><div class='field-label'>" + t.label + ":</div><div class='field-value'>" + (t.price ? t.price.toFixed(2) : "--") + " <span class='sub'>(" + t.contracts + "x)</span></div></div>";
   }
-  var chartMap = {1: "https://i.imgur.com/go0WawU.png"};
-  var chartHtml = chartMap[trade.id] ? '<img class="chart-img" src="' + chartMap[trade.id] + '" alt="trade chart" onclick="openImg(\'' + chartMap[trade.id] + '\')" />' : '';
-  var journalHtml = (trade.journal || chartMap[trade.id]) ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">&#9658; chart &amp; journal</button><div class="journal-body" id="journal-' + trade.id + '">' + chartHtml + (trade.journal ? '<p style="margin-top:10px;">' + trade.journal + '</p>' : '') + '</div>' : '';
-  var ptsClass = trade.totalPts < 0 ? "pts loss" : "pts";
-  var dolClass = trade.totalPnl < 0 ? "dollars loss" : "dollars";
-  var ptsStr = (trade.totalPts >= 0 ? "+" : "") + trade.totalPts.toFixed(2) + " pts";
-  var dolStr = (trade.totalPnl >= 0 ? "+$" : "-$") + Math.abs(trade.totalPnl).toFixed(2);
+  var pneg = tr.totalPts < 0;
+  var dneg = tr.totalPnl < 0;
+  var pStr = (tr.totalPts >= 0 ? "+" : "") + tr.totalPts.toFixed(2) + " pts";
+  var dStr = (tr.totalPnl >= 0 ? "+$" : "-$") + Math.abs(tr.totalPnl).toFixed(2);
+  var hasChart = chartMap[tr.id] ? true : false;
+  var hasJournal = tr.journal ? true : false;
+  var dropContent = "";
+  if (hasChart) {
+    dropContent += "<img class='chart-img' src='" + chartMap[tr.id] + "' alt='chart' onclick='openImg(\"" + chartMap[tr.id] + "\")' />";
+  }
+  if (hasJournal) {
+    dropContent += "<p style='margin-top:10px;'>" + tr.journal + "</p>";
+  }
+  var toggle = (hasChart || hasJournal) ? "<button class='journal-toggle' onclick='toggleJournal(" + tr.id + ")'>&#9658; chart &amp; journal</button><div class='journal-body' id='journal-" + tr.id + "'>" + dropContent + "</div>" : "";
 
-  return '<div class="card ' + (isWin ? "" : "loss") + '" data-result="' + trade.result + '" data-setup="' + trade.setup + '">' +
-    '<div class="card-header-row"><div><span class="card-price">' + trade.entryPrice.toFixed(2) + '</span><span class="card-label">' + trade.tradeLabel + '</span></div><span class="card-timestamp">' + trade.entryTime + '</span></div>' +
-    '<div class="badge">' + trade.setup + '</div>' +
-    '<div class="time-row"><div class="time-row-inner">' + timesHtml + '</div></div>' +
-    '<div class="info-grid"><div><div class="field-label">Entry:</div><div class="field-value">' + trade.entryPrice.toFixed(2) + '</div></div><div><div class="field-label">Stop:</div><div class="field-value">' + trade.stopPrice.toFixed(2) + '</div></div><div><div class="field-label">Result:</div><div class="field-value ' + trade.result + '">' + (isWin ? "Win" : "Loss") + '</div></div><div><div class="field-label">Contracts:</div><div class="field-value">' + trade.contracts + '</div></div>' + tpInfoHtml + '</div>' +
-    '<div class="targets"><div class="targets-inner">' + tpsHtml + '</div></div>' +
-    '<hr class="divider">' +
-    '<div class="card-footer"><div class="footer-label">' + trade.exitNote + '</div><div><span class="' + ptsClass + '">' + ptsStr + '</span><span class="' + dolClass + '">' + dolStr + '</span></div></div>' +
-    journalHtml + '</div>';
+  return "<div class='card" + (win ? "" : " loss") + "' data-result='" + tr.result + "' data-setup='" + tr.setup + "'>" +
+    "<div class='card-header-row'><div><span class='card-price'>" + tr.entryPrice.toFixed(2) + "</span><span class='card-label'>" + tr.tradeLabel + "</span></div><span class='card-timestamp'>" + tr.entryTime + "</span></div>" +
+    "<div class='badge'>" + tr.setup + "</div>" +
+    "<div class='time-row'><div class='time-row-inner'>" + chips + "</div></div>" +
+    "<div class='info-grid'><div><div class='field-label'>Entry:</div><div class='field-value'>" + tr.entryPrice.toFixed(2) + "</div></div><div><div class='field-label'>Stop:</div><div class='field-value'>" + tr.stopPrice.toFixed(2) + "</div></div><div><div class='field-label'>Result:</div><div class='field-value " + tr.result + "'>" + (win ? "Win" : "Loss") + "</div></div><div><div class='field-label'>Contracts:</div><div class='field-value'>" + tr.contracts + "</div></div>" + tpInfo + "</div>" +
+    "<div class='targets-inner'>" + tps + "</div>" +
+    "<hr class='divider'>" +
+    "<div class='card-footer'><div class='footer-label'>" + tr.exitNote + "</div><div><span class='pts" + (pneg ? " neg" : "") + "'>" + pStr + "</span><span class='dollars" + (dneg ? " neg" : "") + "'>" + dStr + "</span></div></div>" +
+    toggle + "</div>";
 }
 
-function renderAll(filtered) {
-  var journal = document.getElementById('journal');
+function renderAll(list) {
   var html = "";
   var total = 0;
   var wins = 0;
-
   for (var d = 0; d < days.length; d++) {
     var day = days[d];
-    var dayTrades = [];
-    for (var i = 0; i < filtered.length; i++) {
-      if (filtered[i].date === day.date) dayTrades.push(filtered[i]);
+    var dt = [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].date === day.date) dt.push(list[i]);
     }
-    var dayPnl = 0;
-    for (var i = 0; i < dayTrades.length; i++) { dayPnl += dayTrades[i].totalPnl; }
-    total += dayPnl;
-    for (var i = 0; i < dayTrades.length; i++) { if (dayTrades[i].result === "win") wins++; }
-
-    var pnlStr = dayTrades.length ? (dayPnl >= 0 ? "+$" : "-$") + Math.abs(dayPnl).toFixed(2) : "";
-    var pnlClass = dayPnl >= 0 ? "day-pnl pos" : "day-pnl neg";
-    var cardsHtml = "";
-    if (dayTrades.length === 0) {
-      cardsHtml = '<div class="no-trades">No trades</div>';
-    } else {
-      for (var i = 0; i < dayTrades.length; i++) { cardsHtml += renderCard(dayTrades[i]); }
-    }
-
-    html += '<div class="day-section">' +
-      '<div class="day-header">' +
-      '<div><span class="day-title">' + day.name + '</span><span class="day-date" style="margin-left:12px;">' + day.date + '</span></div>' +
-      (pnlStr ? '<span class="' + pnlClass + '">' + pnlStr + '</span>' : '') +
-      '</div>' +
-      '<div class="day-grid">' + cardsHtml + '</div>' +
-      '</div>';
+    var dp = 0;
+    for (var i = 0; i < dt.length; i++) { dp += dt[i].totalPnl; }
+    total += dp;
+    for (var i = 0; i < dt.length; i++) { if (dt[i].result === "win") wins++; }
+    var pnlStr = dt.length ? (dp >= 0 ? "+$" : "-$") + Math.abs(dp).toFixed(2) : "";
+    var pnlCls = dp >= 0 ? "day-pnl pos" : "day-pnl neg";
+    var cards = dt.length ? "" : "<div class='no-trades'>No trades</div>";
+    for (var i = 0; i < dt.length; i++) { cards += renderCard(dt[i]); }
+    html += "<div class='day-section'><div class='day-header'><div><span class='day-title'>" + day.name + "</span><span class='day-date'>" + day.date + "</span></div>" + (pnlStr ? "<span class='" + pnlCls + "'>" + pnlStr + "</span>" : "") + "</div><div class='day-grid'>" + cards + "</div></div>";
   }
-
-  journal.innerHTML = html;
-  var totalEl = document.getElementById('total-pnl');
-  totalEl.textContent = (total >= 0 ? "+$" : "-$") + Math.abs(total).toFixed(2);
-  totalEl.className = "stat-value" + (total < 0 ? " loss" : "");
-  document.getElementById('win-rate').textContent = filtered.length ? Math.round(wins / filtered.length * 100) + "%" : "—";
-  document.getElementById('trade-count').textContent = filtered.length;
+  document.getElementById("journal").innerHTML = html;
+  var tel = document.getElementById("total-pnl");
+  tel.textContent = (total >= 0 ? "+$" : "-$") + Math.abs(total).toFixed(2);
+  tel.className = "stat-value" + (total < 0 ? " neg" : "");
+  document.getElementById("win-rate").textContent = list.length ? Math.round(wins / list.length * 100) + "%" : "--";
+  document.getElementById("trade-count").textContent = list.length;
 }
 
-function filter(type, btn) {
-  var btns = document.querySelectorAll('.filter-btn');
-  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
-  btn.classList.add('active');
+function filterTrades(type, btn) {
+  var btns = document.querySelectorAll(".filter-btn");
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove("active"); }
+  btn.classList.add("active");
   var f = [];
   for (var i = 0; i < trades.length; i++) {
-    if (type === 'all') { f.push(trades[i]); }
-    else if (type === 'win' || type === 'loss') { if (trades[i].result === type) f.push(trades[i]); }
-    else { if (trades[i].setup === type) f.push(trades[i]); }
+    var t = trades[i];
+    if (type === "all") f.push(t);
+    else if (type === "win" || type === "loss") { if (t.result === type) f.push(t); }
+    else { if (t.setup === type) f.push(t); }
   }
   renderAll(f);
 }
 
 function toggleJournal(id) {
   var el = document.getElementById("journal-" + id);
-  var isOpen = el.classList.contains('open');
-  var all = document.querySelectorAll('.journal-body');
-  for (var i = 0; i < all.length; i++) { all[i].classList.remove('open'); }
-  if (!isOpen) el.classList.add('open');
+  var open = el.classList.contains("open");
+  var all = document.querySelectorAll(".journal-body");
+  for (var i = 0; i < all.length; i++) { all[i].classList.remove("open"); }
+  if (!open) el.classList.add("open");
 }
 
-renderAll(trades);
-
 function openImg(src) {
-  var overlay = document.getElementById('img-overlay');
-  document.getElementById('overlay-img').src = src;
-  overlay.classList.add('open');
+  document.getElementById("overlay-img").src = src;
+  document.getElementById("img-overlay").classList.add("open");
 }
 
 function closeImg() {
-  document.getElementById('img-overlay').classList.remove('open');
+  document.getElementById("img-overlay").classList.remove("open");
 }
+
+renderAll(trades);
 </script>
 </body>
 </html>
