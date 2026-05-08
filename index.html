@@ -60,11 +60,15 @@
   .pts.loss { color: #e05c5c; }
   .dollars { font-size: 18px; font-weight: 700; color: #00e676; display: block; text-align: right; }
   .dollars.loss { color: #e05c5c; }
-  .chart-img { width: 100%; border-radius: 6px; margin-top: 14px; border: 1px solid #21262d; }
   .journal-toggle { margin-top: 14px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 6px; }
   .journal-toggle:hover { color: #c9d1d9; }
   .journal-body { display: none; margin-top: 10px; font-size: 12px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
   .journal-body.open { display: block; }
+  .chart-img { width: 100%; border-radius: 6px; margin-top: 12px; border: 1px solid #21262d; cursor: zoom-in; transition: opacity 0.15s; }
+  .chart-img:hover { opacity: 0.85; }
+  .img-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
+  .img-overlay.open { display: flex; }
+  .img-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 1px solid #21262d; }
   .no-trades { color: #8b949e; font-size: 13px; padding: 10px 0; }
 </style>
 </head>
@@ -91,6 +95,7 @@
   <button class="filter-btn" onclick="filter('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
 </div>
 
+<div id="img-overlay" class="img-overlay" onclick="closeImg()"><img id="overlay-img" src="" alt="chart fullscreen" /></div>
 <div id="journal"></div>
 
 <script>
@@ -336,8 +341,8 @@ function renderCard(trade) {
     tpInfoHtml += '<div><div class="field-label">' + t.label + ':</div><div class="field-value">' + (t.price ? t.price.toFixed(2) : "—") + ' <span class="sub">(' + t.contracts + 'x)</span></div></div>';
   }
   var chartMap = {1: "https://i.imgur.com/go0WawU.png"};
-  var journalHtml = chartMap[trade.id] ? '<img class="chart-img" src="' + chartMap[trade.id] + '" alt="trade chart" />' : '';
-  journalHtml += trade.journal ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">&#9658; journal entry</button><div class="journal-body" id="journal-' + trade.id + '">' + trade.journal + '</div>' : '';
+  var chartHtml = chartMap[trade.id] ? '<img class="chart-img" src="' + chartMap[trade.id] + '" alt="trade chart" onclick="openImg(\'' + chartMap[trade.id] + '\')" />' : '';
+  var journalHtml = (trade.journal || chartMap[trade.id]) ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">&#9658; chart &amp; journal</button><div class="journal-body" id="journal-' + trade.id + '">' + chartHtml + (trade.journal ? '<p style="margin-top:10px;">' + trade.journal + '</p>' : '') + '</div>' : '';
   var ptsClass = trade.totalPts < 0 ? "pts loss" : "pts";
   var dolClass = trade.totalPnl < 0 ? "dollars loss" : "dollars";
   var ptsStr = (trade.totalPts >= 0 ? "+" : "") + trade.totalPts.toFixed(2) + " pts";
@@ -419,6 +424,16 @@ function toggleJournal(id) {
 }
 
 renderAll(trades);
+
+function openImg(src) {
+  var overlay = document.getElementById('img-overlay');
+  document.getElementById('overlay-img').src = src;
+  overlay.classList.add('open');
+}
+
+function closeImg() {
+  document.getElementById('img-overlay').classList.remove('open');
+}
 </script>
 </body>
 </html>
