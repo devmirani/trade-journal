@@ -18,14 +18,21 @@
   .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; transition: all 0.15s; }
   .filter-btn:hover { border-color: #444; color: #c9d1d9; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 24px; padding: 20px 40px 60px; }
+  .day-section { padding: 0 40px 40px; }
+  .day-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 14px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
+  .day-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+  .day-date { font-size: 12px; color: #8b949e; }
+  .day-pnl { font-size: 14px; font-weight: 700; }
+  .day-pnl.pos { color: #00e676; }
+  .day-pnl.neg { color: #e05c5c; }
+  .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
   .card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border-left: 3px solid #00e676; transition: transform 0.15s; }
   .card.loss { border-left-color: #e05c5c; }
   .card:hover { transform: translateY(-2px); }
   .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
   .card-price { font-size: 24px; font-weight: 700; color: #00e676; }
   .card.loss .card-price { color: #e05c5c; }
-  .card-label { font-size: 16px; color: #c9d1d9; margin-left: 10px; }
+  .card-label { font-size: 14px; color: #c9d1d9; margin-left: 10px; }
   .card-timestamp { font-size: 12px; color: #8b949e; }
   .badge { display: inline-block; margin-top: 10px; padding: 3px 12px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
   .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px 8px; margin: 16px 0 14px; }
@@ -57,6 +64,7 @@
   .journal-toggle:hover { color: #c9d1d9; }
   .journal-body { display: none; margin-top: 10px; font-size: 12px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
   .journal-body.open { display: block; }
+  .no-trades { color: #8b949e; font-size: 13px; padding: 10px 0; }
 </style>
 </head>
 <body>
@@ -82,10 +90,58 @@
   <button class="filter-btn" onclick="filter('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
 </div>
 
-<div class="grid" id="grid"></div>
+<div id="journal"></div>
 
 <script>
 var trades = [
+  {
+    id: 8,
+    date: "05/04/2026",
+    entryTime: "12:20:29 PM",
+    entryPrice: 7222.25,
+    stopPrice: 7198.00,
+    setup: "FBD",
+    result: "win",
+    contracts: 10,
+    tradeLabel: "7214 Failed Breakdown",
+    targets: [
+      { label: "T1", price: 7227.25, contracts: 7, status: "hit", pnl: 175.00 },
+      { label: "T2", price: 7225.75, contracts: 3, status: "eod", exitPrice: 7225.75, pnl: 52.50 }
+    ],
+    times: [
+      { label: "Entry", value: "12:20:29 PM" },
+      { label: "T1", value: "1m 47s" },
+      { label: "T2", value: "50m 32s" }
+    ],
+    totalPts: 44.50,
+    totalPnl: 227.50,
+    exitNote: "Position fully exited",
+    journal: ""
+  },
+  {
+    id: 7,
+    date: "05/04/2026",
+    entryTime: "12:39:04 PM",
+    entryPrice: 7219.75,
+    stopPrice: 7198.00,
+    setup: "FBD",
+    result: "win",
+    contracts: 3,
+    tradeLabel: "7214 Failed Breakdown",
+    targets: [
+      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50 },
+      { label: "T2", price: 7225.50, contracts: 2, status: "eod", exitPrice: 7225.50, pnl: 57.50 }
+    ],
+    times: [
+      { label: "Entry", value: "12:39:04 PM" },
+      { label: "T1", value: "38m 15s" },
+      { label: "T2", value: "3h 25m" }
+    ],
+    totalPts: 18.25,
+    totalPnl: 120.00,
+    exitNote: "Position fully exited",
+    journal: ""
+  },
   {
     id: 6,
     date: "05/04/2026",
@@ -95,6 +151,7 @@ var trades = [
     setup: "LEVEL_RECLAIM",
     result: "win",
     contracts: 7,
+    tradeLabel: "7240 Level Reclaim",
     targets: [
       { label: "T1", price: 7247.75, contracts: 6, status: "hit", pnl: 211.25 },
       { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25 }
@@ -118,6 +175,7 @@ var trades = [
     setup: "LEVEL_RECLAIM",
     result: "loss",
     contracts: 5,
+    tradeLabel: "7300 Level Reclaim",
     targets: [
       { label: "T1", price: 7324.00, contracts: 5, status: "miss", pnl: 0 },
       { label: "T2", price: 7331.00, contracts: 5, status: "miss", pnl: 0 },
@@ -141,6 +199,7 @@ var trades = [
     setup: "LEVEL_RECLAIM",
     result: "win",
     contracts: 3,
+    tradeLabel: "7340 Level Reclaim",
     targets: [
       { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00 },
       { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00 }
@@ -164,6 +223,7 @@ var trades = [
     setup: "FBD",
     result: "loss",
     contracts: 3,
+    tradeLabel: "7377 Failed Breakdown",
     targets: [
       { label: "T1", price: 7387.00, contracts: 3, status: "miss", pnl: 0 },
       { label: "T2", price: 7394.00, contracts: 3, status: "miss", pnl: 0 },
@@ -187,6 +247,7 @@ var trades = [
     setup: "FBD",
     result: "win",
     contracts: 10,
+    tradeLabel: "7355 Failed Breakdown",
     targets: [
       { label: "T1", price: 7368.50, contracts: 7, status: "hit", pnl: 175.00 },
       { label: "T2", price: 7383.00, contracts: 2, status: "eod", exitPrice: 7369.00, pnl: 55.00 },
@@ -212,6 +273,7 @@ var trades = [
     setup: "FBD",
     result: "win",
     contracts: 10,
+    tradeLabel: "7345 Failed Breakdown",
     targets: [
       { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00 },
       { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00 },
@@ -232,6 +294,15 @@ var trades = [
   }
 ];
 
+var days = [
+  { name: "Sunday", date: "05/03/2026" },
+  { name: "Monday", date: "05/04/2026" },
+  { name: "Tuesday", date: "05/05/2026" },
+  { name: "Wednesday", date: "05/06/2026" },
+  { name: "Thursday", date: "05/07/2026" },
+  { name: "Friday", date: "05/08/2026" }
+];
+
 function statusClass(s) {
   if (s === "hit") return "tp-hit";
   if (s === "eod") return "tp-eod";
@@ -248,54 +319,74 @@ function statusLabel(t) {
 
 function renderCard(trade) {
   var isWin = trade.result === "win";
-
   var tpsHtml = "";
   for (var i = 0; i < trade.targets.length; i++) {
     var t = trade.targets[i];
     var ret = t.pnl !== 0 ? (t.pnl >= 0 ? "+$" : "-$") + Math.abs(t.pnl).toFixed(2) : "—";
     tpsHtml += '<div class="tp-btn ' + statusClass(t.status) + '">' + statusLabel(t) + ' <span class="sub">(' + t.contracts + 'x)</span><span class="tp-return">' + ret + '</span></div>';
   }
-
   var timesHtml = "";
   for (var i = 0; i < trade.times.length; i++) {
     timesHtml += '<div class="time-chip">' + trade.times[i].label + ': <span>' + trade.times[i].value + '</span></div>';
   }
-
   var tpInfoHtml = "";
   for (var i = 0; i < trade.targets.length; i++) {
     var t = trade.targets[i];
     tpInfoHtml += '<div><div class="field-label">' + t.label + ':</div><div class="field-value">' + (t.price ? t.price.toFixed(2) : "—") + ' <span class="sub">(' + t.contracts + 'x)</span></div></div>';
   }
-
   var journalHtml = trade.journal ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">&#9658; journal entry</button><div class="journal-body" id="journal-' + trade.id + '">' + trade.journal + '</div>' : '';
-
   var ptsClass = trade.totalPts < 0 ? "pts loss" : "pts";
   var dolClass = trade.totalPnl < 0 ? "dollars loss" : "dollars";
   var ptsStr = (trade.totalPts >= 0 ? "+" : "") + trade.totalPts.toFixed(2) + " pts";
   var dolStr = (trade.totalPnl >= 0 ? "+$" : "-$") + Math.abs(trade.totalPnl).toFixed(2);
 
   return '<div class="card ' + (isWin ? "" : "loss") + '" data-result="' + trade.result + '" data-setup="' + trade.setup + '">' +
-    '<div class="card-header-row"><div><span class="card-price">' + trade.entryPrice.toFixed(2) + '</span><span class="card-label">Support Buy</span></div><span class="card-timestamp">' + trade.date + '</span></div>' +
+    '<div class="card-header-row"><div><span class="card-price">' + trade.entryPrice.toFixed(2) + '</span><span class="card-label">' + trade.tradeLabel + '</span></div><span class="card-timestamp">' + trade.entryTime + '</span></div>' +
     '<div class="badge">' + trade.setup + '</div>' +
     '<div class="time-row"><div class="time-row-inner">' + timesHtml + '</div></div>' +
     '<div class="info-grid"><div><div class="field-label">Entry:</div><div class="field-value">' + trade.entryPrice.toFixed(2) + '</div></div><div><div class="field-label">Stop:</div><div class="field-value">' + trade.stopPrice.toFixed(2) + '</div></div><div><div class="field-label">Result:</div><div class="field-value ' + trade.result + '">' + (isWin ? "Win" : "Loss") + '</div></div><div><div class="field-label">Contracts:</div><div class="field-value">' + trade.contracts + '</div></div>' + tpInfoHtml + '</div>' +
     '<div class="targets"><div class="targets-inner">' + tpsHtml + '</div></div>' +
     '<hr class="divider">' +
     '<div class="card-footer"><div class="footer-label">' + trade.exitNote + '</div><div><span class="' + ptsClass + '">' + ptsStr + '</span><span class="' + dolClass + '">' + dolStr + '</span></div></div>' +
-    journalHtml +
-    '</div>';
+    journalHtml + '</div>';
 }
 
 function renderAll(filtered) {
+  var journal = document.getElementById('journal');
   var html = "";
-  for (var i = 0; i < filtered.length; i++) {
-    html += renderCard(filtered[i]);
-  }
-  document.getElementById('grid').innerHTML = html;
   var total = 0;
-  for (var i = 0; i < filtered.length; i++) { total += filtered[i].totalPnl; }
   var wins = 0;
-  for (var i = 0; i < filtered.length; i++) { if (filtered[i].result === "win") wins++; }
+
+  for (var d = 0; d < days.length; d++) {
+    var day = days[d];
+    var dayTrades = [];
+    for (var i = 0; i < filtered.length; i++) {
+      if (filtered[i].date === day.date) dayTrades.push(filtered[i]);
+    }
+    var dayPnl = 0;
+    for (var i = 0; i < dayTrades.length; i++) { dayPnl += dayTrades[i].totalPnl; }
+    total += dayPnl;
+    for (var i = 0; i < dayTrades.length; i++) { if (dayTrades[i].result === "win") wins++; }
+
+    var pnlStr = dayTrades.length ? (dayPnl >= 0 ? "+$" : "-$") + Math.abs(dayPnl).toFixed(2) : "";
+    var pnlClass = dayPnl >= 0 ? "day-pnl pos" : "day-pnl neg";
+    var cardsHtml = "";
+    if (dayTrades.length === 0) {
+      cardsHtml = '<div class="no-trades">No trades</div>';
+    } else {
+      for (var i = 0; i < dayTrades.length; i++) { cardsHtml += renderCard(dayTrades[i]); }
+    }
+
+    html += '<div class="day-section">' +
+      '<div class="day-header">' +
+      '<div><span class="day-title">' + day.name + '</span><span class="day-date" style="margin-left:12px;">' + day.date + '</span></div>' +
+      (pnlStr ? '<span class="' + pnlClass + '">' + pnlStr + '</span>' : '') +
+      '</div>' +
+      '<div class="day-grid">' + cardsHtml + '</div>' +
+      '</div>';
+  }
+
+  journal.innerHTML = html;
   var totalEl = document.getElementById('total-pnl');
   totalEl.textContent = (total >= 0 ? "+$" : "-$") + Math.abs(total).toFixed(2);
   totalEl.className = "stat-value" + (total < 0 ? " loss" : "");
@@ -307,14 +398,12 @@ function filter(type, btn) {
   var btns = document.querySelectorAll('.filter-btn');
   for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
   btn.classList.add('active');
-  if (type === 'all') { renderAll(trades); return; }
-  if (type === 'win' || type === 'loss') {
-    var f = [];
-    for (var i = 0; i < trades.length; i++) { if (trades[i].result === type) f.push(trades[i]); }
-    renderAll(f); return;
-  }
   var f = [];
-  for (var i = 0; i < trades.length; i++) { if (trades[i].setup === type) f.push(trades[i]); }
+  for (var i = 0; i < trades.length; i++) {
+    if (type === 'all') { f.push(trades[i]); }
+    else if (type === 'win' || type === 'loss') { if (trades[i].result === type) f.push(trades[i]); }
+    else { if (trades[i].setup === type) f.push(trades[i]); }
+  }
   renderAll(f);
 }
 
