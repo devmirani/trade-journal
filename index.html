@@ -60,6 +60,7 @@
   .pts.loss { color: #e05c5c; }
   .dollars { font-size: 18px; font-weight: 700; color: #00e676; display: block; text-align: right; }
   .dollars.loss { color: #e05c5c; }
+  .chart-img { width: 100%; border-radius: 6px; margin-top: 14px; border: 1px solid #21262d; }
   .journal-toggle { margin-top: 14px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 6px; }
   .journal-toggle:hover { color: #c9d1d9; }
   .journal-body { display: none; margin-top: 10px; font-size: 12px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
@@ -334,7 +335,9 @@ function renderCard(trade) {
     var t = trade.targets[i];
     tpInfoHtml += '<div><div class="field-label">' + t.label + ':</div><div class="field-value">' + (t.price ? t.price.toFixed(2) : "—") + ' <span class="sub">(' + t.contracts + 'x)</span></div></div>';
   }
-  var journalHtml = trade.journal ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">&#9658; journal entry</button><div class="journal-body" id="journal-' + trade.id + '">' + trade.journal + '</div>' : '';
+  var chartMap = {1: "https://i.imgur.com/go0WawU.png"};
+  var journalHtml = chartMap[trade.id] ? '<img class="chart-img" src="' + chartMap[trade.id] + '" alt="trade chart" />' : '';
+  journalHtml += trade.journal ? '<button class="journal-toggle" onclick="toggleJournal(' + trade.id + ')">&#9658; journal entry</button><div class="journal-body" id="journal-' + trade.id + '">' + trade.journal + '</div>' : '';
   var ptsClass = trade.totalPts < 0 ? "pts loss" : "pts";
   var dolClass = trade.totalPnl < 0 ? "dollars loss" : "dollars";
   var ptsStr = (trade.totalPts >= 0 ? "+" : "") + trade.totalPts.toFixed(2) + " pts";
