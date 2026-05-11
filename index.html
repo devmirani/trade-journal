@@ -6,8 +6,128 @@
 <title>Trade Journal</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #080c10; font-family: 'Courier New', monospace; color: #c9d1d9; min-height: 100vh; }
-  header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; }
+  body { background: #080c10; font-family: 'Courier New', monospace; color: #c9d1d9; min-height: 100vh; transition: background 0.2s, color 0.2s; }
+
+  /* Light mode */
+  body.light { background: #f4f6f9; color: #1a1f2e; }
+  body.light header { border-bottom-color: #d0d7e3; }
+  body.light header h1 { color: #1a1f2e; }
+  body.light .nav-tabs { border-bottom-color: #d0d7e3; }
+  body.light .nav-tab { color: #6b7280; }
+  body.light .nav-tab:hover { color: #1a1f2e; }
+  body.light .nav-tab.active { color: #1a1f2e; border-bottom-color: #00a854; }
+  body.light .filter-btn { border-color: #d0d7e3; color: #6b7280; }
+  body.light .filter-btn.active { border-color: #00a854; color: #00a854; }
+  body.light .dash-card { background: #fff; border-color: #d0d7e3; }
+  body.light .dash-card-label { color: #6b7280; }
+  body.light .dash-card-value { color: #1a1f2e; }
+  body.light .dash-card-value.pos { color: #00a854; }
+  body.light .dash-card-value.neg { color: #c0392b; }
+  body.light .dash-card-sub { color: #6b7280; }
+  body.light .week-block { border-color: #d0d7e3; }
+  body.light .week-header { background: #fff; }
+  body.light .week-header:hover { background: #f0f2f7; }
+  body.light .week-title { color: #1a1f2e; }
+  body.light .week-dates { color: #6b7280; }
+  body.light .week-stat-label { color: #6b7280; }
+  body.light .week-stat-value { color: #1a1f2e; }
+  body.light .week-stat-value.pos { color: #00a854; }
+  body.light .week-stat-value.neg { color: #c0392b; }
+  body.light .week-toggle-icon { color: #6b7280; }
+  body.light .week-body { border-top-color: #d0d7e3; }
+  body.light .day-tile { background: #f0f2f7; border-color: #d0d7e3; }
+  body.light .day-tile:hover { border-color: #aab4c8; }
+  body.light .day-tile.active-day { border-color: #00a854; }
+  body.light .day-tile-name { color: #6b7280; }
+  body.light .day-tile-date { color: #1a1f2e; }
+  body.light .day-tile-pnl.pos { color: #00a854; }
+  body.light .day-tile-pnl.neg { color: #c0392b; }
+  body.light .drill-view { border-top-color: #d0d7e3; }
+  body.light .drill-title { color: #1a1f2e; }
+  body.light .card { background: #fff; border-left-color: #00a854; }
+  body.light .card.loss { border-left-color: #c0392b; }
+  body.light .card-price { color: #00a854; }
+  body.light .card.loss .card-price { color: #c0392b; }
+  body.light .card-label { color: #1a1f2e; }
+  body.light .card-timestamp { color: #6b7280; }
+  body.light .badge { border-color: #8b5cf6; color: #8b5cf6; }
+  body.light .time-row { border-bottom-color: #d0d7e3; }
+  body.light .time-chip { background: #f0f2f7; color: #6b7280; }
+  body.light .time-chip span { color: #1a1f2e; }
+  body.light .field-label { color: #6b7280; }
+  body.light .field-value { color: #1a1f2e; }
+  body.light .field-value.win { color: #00a854; }
+  body.light .field-value.loss { color: #c0392b; }
+  body.light .sub { color: #6b7280; }
+  body.light .tp-hit { border-color: #00a854; color: #00a854; }
+  body.light .tp-eod { border-color: #d97706; color: #d97706; }
+  body.light .tp-stopped { border-color: #c0392b; color: #c0392b; }
+  body.light .tp-miss { border-color: #aab4c8; color: #9ca3af; }
+  body.light .tp-tooltip { background: #fff; border-color: #d0d7e3; color: #1a1f2e; }
+  body.light .divider { border-top-color: #d0d7e3; }
+  body.light .footer-label { color: #6b7280; }
+  body.light .pts { color: #00a854; }
+  body.light .pts.neg { color: #c0392b; }
+  body.light .dollars { color: #00a854; }
+  body.light .dollars.neg { color: #c0392b; }
+  body.light .journal-toggle { color: #6b7280; }
+  body.light .journal-toggle:hover { color: #1a1f2e; }
+  body.light .journal-body { border-left-color: #d0d7e3; color: #6b7280; }
+  body.light .chart-img { border-color: #d0d7e3; }
+  body.light .cal-section-title { color: #1a1f2e; border-bottom-color: #d0d7e3; }
+  body.light .cal-nav-btn { border-color: #d0d7e3; color: #6b7280; }
+  body.light .cal-nav-btn:hover { border-color: #aab4c8; color: #1a1f2e; }
+  body.light .cal-month-label { color: #1a1f2e; }
+  body.light .cal-dow.normal { color: #6b7280; }
+  body.light .cal-dow.total { color: #8b5cf6; }
+  body.light .cal-cell { background: #fff; border-color: #d0d7e3; }
+  body.light .cal-cell.empty { background: transparent; border-color: transparent; }
+  body.light .cal-cell.today { border-color: #6b7280; }
+  body.light .cal-cell.week-total-cell { background: #fff; border-color: rgba(139,92,246,0.3); }
+  body.light .cal-cell.green-bg { background: rgba(0,168,84,0.07); border-color: rgba(0,168,84,0.3); }
+  body.light .cal-cell.red-bg { background: rgba(192,57,43,0.07); border-color: rgba(192,57,43,0.3); }
+  body.light .cal-cell.week-green { background: rgba(0,168,84,0.05); border-color: rgba(139,92,246,0.4); }
+  body.light .cal-cell.week-red { background: rgba(192,57,43,0.05); border-color: rgba(139,92,246,0.4); }
+  body.light .cal-day-num { color: #6b7280; }
+  body.light .cal-cell.has-trades .cal-day-num { color: #1a1f2e; }
+  body.light .cal-week-label { color: #8b5cf6; }
+  body.light .cal-pnl.pos { color: #00a854; }
+  body.light .cal-pnl.neg { color: #c0392b; }
+  body.light .cal-meta { color: #6b7280; }
+  body.light .cal-timeline-popup { background: #fff; border-color: #d0d7e3; }
+  body.light .cal-timeline-popup-title { color: #6b7280; }
+  body.light .cal-timeline-line { background: #d0d7e3; }
+  body.light .cal-timeline-tick { color: #6b7280; }
+  body.light .setup-cal-cell { background: #fff; border-color: #d0d7e3; }
+  body.light .setup-cal-cell.has-setups { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.04); }
+  body.light .setup-cal-cell.has-setups:hover { border-color: #8b5cf6; }
+  body.light .setup-cal-cell.active-setup-day { border-color: #8b5cf6; background: rgba(139,92,246,0.08); }
+  body.light .setup-cal-cell.empty { background: transparent; border-color: transparent; }
+  body.light .setup-cal-dow { color: #6b7280; }
+  body.light .setup-cal-day-num { color: #6b7280; }
+  body.light .setup-cal-cell.has-setups .setup-cal-day-num { color: #1a1f2e; }
+  body.light .setup-cal-badge-count { color: #8b5cf6; }
+  body.light .setup-cal-titles { color: #6b7280; }
+  body.light .setup-drill-title { color: #1a1f2e; border-top-color: #d0d7e3; }
+  body.light .setup-card { background: #fff; }
+  body.light .setup-card.priority-aplus { border-left-color: #00a854; }
+  body.light .setup-card.priority-a { border-left-color: #d97706; }
+  body.light .setup-card.priority-b { border-left-color: #9ca3af; }
+  body.light .priority-aplus .setup-card-priority { background: rgba(0,168,84,0.1); color: #00a854; border-color: rgba(0,168,84,0.3); }
+  body.light .priority-a .setup-card-priority { background: rgba(217,119,6,0.1); color: #d97706; border-color: rgba(217,119,6,0.3); }
+  body.light .priority-b .setup-card-priority { background: rgba(156,163,175,0.1); color: #6b7280; border-color: rgba(156,163,175,0.3); }
+  body.light .setup-card-level { color: #1a1f2e; }
+  body.light .setup-card-type { border-color: #8b5cf6; color: #8b5cf6; }
+  body.light .setup-card-notes-label { color: #6b7280; }
+  body.light .setup-card-notes { color: #1a1f2e; }
+  body.light .badge-fbd { background: rgba(139,92,246,0.1); color: #8b5cf6; border-color: rgba(139,92,246,0.3); }
+  body.light .badge-reclaim { background: rgba(0,168,84,0.1); color: #00a854; border-color: rgba(0,168,84,0.2); }
+  body.light .badge-bounce { background: rgba(55,138,221,0.1); color: #2563eb; border-color: rgba(55,138,221,0.2); }
+  body.light .mode-toggle { background: #fff; border-color: #d0d7e3; color: #1a1f2e; }
+  body.light .mode-toggle:hover { background: #f0f2f7; }
+  .mode-toggle { position: absolute; right: 40px; top: 32px; background: #0d1117; border: 1px solid #21262d; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; padding: 6px 14px; border-radius: 6px; cursor: pointer; }
+  .mode-toggle:hover { color: #c9d1d9; border-color: #444; }
+  header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; position: relative; }
   header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
   .nav-tabs { display: flex; gap: 4px; padding: 0 40px; border-bottom: 1px solid #21262d; }
   .nav-tab { padding: 12px 20px; font-size: 13px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: none; background: transparent; color: #8b949e; border-bottom: 2px solid transparent; margin-bottom: -1px; letter-spacing: 0.04em; }
@@ -173,7 +293,10 @@
 </head>
 <body>
 
-<header><h1>TRADE JOURNAL</h1></header>
+<header>
+  <h1>TRADE JOURNAL</h1>
+  <button class="mode-toggle" onclick="toggleMode()" id="mode-btn">☀ Light Mode</button>
+</header>
 
 <div class="nav-tabs">
   <button class="nav-tab active" onclick="switchTab('journal-page', this)">Journal</button>
@@ -834,6 +957,18 @@ function nextSetupMonth() { setupCalMonth++; if (setupCalMonth > 11) { setupCalM
 // ============================================================
 // INIT
 // ============================================================
+function toggleMode() {
+  var body = document.body;
+  var btn = document.getElementById("mode-btn");
+  if (body.classList.contains("light")) {
+    body.classList.remove("light");
+    btn.textContent = "☀ Light Mode";
+  } else {
+    body.classList.add("light");
+    btn.textContent = "☾ Dark Mode";
+  }
+}
+
 renderDashboard();
 renderAll(getFilteredTrades());
 renderCalendar();
