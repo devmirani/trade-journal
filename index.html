@@ -286,6 +286,65 @@
   .setup-card-notes-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
   .setup-card-notes { font-size: 12px; color: #c9d1d9; line-height: 1.7; }
   body.light .setup-card-notes { color: #1a1f2e; }
+
+  /* Weekly Range Widget */
+  .range-widget { margin: 28px 40px 0; }
+  .range-widget-inner { background: #0d1117; border: 1px solid #21262d; border-radius: 12px; padding: 24px 28px; }
+  body.light .range-widget-inner { background: #fff; border-color: #d0d7e3; }
+  .range-widget-title { font-size: 13px; font-weight: 700; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 20px; }
+
+  /* Input row */
+  .range-inputs { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; align-items: flex-end; }
+  .range-input-group { display: flex; flex-direction: column; gap: 5px; }
+  .range-input-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; }
+  .range-input-field { background: #080c10; border: 1px solid #21262d; color: #c9d1d9; font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; padding: 7px 12px; border-radius: 6px; width: 100px; }
+  .range-input-field:focus { outline: none; border-color: #00e676; }
+  body.light .range-input-field { background: #f0f2f7; border-color: #d0d7e3; color: #1a1f2e; }
+  body.light .range-input-field:focus { border-color: #00a854; }
+  .range-update-btn { padding: 7px 18px; background: transparent; border: 1.5px solid #00e676; color: #00e676; font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; letter-spacing: 0.05em; }
+  .range-update-btn:hover { background: rgba(0,230,118,0.08); }
+  body.light .range-update-btn { border-color: #00a854; color: #00a854; }
+
+  /* Main bar */
+  .range-bar-wrap { position: relative; margin-bottom: 10px; }
+  .range-bar-track { height: 12px; border-radius: 6px; background: #21262d; position: relative; overflow: visible; }
+  body.light .range-bar-track { background: #e5e7eb; }
+  .range-bar-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease; position: relative; }
+  .range-bar-needle { position: absolute; top: -6px; width: 3px; height: 24px; background: #fff; border-radius: 2px; transform: translateX(-50%); transition: left 0.4s ease; box-shadow: 0 0 6px rgba(255,255,255,0.4); }
+  body.light .range-bar-needle { background: #1a1f2e; }
+
+  /* ATR zone markers */
+  .range-bar-atr-line { position: absolute; top: -4px; width: 1px; height: 20px; background: rgba(240,165,0,0.6); transform: translateX(-50%); }
+  .range-bar-atr-label { position: absolute; top: 20px; font-size: 9px; color: #f0a500; transform: translateX(-50%); white-space: nowrap; }
+
+  /* Labels */
+  .range-bar-labels { display: flex; justify-content: space-between; margin-top: 8px; }
+  .range-bar-label-item { font-size: 10px; color: #8b949e; }
+  .range-bar-label-item span { color: #c9d1d9; font-weight: 700; }
+  body.light .range-bar-label-item span { color: #1a1f2e; }
+
+  /* Stats row */
+  .range-stats { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+  .range-stat { display: flex; flex-direction: column; gap: 3px; }
+  .range-stat-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; }
+  .range-stat-value { font-size: 18px; font-weight: 700; color: #fff; }
+  body.light .range-stat-value { color: #1a1f2e; }
+  .range-stat-value.caution { color: #f0a500; }
+  .range-stat-value.extended { color: #e05c5c; }
+  .range-stat-value.fresh { color: #00e676; }
+  body.light .range-stat-value.caution { color: #d97706; }
+  body.light .range-stat-value.extended { color: #c0392b; }
+  body.light .range-stat-value.fresh { color: #00a854; }
+
+  /* Context pill */
+  .range-context-pill { display: inline-block; margin-top: 16px; padding: 5px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+  .pill-fresh { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
+  .pill-caution { background: rgba(240,165,0,0.1); color: #f0a500; border: 1px solid rgba(240,165,0,0.3); }
+  .pill-extended { background: rgba(224,92,92,0.1); color: #e05c5c; border: 1px solid rgba(224,92,92,0.3); }
+  body.light .pill-fresh { color: #00a854; border-color: rgba(0,168,84,0.3); }
+  body.light .pill-caution { color: #d97706; }
+  body.light .pill-extended { color: #c0392b; }
+
 </style>
 </head>
 <body>
@@ -317,6 +376,74 @@
     <button class="filter-btn" onclick="filterTrades('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
   </div>
   <div class="dash-section" id="dash-section"></div>
+
+  <!-- Weekly Range Widget -->
+  <div class="range-widget">
+    <div class="range-widget-inner">
+      <div class="range-widget-title">Weekly Range % Used</div>
+      <div class="range-inputs">
+        <div class="range-input-group">
+          <div class="range-input-label">Current Price</div>
+          <input class="range-input-field" id="rng-current" type="number" value="7435" step="0.25" />
+        </div>
+        <div class="range-input-group">
+          <div class="range-input-label">Weekly Low</div>
+          <input class="range-input-field" id="rng-low" type="number" value="7390" step="0.25" />
+        </div>
+        <div class="range-input-group">
+          <div class="range-input-label">Weekly High</div>
+          <input class="range-input-field" id="rng-high" type="number" value="7454" step="0.25" />
+        </div>
+        <div class="range-input-group">
+          <div class="range-input-label">Avg Weekly ATR</div>
+          <input class="range-input-field" id="rng-atr" type="number" value="220" step="1" />
+        </div>
+        <button class="range-update-btn" onclick="updateRangeWidget()">UPDATE</button>
+      </div>
+
+      <!-- Bar -->
+      <div class="range-bar-wrap">
+        <div class="range-bar-track" id="rng-track">
+          <div class="range-bar-fill" id="rng-fill"></div>
+          <div class="range-bar-needle" id="rng-needle"></div>
+          <div class="range-bar-atr-line" id="rng-atr-line"></div>
+          <div class="range-bar-atr-label" id="rng-atr-label"></div>
+        </div>
+      </div>
+      <div class="range-bar-labels">
+        <div class="range-bar-label-item">Weekly Low <span id="rng-lbl-low">7390</span></div>
+        <div class="range-bar-label-item">ATR Avg <span id="rng-lbl-atr">7610</span></div>
+        <div class="range-bar-label-item">Weekly High <span id="rng-lbl-high">7454</span></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="range-stats">
+        <div class="range-stat">
+          <div class="range-stat-label">Range Used</div>
+          <div class="range-stat-value" id="rng-stat-used">--</div>
+        </div>
+        <div class="range-stat">
+          <div class="range-stat-label">% of ATR</div>
+          <div class="range-stat-value" id="rng-stat-pct">--</div>
+        </div>
+        <div class="range-stat">
+          <div class="range-stat-label">Pts Remaining</div>
+          <div class="range-stat-value" id="rng-stat-rem">--</div>
+        </div>
+        <div class="range-stat">
+          <div class="range-stat-label">Price from Low</div>
+          <div class="range-stat-value" id="rng-stat-fromlow">--</div>
+        </div>
+        <div class="range-stat">
+          <div class="range-stat-label">Price from High</div>
+          <div class="range-stat-value" id="rng-stat-fromhigh">--</div>
+        </div>
+      </div>
+
+      <div id="rng-context-pill" class="range-context-pill pill-fresh"></div>
+    </div>
+  </div>
+
   <div id="journal"></div>
 
   <!-- P&L Calendar -->
@@ -756,6 +883,7 @@ function setMacroView(view, btn) {
   for (var i = 0; i < btns.length; i++) btns[i].classList.remove("active");
   btn.classList.add("active");
   renderMacroSection();
+updateRangeWidget();
 }
 
 function parseEventDate(dateStr) {
@@ -871,11 +999,97 @@ function toggleMode() {
   else { body.classList.add("light"); btn.textContent = "☾ Dark Mode"; }
 }
 
+
+function updateRangeWidget() {
+  var current = parseFloat(document.getElementById("rng-current").value);
+  var low     = parseFloat(document.getElementById("rng-low").value);
+  var high    = parseFloat(document.getElementById("rng-high").value);
+  var atr     = parseFloat(document.getElementById("rng-atr").value);
+
+  if (isNaN(current) || isNaN(low) || isNaN(high) || isNaN(atr)) return;
+
+  var rangeUsed   = high - low;                          // pts week has moved
+  var pctOfAtr    = Math.round((rangeUsed / atr) * 100); // % of avg ATR consumed
+  var ptsRemain   = Math.max(0, atr - rangeUsed);        // pts left vs ATR
+  var fromLow     = current - low;
+  var fromHigh    = high - current;
+
+  // Position of current price within ATR (from weekly low baseline)
+  var currentPctInAtr = Math.min(100, Math.round((fromLow / atr) * 100));
+  // Position of weekly high within ATR
+  var highPctInAtr    = Math.min(100, Math.round((rangeUsed / atr) * 100));
+  // ATR marker always at 100% visually (capped)
+  var atrMarkerPct    = 100;
+
+  // Fill covers low→high
+  document.getElementById("rng-fill").style.width  = highPctInAtr + "%";
+  // Needle is current price position
+  document.getElementById("rng-needle").style.left = currentPctInAtr + "%";
+
+  // Color fill based on % used
+  var fillColor;
+  if (pctOfAtr < 40)       fillColor = "#00e676";
+  else if (pctOfAtr < 70)  fillColor = "#f0a500";
+  else                      fillColor = "#e05c5c";
+  document.getElementById("rng-fill").style.background = fillColor;
+
+  // ATR line — only show if rangeUsed < atr (otherwise it's off screen)
+  var atrLine  = document.getElementById("rng-atr-line");
+  var atrLabel = document.getElementById("rng-atr-label");
+  if (pctOfAtr < 95) {
+    atrLine.style.left  = "100%";
+    atrLabel.style.left = "100%";
+    atrLine.style.display  = "block";
+    atrLabel.style.display = "block";
+  } else {
+    atrLine.style.display  = "none";
+    atrLabel.style.display = "none";
+  }
+
+  // Labels
+  document.getElementById("rng-lbl-low").textContent  = low;
+  document.getElementById("rng-lbl-high").textContent  = high;
+  document.getElementById("rng-lbl-atr").textContent   = (low + atr).toFixed(0);
+
+  // Stats
+  var usedEl    = document.getElementById("rng-stat-used");
+  var pctEl     = document.getElementById("rng-stat-pct");
+  var remEl     = document.getElementById("rng-stat-rem");
+  var fromLowEl = document.getElementById("rng-stat-fromlow");
+  var fromHiEl  = document.getElementById("rng-stat-fromhigh");
+
+  usedEl.textContent    = rangeUsed.toFixed(2) + " pts";
+  pctEl.textContent     = pctOfAtr + "%";
+  remEl.textContent     = ptsRemain.toFixed(0) + " pts";
+  fromLowEl.textContent = "+" + fromLow.toFixed(2) + " pts";
+  fromHiEl.textContent  = "-" + fromHigh.toFixed(2) + " pts";
+
+  // Color coding
+  var cls = pctOfAtr < 40 ? "fresh" : pctOfAtr < 70 ? "caution" : "extended";
+  usedEl.className = "range-stat-value " + cls;
+  pctEl.className  = "range-stat-value " + cls;
+  remEl.className  = "range-stat-value " + (ptsRemain > 80 ? "fresh" : ptsRemain > 40 ? "caution" : "extended");
+
+  // Context pill
+  var pill = document.getElementById("rng-context-pill");
+  if (pctOfAtr < 40) {
+    pill.className   = "range-context-pill pill-fresh";
+    pill.textContent = "FRESH RANGE — Setup conditions favorable";
+  } else if (pctOfAtr < 70) {
+    pill.className   = "range-context-pill pill-caution";
+    pill.textContent = "RANGE MATURING — Manage size, take profits level to level";
+  } else {
+    pill.className   = "range-context-pill pill-extended";
+    pill.textContent = "EXTENDED — " + pctOfAtr + "% of ATR used. Poor long conditions, wait for reset.";
+  }
+}
+
 renderDashboard();
 renderAll(getFilteredTrades());
 renderCalendar();
 renderSetupCalendar();
 renderMacroSection();
+updateRangeWidget();
 </script>
 </body>
 </html>
