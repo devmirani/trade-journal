@@ -7,51 +7,80 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #080c10; font-family: 'Courier New', monospace; color: #c9d1d9; min-height: 100vh; }
-  header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; display: flex; justify-content: space-between; align-items: flex-end; }
+  header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; }
   header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
-  .header-stats { display: flex; gap: 32px; text-align: right; }
-  .stat-label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; }
-  .stat-value { font-size: 20px; font-weight: 700; color: #00e676; margin-top: 2px; }
-  .stat-value.neg { color: #e05c5c; }
   .filters { padding: 20px 40px; display: flex; gap: 10px; flex-wrap: wrap; }
   .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
-  .week-block { margin: 0 40px 32px; border: 1px solid #21262d; border-radius: 10px; overflow: hidden; }
+
+  /* Dashboard */
+  .dash-section { margin: 0 40px 32px; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+  .dash-card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border: 1px solid #21262d; position: relative; overflow: hidden; }
+  .dash-card-label { font-size: 13px; color: #8b949e; margin-bottom: 16px; font-weight: 600; }
+  .dash-card-value { font-size: 42px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px; }
+  .dash-card-value.pos { color: #00e676; }
+  .dash-card-value.neg { color: #e05c5c; }
+  .dash-card-sub { font-size: 12px; color: #8b949e; }
+  .dash-card-accent { position: absolute; top: 0; right: 0; width: 4px; height: 100%; }
+
+  /* Week blocks */
+  .week-block { margin: 0 40px 24px; border: 1px solid #21262d; border-radius: 10px; overflow: hidden; }
   .week-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #0d1117; cursor: pointer; user-select: none; }
   .week-header:hover { background: #111820; }
   .week-left { display: flex; align-items: center; gap: 12px; }
   .week-toggle-icon { font-size: 12px; color: #8b949e; transition: transform 0.2s; display: inline-block; }
   .week-toggle-icon.open { transform: rotate(90deg); }
-  .week-title { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+  .week-title { font-size: 14px; font-weight: 700; color: #fff; }
   .week-dates { font-size: 11px; color: #8b949e; }
-  .week-right { display: flex; gap: 24px; align-items: center; }
+  .week-right { display: flex; gap: 24px; }
   .week-stat { text-align: right; }
   .week-stat-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; }
   .week-stat-value { font-size: 13px; font-weight: 700; margin-top: 1px; }
   .week-stat-value.pos { color: #00e676; }
   .week-stat-value.neg { color: #e05c5c; }
-  .week-body { display: none; border-top: 1px solid #21262d; }
+  .week-body { display: none; border-top: 1px solid #21262d; padding: 20px; }
   .week-body.open { display: block; }
-  .day-section { padding: 0 20px 24px; }
-  .day-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 12px; border-bottom: 1px solid #161b22; margin-bottom: 16px; }
-  .day-title { font-size: 13px; font-weight: 700; color: #c9d1d9; }
-  .day-date { font-size: 11px; color: #8b949e; margin-left: 10px; }
-  .day-pnl { font-size: 13px; font-weight: 700; }
-  .day-pnl.pos { color: #00e676; }
-  .day-pnl.neg { color: #e05c5c; }
-  .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
-  .no-trades { color: #8b949e; font-size: 12px; font-style: italic; padding: 4px 0 8px; }
-  .card { background: #080c10; border-radius: 10px; padding: 20px 24px; border-left: 3px solid #00e676; }
+
+  /* Day grid inside week */
+  .day-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .day-tile { background: #080c10; border-radius: 10px; border: 1px solid #21262d; padding: 16px; cursor: pointer; transition: border-color 0.15s, transform 0.15s; min-height: 120px; display: flex; flex-direction: column; }
+  .day-tile:hover { border-color: #444; transform: translateY(-2px); }
+  .day-tile.has-trades { border-color: #21262d; }
+  .day-tile.no-trades { cursor: default; opacity: 0.4; }
+  .day-tile.no-trades:hover { transform: none; border-color: #21262d; }
+  .day-tile-name { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .day-tile-date { font-size: 12px; color: #c9d1d9; font-weight: 700; margin-bottom: 12px; }
+  .day-tile-setups { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .day-tile-setup-badge { font-size: 10px; padding: 4px 8px; border-radius: 4px; font-weight: 600; display: inline-block; }
+  .badge-fbd { background: rgba(181,123,238,0.15); color: #b57bee; border: 1px solid rgba(181,123,238,0.3); }
+  .badge-reclaim { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.2); }
+  .badge-bounce { background: rgba(55,138,221,0.1); color: #378ADD; border: 1px solid rgba(55,138,221,0.2); }
+  .day-tile-pnl { font-size: 13px; font-weight: 700; margin-top: auto; padding-top: 10px; }
+  .day-tile-pnl.pos { color: #00e676; }
+  .day-tile-pnl.neg { color: #e05c5c; }
+
+  /* Trade card drill-down view */
+  .drill-view { display: none; padding: 0 20px 20px; border-top: 1px solid #21262d; }
+  .drill-view.open { display: block; }
+  .drill-back { display: flex; align-items: center; gap: 8px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 16px 0 20px; }
+  .drill-back:hover { color: #c9d1d9; }
+  .drill-back-arrow { font-size: 16px; }
+  .drill-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+  .drill-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
+
+  /* Cards */
+  .card { background: #0d1117; border-radius: 10px; padding: 20px 24px; border-left: 3px solid #00e676; }
   .card.loss { border-left-color: #e05c5c; }
   .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
   .card-price { font-size: 22px; font-weight: 700; color: #00e676; }
   .card.loss .card-price { color: #e05c5c; }
   .card-label { font-size: 13px; color: #c9d1d9; margin-left: 8px; }
   .card-timestamp { font-size: 11px; color: #8b949e; }
-  .badge { display: inline-block; margin-top: 8px; padding: 2px 10px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
+  .badge { display: inline-block; margin-top: 8px; padding: 2px 10px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 11px; font-weight: 600; }
   .time-row { margin: 12px 0; padding-bottom: 12px; border-bottom: 1px solid #21262d; }
   .time-row-inner { display: flex; gap: 6px; flex-wrap: wrap; }
-  .time-chip { padding: 3px 8px; background: #0d1117; border-radius: 4px; font-size: 10px; color: #8b949e; }
+  .time-chip { padding: 3px 8px; background: #080c10; border-radius: 4px; font-size: 10px; color: #8b949e; }
   .time-chip span { color: #c9d1d9; font-weight: 700; }
   .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px 8px; margin-bottom: 12px; }
   .field-label { font-size: 10px; color: #8b949e; margin-bottom: 2px; }
@@ -84,42 +113,19 @@
   .img-overlay.open { display: flex; }
   .img-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 1px solid #21262d; }
 
-  /* Dashboard */
-  .dash-section { margin: 0 40px 40px; }
-  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .dash-card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border: 1px solid #21262d; position: relative; overflow: hidden; }
-  .dash-card-label { font-size: 13px; color: #8b949e; margin-bottom: 16px; font-weight: 600; }
-  .dash-card-value { font-size: 42px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px; }
-  .dash-card-value.pos { color: #00e676; }
-  .dash-card-value.neg { color: #e05c5c; }
-  .dash-card-sub { font-size: 12px; color: #8b949e; }
-  .dash-card-sub .pos { color: #00e676; }
-  .dash-card-sub .neg { color: #e05c5c; }
-  .dash-card-accent { position: absolute; top: 0; right: 0; width: 4px; height: 100%; }
-
   /* Calendar */
-  .cal-section { margin: 0 40px 60px; }
+  .cal-section { margin: 40px 40px 60px; }
   .cal-section-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em; padding: 20px 0 16px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
   .cal-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
   .cal-nav-btn { background: transparent; border: 1px solid #21262d; color: #8b949e; font-family: 'Courier New', monospace; font-size: 13px; padding: 4px 12px; border-radius: 6px; cursor: pointer; }
   .cal-nav-btn:hover { border-color: #444; color: #c9d1d9; }
   .cal-month-label { font-size: 15px; font-weight: 700; color: #fff; min-width: 140px; text-align: center; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; overflow: visible; }
   .cal-dow { text-align: center; font-size: 10px; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.08em; }
   .cal-dow.normal { color: #8b949e; }
   .cal-dow.total { color: #b57bee; }
-  .cal-cell { background: #0d1117; border-radius: 6px; min-height: 80px; padding: 8px; border: 1px solid #21262d; position: relative; }
+  .cal-cell { background: #0d1117; border-radius: 6px; min-height: 80px; padding: 8px; border: 1px solid #21262d; position: relative; overflow: visible; }
   .cal-cell:hover .cal-timeline-popup { display: block; }
-  .cal-timeline-popup { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 12px 14px; z-index: 50; width: 280px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); }
-  .cal-timeline-popup-title { font-size: 10px; color: #8b949e; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .cal-timeline-track { position: relative; height: 32px; width: 100%; }
-  .cal-timeline-line { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #21262d; transform: translateY(-50%); }
-  .cal-timeline-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; top: 50%; transform: translate(-50%, -50%); cursor: default; }
-  .cal-timeline-dot.entry { background: #00e676; border: 1.5px solid #0d1117; }
-  .cal-timeline-dot.exit { background: #e05c5c; border: 1.5px solid #0d1117; }
-  .cal-timeline-ticks { display: flex; justify-content: space-between; margin-top: 4px; }
-  .cal-timeline-tick { font-size: 8px; color: #8b949e; }
-  .cal-timeline-dot:hover::after { content: attr(data-tip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: #161b22; border: 1px solid #21262d; border-radius: 4px; padding: 3px 7px; font-size: 9px; color: #c9d1d9; white-space: nowrap; z-index: 60; }
   .cal-cell.empty { background: transparent; border-color: transparent; min-height: 80px; }
   .cal-cell.today { border-color: #8b949e; }
   .cal-cell.week-total-cell { background: #0d1117; border-color: rgba(181,123,238,0.3); }
@@ -134,14 +140,20 @@
   .cal-pnl.pos { color: #00e676; }
   .cal-pnl.neg { color: #e05c5c; }
   .cal-meta { font-size: 9px; color: #8b949e; line-height: 1.6; }
+  .cal-timeline-popup { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 12px 14px; z-index: 999; width: 280px; pointer-events: none; }
+  .cal-timeline-popup-title { font-size: 10px; color: #8b949e; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .cal-timeline-track { position: relative; height: 32px; width: 100%; }
+  .cal-timeline-line { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #21262d; transform: translateY(-50%); }
+  .cal-timeline-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); }
+  .cal-timeline-dot.entry { background: #00e676; }
+  .cal-timeline-dot.exit { background: #e05c5c; }
+  .cal-timeline-ticks { display: flex; justify-content: space-between; margin-top: 4px; }
+  .cal-timeline-tick { font-size: 8px; color: #8b949e; }
 </style>
 </head>
 <body>
 
-<header>
-  <div><h1>TRADE JOURNAL</h1></div>
-
-</header>
+<header><h1>TRADE JOURNAL</h1></header>
 
 <div class="filters">
   <button class="filter-btn active" onclick="filterTrades('all', this)">ALL</button>
@@ -152,12 +164,7 @@
   <button class="filter-btn" onclick="filterTrades('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
 </div>
 
-<div id="img-overlay" class="img-overlay" onclick="closeImg()">
-  <img id="overlay-img" src="" alt="chart" />
-</div>
-
 <div class="dash-section" id="dash-section"></div>
-
 <div id="journal"></div>
 
 <div class="cal-section">
@@ -170,42 +177,46 @@
   <div class="cal-grid" id="cal-grid"></div>
 </div>
 
+<div id="img-overlay" class="img-overlay" onclick="closeImg()">
+  <img id="overlay-img" src="" alt="chart" />
+</div>
+
 <script>
 var chartMap = { 1: "https://i.imgur.com/go0WawU.png" };
 
 var weeks = [
   { num: 1, label: "Week 1", dates: "04/27 - 05/03", days: [
-    { name: "Sunday", date: "04/27/2026" }, { name: "Monday", date: "04/28/2026" },
-    { name: "Tuesday", date: "04/29/2026" }, { name: "Wednesday", date: "04/30/2026" },
-    { name: "Thursday", date: "05/01/2026" }, { name: "Friday", date: "05/02/2026" }
+    { name: "Sun", date: "04/27/2026" }, { name: "Mon", date: "04/28/2026" },
+    { name: "Tue", date: "04/29/2026" }, { name: "Wed", date: "04/30/2026" },
+    { name: "Thu", date: "05/01/2026" }, { name: "Fri", date: "05/02/2026" }
   ]},
   { num: 2, label: "Week 2", dates: "05/04 - 05/09", days: [
-    { name: "Sunday", date: "05/03/2026" }, { name: "Monday", date: "05/04/2026" },
-    { name: "Tuesday", date: "05/05/2026" }, { name: "Wednesday", date: "05/06/2026" },
-    { name: "Thursday", date: "05/07/2026" }, { name: "Friday", date: "05/08/2026" }
+    { name: "Sun", date: "05/03/2026" }, { name: "Mon", date: "05/04/2026" },
+    { name: "Tue", date: "05/05/2026" }, { name: "Wed", date: "05/06/2026" },
+    { name: "Thu", date: "05/07/2026" }, { name: "Fri", date: "05/08/2026" }
   ]},
   { num: 3, label: "Week 3", dates: "05/10 - 05/15", days: [
-    { name: "Sunday", date: "05/10/2026" }, { name: "Monday", date: "05/11/2026" },
-    { name: "Tuesday", date: "05/12/2026" }, { name: "Wednesday", date: "05/13/2026" },
-    { name: "Thursday", date: "05/14/2026" }, { name: "Friday", date: "05/15/2026" }
+    { name: "Sun", date: "05/10/2026" }, { name: "Mon", date: "05/11/2026" },
+    { name: "Tue", date: "05/12/2026" }, { name: "Wed", date: "05/13/2026" },
+    { name: "Thu", date: "05/14/2026" }, { name: "Fri", date: "05/15/2026" }
   ]},
   { num: 4, label: "Week 4", dates: "05/18 - 05/22", days: [
-    { name: "Sunday", date: "05/17/2026" }, { name: "Monday", date: "05/18/2026" },
-    { name: "Tuesday", date: "05/19/2026" }, { name: "Wednesday", date: "05/20/2026" },
-    { name: "Thursday", date: "05/21/2026" }, { name: "Friday", date: "05/22/2026" }
+    { name: "Sun", date: "05/17/2026" }, { name: "Mon", date: "05/18/2026" },
+    { name: "Tue", date: "05/19/2026" }, { name: "Wed", date: "05/20/2026" },
+    { name: "Thu", date: "05/21/2026" }, { name: "Fri", date: "05/22/2026" }
   ]}
 ];
 
 var trades = [
   {
-    id: 10, date: "05/10/2026", entryTime: "6:25:24 PM", entryPrice: 7397.50, stopPrice: 7395.50,
+    id: 10, date: "05/10/2026", entryTime: "6:25 PM", entryPrice: 7397.50, stopPrice: 7395.50,
     setup: "FBD", result: "loss", contracts: 10, tradeLabel: "7391 Failed Breakdown",
     targets: [{ label: "T1", price: 7395.50, contracts: 10, status: "stopped", pnl: -90.00, exitTime: "6:42 PM", exitPrice: 7395.50 }],
-    times: [{ label: "Entry", value: "6:25:24 PM" }, { label: "Stopped", value: "16m 48s" }],
+    times: [{ label: "Entry", value: "6:25 PM" }, { label: "Stopped", value: "16m 48s" }],
     totalPts: -2.00, totalPnl: -90.00, exitNote: "Stopped out", journal: ""
   },
   {
-    id: 9, date: "05/10/2026", entryTime: "6:44:01 PM", entryPrice: 7398.50, stopPrice: 7391.00,
+    id: 9, date: "05/10/2026", entryTime: "6:44 PM", entryPrice: 7398.50, stopPrice: 7391.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7391 Failed Breakdown",
     targets: [
       { label: "T1", price: 7401.75, contracts: 4, status: "hit",  pnl: 65.00,  exitTime: "6:50 PM" },
@@ -213,84 +224,84 @@ var trades = [
       { label: "T3", price: 7408.75, contracts: 2, status: "hit",  pnl: 102.50, exitTime: "9:23 PM" },
       { label: "T4", price: 7422.00, contracts: 1, status: "miss", pnl: 0,      exitTime: null }
     ],
-    times: [{ label: "Entry", value: "6:44:01 PM" }, { label: "T1", value: "5m 57s" }, { label: "T2", value: "18m 8s" }, { label: "T3", value: "2h 39m" }, { label: "T4", value: "open" }],
+    times: [{ label: "Entry", value: "6:44 PM" }, { label: "T1", value: "5m 57s" }, { label: "T2", value: "18m 8s" }, { label: "T3", value: "2h 39m" }, { label: "T4", value: "open" }],
     totalPts: 44.25, totalPnl: 283.75, exitNote: "1 contract still open — target 7422", journal: ""
   },
   {
-    id: 8, date: "05/04/2026", entryTime: "12:20:29 PM", entryPrice: 7222.25, stopPrice: 7198.00,
+    id: 8, date: "05/04/2026", entryTime: "12:20 PM", entryPrice: 7222.25, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7214 Failed Breakdown",
     targets: [
       { label: "T1", price: 7227.25, contracts: 7, status: "hit", pnl: 175.00, exitTime: "12:22 PM" },
       { label: "T2", price: 7225.75, contracts: 3, status: "eod", pnl: 52.50,  exitTime: "1:11 PM", exitPrice: 7225.75 }
     ],
-    times: [{ label: "Entry", value: "12:20:29 PM" }, { label: "T1", value: "1m 47s" }, { label: "T2", value: "50m 32s" }],
+    times: [{ label: "Entry", value: "12:20 PM" }, { label: "T1", value: "1m 47s" }, { label: "T2", value: "50m 32s" }],
     totalPts: 44.50, totalPnl: 227.50, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 7, date: "05/04/2026", entryTime: "12:39:04 PM", entryPrice: 7219.75, stopPrice: 7198.00,
+    id: 7, date: "05/04/2026", entryTime: "12:39 PM", entryPrice: 7219.75, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 3, tradeLabel: "7214 Failed Breakdown",
     targets: [
       { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50,  exitTime: "1:17 PM" },
       { label: "T2", price: 7225.50, contracts: 2, status: "eod", pnl: 57.50,  exitTime: "4:05 PM", exitPrice: 7225.50 }
     ],
-    times: [{ label: "Entry", value: "12:39:04 PM" }, { label: "T1", value: "38m 15s" }, { label: "T2", value: "3h 25m" }],
+    times: [{ label: "Entry", value: "12:39 PM" }, { label: "T1", value: "38m 15s" }, { label: "T2", value: "3h 25m" }],
     totalPts: 18.25, totalPnl: 120.00, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 6, date: "05/04/2026", entryTime: "11:27:02 PM", entryPrice: 7240.50, stopPrice: 7230.00,
+    id: 6, date: "05/04/2026", entryTime: "11:27 PM", entryPrice: 7240.50, stopPrice: 7230.00,
     setup: "LEVEL_RECLAIM", result: "win", contracts: 7, tradeLabel: "7240 Level Reclaim",
     targets: [
       { label: "T1", price: 7247.75, contracts: 6, status: "hit", pnl: 211.25, exitTime: "2:55 AM" },
       { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25,  exitTime: "6:39 AM" }
     ],
-    times: [{ label: "Entry", value: "11:27:02 PM" }, { label: "T1", value: "3h 28m" }, { label: "T2", value: "7h 11m" }],
+    times: [{ label: "Entry", value: "11:27 PM" }, { label: "T1", value: "3h 28m" }, { label: "T2", value: "7h 11m" }],
     totalPts: 60.75, totalPnl: 297.50, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 5, date: "05/05/2026", entryTime: "7:15:13 PM", entryPrice: 7319.00, stopPrice: 7306.75,
+    id: 5, date: "05/05/2026", entryTime: "7:15 PM", entryPrice: 7319.00, stopPrice: 7306.75,
     setup: "LEVEL_RECLAIM", result: "loss", contracts: 5, tradeLabel: "7300 Level Reclaim",
     targets: [
       { label: "T1", price: 7324.00, contracts: 5, status: "miss", pnl: 0, exitTime: null },
       { label: "T2", price: 7331.00, contracts: 5, status: "miss", pnl: 0, exitTime: null },
       { label: "T3", price: 7339.00, contracts: 5, status: "miss", pnl: 0, exitTime: null }
     ],
-    times: [{ label: "Entry", value: "7:15:13 PM" }, { label: "Stopped", value: "59m 57s" }],
+    times: [{ label: "Entry", value: "7:15 PM" }, { label: "Stopped", value: "59m 57s" }],
     totalPts: -12.25, totalPnl: -306.25, exitNote: "Stopped out", journal: ""
   },
   {
-    id: 4, date: "05/06/2026", entryTime: "9:48:04 AM", entryPrice: 7343.50, stopPrice: 7325.00,
+    id: 4, date: "05/06/2026", entryTime: "9:48 AM", entryPrice: 7343.50, stopPrice: 7325.00,
     setup: "LEVEL_RECLAIM", result: "win", contracts: 3, tradeLabel: "7340 Level Reclaim",
     targets: [
       { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00,  exitTime: "10:25 AM" },
       { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00, exitTime: "10:41 AM" }
     ],
-    times: [{ label: "Entry", value: "9:48:04 AM" }, { label: "T1", value: "36m 59s" }, { label: "T2", value: "53m 12s" }],
+    times: [{ label: "Entry", value: "9:48 AM" }, { label: "T1", value: "36m 59s" }, { label: "T2", value: "53m 12s" }],
     totalPts: 40.00, totalPnl: 200.00, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 3, date: "05/07/2026", entryTime: "12:32:18 PM", entryPrice: 7382.00, stopPrice: 7368.50,
+    id: 3, date: "05/07/2026", entryTime: "12:32 PM", entryPrice: 7382.00, stopPrice: 7368.50,
     setup: "FBD", result: "loss", contracts: 3, tradeLabel: "7377 Failed Breakdown",
     targets: [
       { label: "T1", price: 7387.00, contracts: 3, status: "miss", pnl: 0, exitTime: null },
       { label: "T2", price: 7394.00, contracts: 3, status: "miss", pnl: 0, exitTime: null },
       { label: "T3", price: 7402.00, contracts: 3, status: "miss", pnl: 0, exitTime: null }
     ],
-    times: [{ label: "Entry", value: "12:32:18 PM" }, { label: "Stopped", value: "24m 24s" }],
+    times: [{ label: "Entry", value: "12:32 PM" }, { label: "Stopped", value: "24m 24s" }],
     totalPts: -13.50, totalPnl: -213.75, exitNote: "Stopped out", journal: ""
   },
   {
-    id: 2, date: "05/07/2026", entryTime: "1:40:15 PM", entryPrice: 7363.50, stopPrice: 7344.00,
+    id: 2, date: "05/07/2026", entryTime: "1:40 PM", entryPrice: 7363.50, stopPrice: 7344.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7355 Failed Breakdown",
     targets: [
       { label: "T1", price: 7368.50, contracts: 7, status: "hit",     pnl: 175.00, exitTime: "2:08 PM" },
       { label: "T2", price: 7383.00, contracts: 2, status: "eod",     pnl: 55.00,  exitTime: "4:02 PM", exitPrice: 7369.00 },
       { label: "T3", price: null,    contracts: 1, status: "stopped", pnl: -35.00, exitTime: "4:50 PM", exitPrice: 7356.50 }
     ],
-    times: [{ label: "Entry", value: "1:40:15 PM" }, { label: "T1", value: "27m 34s" }, { label: "T2", value: "2h 22m" }, { label: "T3", value: "3h 9m" }],
+    times: [{ label: "Entry", value: "1:40 PM" }, { label: "T1", value: "27m 34s" }, { label: "T2", value: "2h 22m" }, { label: "T3", value: "3h 9m" }],
     totalPts: 46.50, totalPnl: 195.00, exitNote: "Position fully exited", journal: ""
   },
   {
-    id: 1, date: "05/07/2026", entryTime: "6:20:35 PM", entryPrice: 7353.50, stopPrice: 7335.00,
+    id: 1, date: "05/07/2026", entryTime: "6:20 PM", entryPrice: 7353.50, stopPrice: 7335.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7345 Failed Breakdown",
     targets: [
       { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00, exitTime: "6:21 PM" },
@@ -298,11 +309,24 @@ var trades = [
       { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50, exitTime: "1:13 AM" },
       { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50, exitTime: "5:28 AM" }
     ],
-    times: [{ label: "Entry", value: "6:20:35 PM" }, { label: "T1", value: "33s" }, { label: "T2", value: "1h 42m" }, { label: "T3", value: "6h 52m" }, { label: "T4", value: "11h 7m" }],
+    times: [{ label: "Entry", value: "6:20 PM" }, { label: "T1", value: "33s" }, { label: "T2", value: "1h 42m" }, { label: "T3", value: "6h 52m" }, { label: "T4", value: "11h 7m" }],
     totalPts: 123.50, totalPnl: 615.00, exitNote: "Position fully exited",
     journal: "Post market Thursday, after a long grind down all day in ETH, we got the FBD of the Daily RTH Low at 7345. 6pm opened with a gap down below this low. We flushed to about 7337 then quickly recovered 7345 by 6:15pm. I took 10 contracts here using the NAP, entry was at 6:20pm at 7353.50 and I had my TP1 at 7358.50 which hit seconds later. TP2 hit around 8pm at 7366.50. I left my last 2 runners to run overnight. I had my TP3 set at 7380 and my 4th set at 7402. We hit both of these overnight. When I checked price in the morning (Friday), ES was repeatedly testing 7402. Total on this trade was $604.60."
   }
 ];
+
+var currentFilter = "all";
+
+function getFilteredTrades() {
+  var f = [];
+  for (var i = 0; i < trades.length; i++) {
+    var t = trades[i];
+    if (currentFilter === "all") f.push(t);
+    else if (currentFilter === "win" || currentFilter === "loss") { if (t.result === currentFilter) f.push(t); }
+    else { if (t.setup === currentFilter) f.push(t); }
+  }
+  return f;
+}
 
 function scClass(s) {
   if (s === "hit") return "tp-hit";
@@ -354,9 +378,14 @@ function renderCard(tr) {
     toggle + "</div>";
 }
 
+function setupBadge(setup) {
+  if (setup === "FBD") return "<span class='day-tile-setup-badge badge-fbd'>FBD</span>";
+  if (setup === "LEVEL_RECLAIM") return "<span class='day-tile-setup-badge badge-reclaim'>LEVEL RECLAIM</span>";
+  return "<span class='day-tile-setup-badge badge-bounce'>SUPPORT BOUNCE</span>";
+}
+
 function renderAll(list) {
   var html = "";
-  var total = 0; var wins = 0;
   for (var w = 0; w < weeks.length; w++) {
     var week = weeks[w];
     var wt = [];
@@ -367,47 +396,100 @@ function renderAll(list) {
     }
     var wp = 0; var ww = 0;
     for (var i = 0; i < wt.length; i++) { wp += wt[i].totalPnl; if (wt[i].result === "win") ww++; }
-    total += wp; wins += ww;
     var wr = wt.length ? Math.round(ww / wt.length * 100) + "%" : "--";
     var wps = wt.length ? (wp >= 0 ? "+$" : "-$") + Math.abs(wp).toFixed(2) : "--";
     var wpc = wp >= 0 ? "pos" : "neg";
-    var dayHtml = "";
+
+    var dayTilesHtml = "<div class='day-row'>";
     for (var d = 0; d < week.days.length; d++) {
       var day = week.days[d];
       var dt = [];
       for (var i = 0; i < wt.length; i++) { if (wt[i].date === day.date) dt.push(wt[i]); }
       var dp = 0;
       for (var i = 0; i < dt.length; i++) { dp += dt[i].totalPnl; }
-      var dps = dt.length ? (dp >= 0 ? "+$" : "-$") + Math.abs(dp).toFixed(2) : "";
-      var cards = dt.length ? "" : "<div class='no-trades'>No trades</div>";
-      for (var i = 0; i < dt.length; i++) { cards += renderCard(dt[i]); }
-      dayHtml += "<div class='day-section'><div class='day-header'><div><span class='day-title'>" + day.name + "</span><span class='day-date'>" + day.date + "</span></div>" + (dps ? "<span class='day-pnl " + (dp >= 0 ? "pos" : "neg") + "'>" + dps + "</span>" : "") + "</div><div class='day-grid'>" + cards + "</div></div>";
+
+      if (dt.length === 0) {
+        dayTilesHtml += "<div class='day-tile no-trades'><div class='day-tile-name'>" + day.name + "</div><div class='day-tile-date'>" + day.date.slice(0,5) + "</div></div>";
+      } else {
+        var seenSetups = {};
+        var badgesHtml = "";
+        for (var i = 0; i < dt.length; i++) {
+          if (!seenSetups[dt[i].tradeLabel]) {
+            seenSetups[dt[i].tradeLabel] = true;
+            badgesHtml += setupBadge(dt[i].setup) + "<span style='font-size:9px;color:#8b949e;margin-left:4px;'>" + dt[i].tradeLabel + "</span><br>";
+          }
+        }
+        var dpStr = (dp >= 0 ? "+$" : "-$") + Math.abs(dp).toFixed(2);
+        var dpCls = dp >= 0 ? "pos" : "neg";
+        dayTilesHtml += "<div class='day-tile has-trades' onclick='openDrillDown(" + week.num + ", \"" + day.date + "\")'>" +
+          "<div class='day-tile-name'>" + day.name + "</div>" +
+          "<div class='day-tile-date'>" + day.date.slice(0,5) + "</div>" +
+          "<div class='day-tile-setups'>" + badgesHtml + "</div>" +
+          "<div class='day-tile-pnl " + dpCls + "'>" + dpStr + "</div>" +
+          "</div>";
+      }
     }
-    html += "<div class='week-block'><div class='week-header' onclick='toggleWeek(" + week.num + ")'><div class='week-left'><span class='week-toggle-icon' id='icon-" + week.num + "'>&#9658;</span><span class='week-title'>" + week.label + "</span><span class='week-dates'>" + week.dates + "</span></div><div class='week-right'><div class='week-stat'><div class='week-stat-label'>P&amp;L</div><div class='week-stat-value " + wpc + "'>" + wps + "</div></div><div class='week-stat'><div class='week-stat-label'>Win Rate</div><div class='week-stat-value " + wpc + "'>" + wr + "</div></div><div class='week-stat'><div class='week-stat-label'>Trades</div><div class='week-stat-value'>" + wt.length + "</div></div></div></div><div class='week-body' id='week-" + week.num + "'>" + dayHtml + "</div></div>";
+    dayTilesHtml += "</div>";
+
+    html += "<div class='week-block'>" +
+      "<div class='week-header' onclick='toggleWeek(" + week.num + ")'>" +
+        "<div class='week-left'><span class='week-toggle-icon' id='icon-" + week.num + "'>&#9658;</span><span class='week-title'>" + week.label + "</span><span class='week-dates'>" + week.dates + "</span></div>" +
+        "<div class='week-right'><div class='week-stat'><div class='week-stat-label'>P&amp;L</div><div class='week-stat-value " + wpc + "'>" + wps + "</div></div><div class='week-stat'><div class='week-stat-label'>Win Rate</div><div class='week-stat-value " + wpc + "'>" + wr + "</div></div><div class='week-stat'><div class='week-stat-label'>Trades</div><div class='week-stat-value'>" + wt.length + "</div></div></div>" +
+      "</div>" +
+      "<div class='week-body' id='week-" + week.num + "'>" +
+        dayTilesHtml +
+        "<div class='drill-view' id='drill-" + week.num + "'></div>" +
+      "</div>" +
+    "</div>";
   }
   document.getElementById("journal").innerHTML = html;
-
 }
 
 function toggleWeek(num) {
   var body = document.getElementById("week-" + num);
   var icon = document.getElementById("icon-" + num);
-  if (body.classList.contains("open")) { body.classList.remove("open"); icon.classList.remove("open"); }
-  else { body.classList.add("open"); icon.classList.add("open"); }
+  if (body.classList.contains("open")) {
+    body.classList.remove("open");
+    icon.classList.remove("open");
+    var drill = document.getElementById("drill-" + num);
+    drill.classList.remove("open");
+    drill.innerHTML = "";
+  } else {
+    body.classList.add("open");
+    icon.classList.add("open");
+  }
+}
+
+function openDrillDown(weekNum, date) {
+  var list = getFilteredTrades();
+  var dayTrades = [];
+  for (var i = 0; i < list.length; i++) { if (list[i].date === date) dayTrades.push(list[i]); }
+  if (!dayTrades.length) return;
+
+  var cardsHtml = "";
+  for (var i = 0; i < dayTrades.length; i++) { cardsHtml += renderCard(dayTrades[i]); }
+
+  var drill = document.getElementById("drill-" + weekNum);
+  drill.innerHTML =
+    "<button class='drill-back' onclick='closeDrillDown(" + weekNum + ")'><span class='drill-back-arrow'>&#8592;</span> Back to week</button>" +
+    "<div class='drill-title'>" + date + " — Trade Cards</div>" +
+    "<div class='drill-cards'>" + cardsHtml + "</div>";
+  drill.classList.add("open");
+  drill.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function closeDrillDown(weekNum) {
+  var drill = document.getElementById("drill-" + weekNum);
+  drill.classList.remove("open");
+  drill.innerHTML = "";
 }
 
 function filterTrades(type, btn) {
   var btns = document.querySelectorAll(".filter-btn");
   for (var i = 0; i < btns.length; i++) { btns[i].classList.remove("active"); }
   btn.classList.add("active");
-  var f = [];
-  for (var i = 0; i < trades.length; i++) {
-    var t = trades[i];
-    if (type === "all") f.push(t);
-    else if (type === "win" || type === "loss") { if (t.result === type) f.push(t); }
-    else { if (t.setup === type) f.push(t); }
-  }
-  renderAll(f);
+  currentFilter = type;
+  renderAll(getFilteredTrades());
 }
 
 function toggleJournal(id) {
@@ -427,9 +509,40 @@ function closeImg() {
   document.getElementById("img-overlay").classList.remove("open");
 }
 
-// ---- CALENDAR ----
+function getDayMap() {
+  var map = {};
+  for (var i = 0; i < trades.length; i++) { map[trades[i].date] = true; }
+  return map;
+}
+
+function renderDashboard() {
+  var totalPnl = 0, totalTrades = 0, winTrades = 0;
+  for (var i = 0; i < trades.length; i++) {
+    totalPnl += trades[i].totalPnl;
+    totalTrades++;
+    if (trades[i].result === "win") winTrades++;
+  }
+  var winRate = totalTrades ? Math.round(winTrades / totalTrades * 100) : 0;
+  var lossTrades = totalTrades - winTrades;
+  var activeDays = Object.keys(getDayMap()).length;
+  var cards = [
+    { label: "Total P&L", value: (totalPnl >= 0 ? "+$" : "-$") + Math.abs(totalPnl).toFixed(2), valueCls: totalPnl >= 0 ? "pos" : "neg", sub: totalTrades + " trades across " + activeDays + " trading days", accent: totalPnl >= 0 ? "#00e676" : "#e05c5c" },
+    { label: "Win Rate", value: winRate + "%", valueCls: winRate >= 50 ? "pos" : "neg", sub: winTrades + " wins &bull; " + lossTrades + " losses", accent: winRate >= 50 ? "#00e676" : "#e05c5c" },
+    { label: "Total Trades", value: totalTrades, valueCls: "", sub: "Across " + activeDays + " active trading days", accent: "#b57bee" },
+    { label: "Winning Trades", value: winTrades, valueCls: "pos", sub: lossTrades + " losing trade" + (lossTrades !== 1 ? "s" : ""), accent: "#00e676" }
+  ];
+  var html = "<div class='dash-grid'>";
+  for (var i = 0; i < cards.length; i++) {
+    var c = cards[i];
+    html += "<div class='dash-card'><div class='dash-card-accent' style='background:" + c.accent + ";'></div><div class='dash-card-label'>" + c.label + "</div><div class='dash-card-value" + (c.valueCls ? " " + c.valueCls : "") + "'>" + c.value + "</div><div class='dash-card-sub'>" + c.sub + "</div></div>";
+  }
+  html += "</div>";
+  document.getElementById("dash-section").innerHTML = html;
+}
+
+// Calendar
 var calYear = 2026;
-var calMonth = 4; // May = 4
+var calMonth = 4;
 
 function buildTimelineMap() {
   var map = {};
@@ -459,9 +572,7 @@ function buildTimelineMap() {
       { type: "entry", time: "6:44 PM" }, { type: "exit", time: "6:50 PM" }, { type: "exit", time: "7:02 PM" }, { type: "exit", time: "9:23 PM" }
     ]}
   ];
-  for (var i = 0; i < allEvents.length; i++) {
-    map[allEvents[i].date] = allEvents[i].events;
-  }
+  for (var i = 0; i < allEvents.length; i++) { map[allEvents[i].date] = allEvents[i].events; }
   return map;
 }
 
@@ -474,7 +585,7 @@ function timeToOffset(timeStr) {
   if (ampm === "PM" && h !== 12) h += 12;
   if (ampm === "AM" && h === 12) h = 0;
   var totalMins = h * 60 + m;
-  var startMins = 18 * 60; // 6 PM
+  var startMins = 18 * 60;
   var diff = totalMins - startMins;
   if (diff < 0) diff += 24 * 60;
   return diff / (24 * 60);
@@ -483,41 +594,24 @@ function timeToOffset(timeStr) {
 function buildTimelinePopup(dateStr, eventsMap) {
   var events = eventsMap[dateStr];
   if (!events || events.length === 0) return "";
-
-  var tickLabels = ["6 PM","12 AM","6 AM","12 PM","6 PM"];
   var tickHtml = "";
-  for (var t = 0; t < tickLabels.length; t++) {
-    tickHtml += "<span class='cal-timeline-tick'>" + tickLabels[t] + "</span>";
-  }
-
-  // Group dots by approximate position to stack them
+  var ticks = ["6 PM","12 AM","6 AM","12 PM","6 PM"];
+  for (var t = 0; t < ticks.length; t++) { tickHtml += "<span class='cal-timeline-tick'>" + ticks[t] + "</span>"; }
   var posMap = {};
   for (var i = 0; i < events.length; i++) {
-    var pct = Math.round(timeToOffset(events[i].time) * 1000) / 10;
-    var key = Math.round(pct);
-    if (!posMap[key]) posMap[key] = [];
-    posMap[key].push(events[i]);
+    var pct = Math.round(timeToOffset(events[i].time) * 100);
+    if (!posMap[pct]) posMap[pct] = [];
+    posMap[pct].push(events[i]);
   }
-
   var dotsHtml = "";
   for (var key in posMap) {
     var group = posMap[key];
     for (var j = 0; j < group.length; j++) {
-      var ev = group[j];
-      var pct = parseFloat(key);
-      var topOffset = 50 + (j - (group.length - 1) / 2) * 10;
-      dotsHtml += "<div class='cal-timeline-dot " + ev.type + "' style='left:" + pct + "%;top:" + topOffset + "%;' data-tip='" + ev.time + " " + ev.type + "'></div>";
+      var topPct = 50 + (j - (group.length - 1) / 2) * 12;
+      dotsHtml += "<div class='cal-timeline-dot " + group[j].type + "' style='left:" + key + "%;top:" + topPct + "%;'></div>";
     }
   }
-
-  return "<div class='cal-timeline-popup'>" +
-    "<div class='cal-timeline-popup-title'>" + dateStr + " &mdash; 6PM to 6PM</div>" +
-    "<div class='cal-timeline-track'>" +
-      "<div class='cal-timeline-line'></div>" +
-      dotsHtml +
-    "</div>" +
-    "<div class='cal-timeline-ticks'>" + tickHtml + "</div>" +
-    "</div>";
+  return "<div class='cal-timeline-popup'><div class='cal-timeline-popup-title'>" + dateStr + " &mdash; 6PM to 6PM</div><div class='cal-timeline-track'><div class='cal-timeline-line'></div>" + dotsHtml + "</div><div class='cal-timeline-ticks'>" + tickHtml + "</div></div>";
 }
 
 function buildDayMap() {
@@ -540,64 +634,38 @@ function renderCalendar() {
   var map = buildDayMap();
   var tlMap = buildTimelineMap();
   document.getElementById("cal-month-label").textContent = monthNames[calMonth] + " " + calYear;
-
-  var firstDow = new Date(calYear, calMonth, 1).getDay(); // 0=Sun
+  var firstDow = new Date(calYear, calMonth, 1).getDay();
   var daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
   var today = new Date();
-
-  // Header row: Sun Mon Tue Wed Thu Fri | Week Total
   var html = "";
   var dowLabels = ["Sun","Mon","Tue","Wed","Thu","Fri","Week Total"];
   for (var d = 0; d < 7; d++) {
-    var cls = d === 6 ? "cal-dow total" : "cal-dow normal";
-    html += "<div class='" + cls + "'>" + dowLabels[d] + "</div>";
+    html += "<div class='cal-dow " + (d === 6 ? "total" : "normal") + "'>" + dowLabels[d] + "</div>";
   }
-
-  // Leading empty cells (skip Saturday slots — col 6)
-  // We only show cols 0-5 (Sun-Fri) + col 6 (Week Total)
-  // firstDow: 0=Sun..5=Fri, 6=Sat -> if firstDow=6, skip to next Sunday
-  var startCol = firstDow === 6 ? 0 : firstDow; // which col (0-5) the 1st falls on
-  var satSkip = firstDow === 6; // if month starts on Saturday, first day goes to next row
-
-  // Build week rows
-  // Track position: col 0-5 = Sun-Fri, col 6 = Week Total
-  var col = satSkip ? 0 : firstDow;
-  if (col === 6) col = 0; // safety
-
-  // Fill leading empties
-  for (var e = 0; e < col; e++) {
-    html += "<div class='cal-cell empty'></div>";
-  }
-
+  var col = firstDow === 6 ? 0 : firstDow;
+  for (var e = 0; e < col; e++) { html += "<div class='cal-cell empty'></div>"; }
   var weekPnl = 0; var weekCount = 0; var weekWins = 0;
-  // Accumulate any partial leading days into week totals (none before day 1)
-
   for (var day = 1; day <= daysInMonth; day++) {
     var jsDate = new Date(calYear, calMonth, day);
-    var dow = jsDate.getDay(); // 0=Sun..6=Sat
-
-    // Skip Saturdays — don't render a cell, just accumulate
-    if (dow === 6) { continue; }
-
+    var dow = jsDate.getDay();
+    if (dow === 6) continue;
     var mm = String(calMonth + 1).padStart(2, "0");
     var dd = String(day).padStart(2, "0");
     var key = calYear + "-" + mm + "-" + dd;
+    var dateStr = mm + "/" + dd + "/" + calYear;
     var data = map[key];
     var isToday = (today.getFullYear() === calYear && today.getMonth() === calMonth && today.getDate() === day);
-
+    var tl = data ? buildTimelinePopup(dateStr, tlMap) : "";
     if (data) {
       weekPnl += data.pnl; weekCount += data.count; weekWins += data.wins;
       var pnlStr = (data.pnl >= 0 ? "+$" : "-$") + Math.abs(data.pnl).toFixed(2);
       var pnlCls = data.pnl >= 0 ? "pos" : "neg";
-      var tl = buildTimelinePopup(mm + "/" + dd + "/" + calYear, tlMap);
       var bgCls = data.pnl >= 0 ? " green-bg" : " red-bg";
       var wr = Math.round(data.wins / data.count * 100);
       html += "<div class='cal-cell has-trades" + bgCls + (isToday ? " today" : "") + "'>" + tl + "<div class='cal-day-num'>" + day + "</div><div class='cal-pnl " + pnlCls + "'>" + pnlStr + "</div><div class='cal-meta'>Trades: " + data.count + "<br>Win%: " + wr + "</div></div>";
     } else {
       html += "<div class='cal-cell" + (isToday ? " today" : "") + "'><div class='cal-day-num'>" + day + "</div></div>";
     }
-
-    // After Friday (dow===5), insert Week Total cell then start new row
     if (dow === 5) {
       var wtBg = weekCount > 0 ? (weekPnl >= 0 ? " week-green" : " week-red") : "";
       if (weekCount > 0) {
@@ -611,14 +679,10 @@ function renderCalendar() {
       weekPnl = 0; weekCount = 0; weekWins = 0;
     }
   }
-
-  // If month ends before Friday, close out the last week row
   var lastDow = new Date(calYear, calMonth, daysInMonth).getDay();
   if (lastDow !== 5 && lastDow !== 6) {
-    // fill remaining day cells
-    var remaining = 5 - lastDow; // cols left before Friday
+    var remaining = 5 - lastDow;
     for (var r = 0; r < remaining; r++) { html += "<div class='cal-cell empty'></div>"; }
-    // week total for partial last week
     var wtBg2 = weekCount > 0 ? (weekPnl >= 0 ? " week-green" : " week-red") : "";
     if (weekCount > 0) {
       var wtStr2 = (weekPnl >= 0 ? "+$" : "-$") + Math.abs(weekPnl).toFixed(2);
@@ -629,86 +693,15 @@ function renderCalendar() {
       html += "<div class='cal-cell week-total-cell'><div class='cal-week-label'>WEEK</div></div>";
     }
   }
-
   document.getElementById("cal-grid").innerHTML = html;
 }
 
-function prevMonth() {
-  calMonth--;
-  if (calMonth < 0) { calMonth = 11; calYear--; }
-  renderCalendar();
-}
+function prevMonth() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
+function nextMonth() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
 
-function nextMonth() {
-  calMonth++;
-  if (calMonth > 11) { calMonth = 0; calYear++; }
-  renderCalendar();
-}
-
-renderAll(trades);
-renderCalendar();
 renderDashboard();
-
-function renderDashboard() {
-  var totalPnl = 0, totalTrades = 0, winTrades = 0;
-  for (var i = 0; i < trades.length; i++) {
-    totalPnl += trades[i].totalPnl;
-    totalTrades++;
-    if (trades[i].result === "win") winTrades++;
-  }
-  var winRate = totalTrades ? Math.round(winTrades / totalTrades * 100) : 0;
-  var lossTrades = totalTrades - winTrades;
-
-  var cards = [
-    {
-      label: "Total P&L",
-      value: (totalPnl >= 0 ? "+$" : "-$") + Math.abs(totalPnl).toFixed(2),
-      valueCls: totalPnl >= 0 ? "pos" : "neg",
-      sub: totalTrades + " trades across " + Object.keys(getDayMap()).length + " trading days",
-      accent: totalPnl >= 0 ? "#00e676" : "#e05c5c"
-    },
-    {
-      label: "Win Rate",
-      value: winRate + "%",
-      valueCls: winRate >= 50 ? "pos" : "neg",
-      sub: winTrades + " wins &bull; " + lossTrades + " losses",
-      accent: winRate >= 50 ? "#00e676" : "#e05c5c"
-    },
-    {
-      label: "Total Trades",
-      value: totalTrades,
-      valueCls: "",
-      sub: "Across " + Object.keys(getDayMap()).length + " active trading days",
-      accent: "#b57bee"
-    },
-    {
-      label: "Winning Trades",
-      value: winTrades,
-      valueCls: "pos",
-      sub: lossTrades + " losing trade" + (lossTrades !== 1 ? "s" : ""),
-      accent: "#00e676"
-    }
-  ];
-
-  var html = "<div class='dash-grid'>";
-  for (var i = 0; i < cards.length; i++) {
-    var c = cards[i];
-    html += "<div class='dash-card'>" +
-      "<div class='dash-card-accent' style='background:" + c.accent + ";'></div>" +
-      "<div class='dash-card-label'>" + c.label + "</div>" +
-      "<div class='dash-card-value" + (c.valueCls ? " " + c.valueCls : "") + "'>" + c.value + "</div>" +
-      "<div class='dash-card-sub'>" + c.sub + "</div>" +
-      "</div>";
-  }
-  html += "</div>";
-  document.getElementById("dash-section").innerHTML = html;
-}
-
-function getDayMap() {
-  var map = {};
-  for (var i = 0; i < trades.length; i++) { map[trades[i].date] = true; }
-  return map;
-}
+renderAll(getFilteredTrades());
+renderCalendar();
 </script>
 </body>
 </html>
