@@ -423,7 +423,7 @@ function buildDayMap() {
 }
 
 var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-var dowNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var dowNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Week Total"];
 
 function renderCalendar() {
   var map = buildDayMap();
@@ -434,8 +434,14 @@ function renderCalendar() {
   var today = new Date();
   var html = "";
   for (var d = 0; d < 7; d++) { html += "<div class='cal-dow'>" + dowNames[d] + "</div>"; }
-  for (var e = 0; e < firstDay; e++) { html += "<div class='cal-cell empty'></div>"; }
+  for (var e = 0; e < firstDay; e++) {
+    if (e < 6) html += "<div class='cal-cell empty'></div>";
+  }
+  var weekPnl = 0; var weekCount = 0; var weekWins = 0;
   for (var day = 1; day <= daysInMonth; day++) {
+    var dayOfWeek = (firstDay + day - 1) % 7;
+    if (dayOfWeek === 6) { day--; } // skip Saturday slot, insert week total instead
+    else {
     var mm = String(calMonth + 1).padStart(2, "0");
     var dd = String(day).padStart(2, "0");
     var key = calYear + "-" + mm + "-" + dd;
@@ -446,12 +452,29 @@ function renderCalendar() {
     if (data) {
       cls += " has-trades";
       cls += data.pnl >= 0 ? " green-bg" : " red-bg";
+      weekPnl += data.pnl; weekCount += data.count; weekWins += data.wins;
       var pnlStr = (data.pnl >= 0 ? "+$" : "-$") + Math.abs(data.pnl).toFixed(2);
       var pnlCls = data.pnl >= 0 ? "pos" : "neg";
       var wr = Math.round(data.wins / data.count * 100);
       html += "<div class='" + cls + "'><div class='cal-day-num'>" + day + "</div><div class='cal-pnl " + pnlCls + "'>" + pnlStr + "</div><div class='cal-meta'>Trades: " + data.count + "<br>Win Rate: " + wr + "%</div></div>";
     } else {
       html += "<div class='" + cls + "'><div class='cal-day-num'>" + day + "</div></div>";
+    }
+    }
+    // After Friday (dayOfWeek===5), insert week total cell
+    if (dayOfWeek === 5 || day === daysInMonth) {
+      var wtCls = "cal-cell";
+      if (weekCount > 0) {
+        wtCls += weekPnl >= 0 ? " green-bg" : " red-bg";
+        var wtPnlStr = (weekPnl >= 0 ? "+$" : "-$") + Math.abs(weekPnl).toFixed(2);
+        var wtPnlCls = weekPnl >= 0 ? "pos" : "neg";
+        var wtWr = Math.round(weekWins / weekCount * 100);
+        html += "<div class='" + wtCls + " has-trades'><div class='cal-day-num' style='color:#b57bee;font-weight:700;'>WEEK</div><div class='cal-pnl " + wtPnlCls + "'>" + wtPnlStr + "</div><div class='cal-meta'>Trades: " + weekCount + "<br>Win Rate: " + wtWr + "%</div></div>";
+      } else {
+        html += "<div class='" + wtCls + "'><div class='cal-day-num' style='color:#b57bee;font-weight:700;'>WEEK</div></div>";
+      }
+      weekPnl = 0; weekCount = 0; weekWins = 0;
+      if (dayOfWeek === 6) day++; // restore skip
     }
   }
   document.getElementById("cal-grid").innerHTML = html;
