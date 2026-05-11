@@ -84,39 +84,18 @@
   .img-overlay.open { display: flex; }
   .img-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 1px solid #21262d; }
 
-  /* Heatmap */
-  .hm-section { margin: 0 40px 40px; }
-  .hm-section-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em; padding: 20px 0 16px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
-  .hm-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-  .hm-stat-card { background: #0d1117; border-radius: 8px; padding: 12px 16px; border: 1px solid #21262d; }
-  .hm-stat-label { font-size: 11px; color: #8b949e; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .hm-stat-value { font-size: 18px; font-weight: 700; color: #c9d1d9; }
-  .hm-stat-value.pos { color: #00e676; }
-  .hm-stat-value.neg { color: #e05c5c; }
-  .hm-grid { display: grid; grid-template-columns: 60px repeat(24, 1fr); gap: 3px; margin-bottom: 8px; }
-  .hm-row-label { font-size: 10px; color: #8b949e; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; height: 40px; }
-  .hm-hour-label { font-size: 9px; color: #8b949e; text-align: center; padding-bottom: 4px; line-height: 1.3; }
-  .hm-cell { height: 40px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0d1117; position: relative; }
-  .hm-cell.has-data { cursor: default; }
-  .hm-cell.has-data:hover .hm-tip { display: flex; }
-  .hm-cell-pnl { font-size: 9px; font-weight: 700; }
-  .hm-cell-count { font-size: 9px; color: #8b949e; }
-  .hm-tip { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #161b22; border: 1px solid #21262d; border-radius: 6px; padding: 8px 12px; font-size: 11px; white-space: nowrap; z-index: 20; flex-direction: column; gap: 3px; min-width: 120px; }
-  .hm-tip-row { display: flex; justify-content: space-between; gap: 16px; color: #8b949e; }
-  .hm-tip-row span:last-child { color: #c9d1d9; font-weight: 700; }
-  .hm-legend { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; font-size: 11px; color: #8b949e; }
-  .hm-legend-bar { display: flex; gap: 2px; }
-  .hm-legend-swatch { width: 18px; height: 10px; border-radius: 2px; }
-  .hm-bar-section-label { font-size: 12px; font-weight: 700; color: #8b949e; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .hm-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-  .hm-bar-hour { font-size: 11px; color: #8b949e; width: 56px; text-align: right; flex-shrink: 0; }
-  .hm-bar-track { flex: 1; height: 22px; background: #0d1117; border-radius: 3px; overflow: hidden; }
-  .hm-bar-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 6px; }
-  .hm-bar-fill-label { font-size: 10px; font-weight: 700; white-space: nowrap; }
-  .hm-bar-meta { font-size: 10px; color: #8b949e; width: 80px; text-align: right; flex-shrink: 0; }
-  .hm-session-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 3px; margin-left: 4px; }
-  .hm-tag-eth { background: rgba(181,123,238,0.15); color: #b57bee; }
-  .hm-tag-rth { background: rgba(0,230,118,0.1); color: #00e676; }
+  /* Dashboard */
+  .dash-section { margin: 0 40px 40px; }
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .dash-card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border: 1px solid #21262d; position: relative; overflow: hidden; }
+  .dash-card-label { font-size: 13px; color: #8b949e; margin-bottom: 16px; font-weight: 600; }
+  .dash-card-value { font-size: 42px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px; }
+  .dash-card-value.pos { color: #00e676; }
+  .dash-card-value.neg { color: #e05c5c; }
+  .dash-card-sub { font-size: 12px; color: #8b949e; }
+  .dash-card-sub .pos { color: #00e676; }
+  .dash-card-sub .neg { color: #e05c5c; }
+  .dash-card-accent { position: absolute; top: 0; right: 0; width: 4px; height: 100%; }
 
   /* Calendar */
   .cal-section { margin: 0 40px 60px; }
@@ -149,12 +128,8 @@
 <body>
 
 <header>
-  <div><h1>// TRADE JOURNAL</h1></div>
-  <div class="header-stats">
-    <div><div class="stat-label">Total P&L</div><div class="stat-value" id="total-pnl">--</div></div>
-    <div><div class="stat-label">Win Rate</div><div class="stat-value" id="win-rate">--</div></div>
-    <div><div class="stat-label">Trades</div><div class="stat-value" id="trade-count">--</div></div>
-  </div>
+  <div><h1>TRADE JOURNAL</h1></div>
+
 </header>
 
 <div class="filters">
@@ -170,24 +145,12 @@
   <img id="overlay-img" src="" alt="chart" />
 </div>
 
+<div class="dash-section" id="dash-section"></div>
+
 <div id="journal"></div>
 
-<div class="hm-section">
-  <div class="hm-section-title">// TIME OF DAY HEATMAP</div>
-  <div class="hm-stats-row" id="hm-stats-row"></div>
-  <div class="hm-grid" id="hm-grid"></div>
-  <div class="hm-legend">
-    <span>Loss</span>
-    <div class="hm-legend-bar" id="hm-legend-bar"></div>
-    <span>Profit</span>
-    <span style="margin-left:12px;">Grey = no trades</span>
-  </div>
-  <div class="hm-bar-section-label">Active hours by P&L</div>
-  <div id="hm-bar-chart"></div>
-</div>
-
 <div class="cal-section">
-  <div class="cal-section-title">// P&amp;L CALENDAR</div>
+  <div class="cal-section-title">P&amp;L CALENDAR</div>
   <div class="cal-nav">
     <button class="cal-nav-btn" onclick="prevMonth()">&#8592;</button>
     <div class="cal-month-label" id="cal-month-label"></div>
@@ -412,11 +375,7 @@ function renderAll(list) {
     html += "<div class='week-block'><div class='week-header' onclick='toggleWeek(" + week.num + ")'><div class='week-left'><span class='week-toggle-icon' id='icon-" + week.num + "'>&#9658;</span><span class='week-title'>" + week.label + "</span><span class='week-dates'>" + week.dates + "</span></div><div class='week-right'><div class='week-stat'><div class='week-stat-label'>P&amp;L</div><div class='week-stat-value " + wpc + "'>" + wps + "</div></div><div class='week-stat'><div class='week-stat-label'>Win Rate</div><div class='week-stat-value " + wpc + "'>" + wr + "</div></div><div class='week-stat'><div class='week-stat-label'>Trades</div><div class='week-stat-value'>" + wt.length + "</div></div></div></div><div class='week-body' id='week-" + week.num + "'>" + dayHtml + "</div></div>";
   }
   document.getElementById("journal").innerHTML = html;
-  var tel = document.getElementById("total-pnl");
-  tel.textContent = (total >= 0 ? "+$" : "-$") + Math.abs(total).toFixed(2);
-  tel.className = "stat-value" + (total < 0 ? " neg" : "");
-  document.getElementById("win-rate").textContent = list.length ? Math.round(wins / list.length * 100) + "%" : "--";
-  document.getElementById("trade-count").textContent = list.length;
+
 }
 
 function toggleWeek(num) {
@@ -586,118 +545,67 @@ function nextMonth() {
 
 renderAll(trades);
 renderCalendar();
-renderHeatmap();
+renderDashboard();
 
-function renderHeatmap() {
-  var hourMap = {};
-  for (var i = 0; i < 24; i++) { hourMap[i] = { pnl: 0, count: 0, wins: 0 }; }
+function renderDashboard() {
+  var totalPnl = 0, totalTrades = 0, winTrades = 0;
   for (var i = 0; i < trades.length; i++) {
-    var t = trades[i];
-    var h = parseHour(t.entryTime);
-    hourMap[h].pnl += t.totalPnl;
-    hourMap[h].count++;
-    if (t.result === "win") hourMap[h].wins++;
+    totalPnl += trades[i].totalPnl;
+    totalTrades++;
+    if (trades[i].result === "win") winTrades++;
   }
+  var winRate = totalTrades ? Math.round(winTrades / totalTrades * 100) : 0;
+  var lossTrades = totalTrades - winTrades;
 
-  var bestH = -1, bestP = -Infinity, worstH = -1, worstP = Infinity;
-  for (var h = 0; h < 24; h++) {
-    if (hourMap[h].count > 0) {
-      if (hourMap[h].pnl > bestP) { bestP = hourMap[h].pnl; bestH = h; }
-      if (hourMap[h].pnl < worstP) { worstP = hourMap[h].pnl; worstH = h; }
+  var cards = [
+    {
+      label: "Total P&L",
+      value: (totalPnl >= 0 ? "+$" : "-$") + Math.abs(totalPnl).toFixed(2),
+      valueCls: totalPnl >= 0 ? "pos" : "neg",
+      sub: totalTrades + " trades across " + Object.keys(getDayMap()).length + " trading days",
+      accent: totalPnl >= 0 ? "#00e676" : "#e05c5c"
+    },
+    {
+      label: "Win Rate",
+      value: winRate + "%",
+      valueCls: winRate >= 50 ? "pos" : "neg",
+      sub: winTrades + " wins &bull; " + lossTrades + " losses",
+      accent: winRate >= 50 ? "#00e676" : "#e05c5c"
+    },
+    {
+      label: "Total Trades",
+      value: totalTrades,
+      valueCls: "",
+      sub: "Across " + Object.keys(getDayMap()).length + " active trading days",
+      accent: "#b57bee"
+    },
+    {
+      label: "Winning Trades",
+      value: winTrades,
+      valueCls: "pos",
+      sub: lossTrades + " losing trade" + (lossTrades !== 1 ? "s" : ""),
+      accent: "#00e676"
     }
+  ];
+
+  var html = "<div class='dash-grid'>";
+  for (var i = 0; i < cards.length; i++) {
+    var c = cards[i];
+    html += "<div class='dash-card'>" +
+      "<div class='dash-card-accent' style='background:" + c.accent + ";'></div>" +
+      "<div class='dash-card-label'>" + c.label + "</div>" +
+      "<div class='dash-card-value" + (c.valueCls ? " " + c.valueCls : "") + "'>" + c.value + "</div>" +
+      "<div class='dash-card-sub'>" + c.sub + "</div>" +
+      "</div>";
   }
-
-  var sEl = document.getElementById("hm-stats-row");
-  sEl.innerHTML =
-    "<div class='hm-stat-card'><div class='hm-stat-label'>Best hour</div><div class='hm-stat-value pos'>" + (bestH >= 0 ? fmtH(bestH) : "--") + "</div></div>" +
-    "<div class='hm-stat-card'><div class='hm-stat-label'>Best P&L</div><div class='hm-stat-value pos'>" + (bestH >= 0 ? fmtP(bestP) : "--") + "</div></div>" +
-    "<div class='hm-stat-card'><div class='hm-stat-label'>Worst hour</div><div class='hm-stat-value neg'>" + (worstH >= 0 ? fmtH(worstH) : "--") + "</div></div>" +
-    "<div class='hm-stat-card'><div class='hm-stat-label'>Worst P&L</div><div class='hm-stat-value neg'>" + (worstH >= 0 ? fmtP(worstP) : "--") + "</div></div>";
-
-  var gEl = document.getElementById("hm-grid");
-  var gHtml = "<div class='hm-row-label'>Hour</div>";
-  for (var h = 0; h < 24; h++) { gHtml += "<div class='hm-hour-label'>" + fmtH(h).replace(" ","<br>") + "</div>"; }
-  gHtml += "<div class='hm-row-label'>P&L</div>";
-  for (var h = 0; h < 24; h++) {
-    var d = hourMap[h];
-    var bg = hmColor(d.pnl, d.count);
-    var tc = hmTextColor(d.pnl, d.count);
-    var style = bg ? "background:" + bg + ";" : "";
-    var hasData = d.count > 0 ? " has-data" : "";
-    var tip = d.count > 0 ? "<div class='hm-tip'><div class='hm-tip-row'><span>Hour</span><span>" + fmtH(h) + "</span></div><div class='hm-tip-row'><span>P&L</span><span>" + fmtP(d.pnl) + "</span></div><div class='hm-tip-row'><span>Trades</span><span>" + d.count + "</span></div><div class='hm-tip-row'><span>Wins</span><span>" + d.wins + "</span></div><div class='hm-tip-row'><span>Session</span><span>" + (h >= 9 && h < 16 ? "RTH" : "ETH") + "</span></div></div>" : "";
-    var lbl = d.count > 0 ? "<span class='hm-cell-pnl' style='color:" + tc + ";'>" + fmtP(d.pnl) + "</span>" : "";
-    gHtml += "<div class='hm-cell" + hasData + "' style='" + style + "'>" + tip + lbl + "</div>";
-  }
-  gHtml += "<div class='hm-row-label'>Count</div>";
-  for (var h = 0; h < 24; h++) {
-    var d = hourMap[h];
-    gHtml += "<div class='hm-cell'>" + (d.count > 0 ? "<span class='hm-cell-count'>" + d.count + "x</span>" : "") + "</div>";
-  }
-  gEl.innerHTML = gHtml;
-
-  var lEl = document.getElementById("hm-legend-bar");
-  var stops = ["#993C1D","#D85A30","#F0997B","#0d1117","#9FE1CB","#5DCAA5","#1D9E75","#0F6E56"];
-  var lHtml = "";
-  for (var s = 0; s < stops.length; s++) { lHtml += "<div class='hm-legend-swatch' style='background:" + stops[s] + ";'></div>"; }
-  lEl.innerHTML = lHtml;
-
-  var active = [];
-  for (var h = 0; h < 24; h++) { if (hourMap[h].count > 0) active.push(h); }
-  active.sort(function(a,b){ return Math.abs(hourMap[b].pnl) - Math.abs(hourMap[a].pnl); });
-  var maxAbs = 0;
-  for (var i = 0; i < active.length; i++) { if (Math.abs(hourMap[active[i]].pnl) > maxAbs) maxAbs = Math.abs(hourMap[active[i]].pnl); }
-  var bHtml = "";
-  for (var i = 0; i < active.length; i++) {
-    var h = active[i];
-    var d = hourMap[h];
-    var pct = Math.round(Math.abs(d.pnl) / maxAbs * 100);
-    var isRTH = h >= 9 && h < 16;
-    var bg = d.pnl >= 0 ? "#1D9E75" : "#D85A30";
-    var lc = d.pnl >= 0 ? "#E1F5EE" : "#FAECE7";
-    var tag = isRTH ? "<span class='hm-session-tag hm-tag-rth'>RTH</span>" : "<span class='hm-session-tag hm-tag-eth'>ETH</span>";
-    bHtml += "<div class='hm-bar-row'><div class='hm-bar-hour'>" + fmtH(h) + tag + "</div><div class='hm-bar-track'><div class='hm-bar-fill' style='width:" + pct + "%;background:" + bg + ";'><span class='hm-bar-fill-label' style='color:" + lc + ";'>" + fmtP(d.pnl) + "</span></div></div><div class='hm-bar-meta'>" + d.count + " trade" + (d.count > 1 ? "s" : "") + " &bull; " + Math.round(d.wins / d.count * 100) + "%W</div></div>";
-  }
-  document.getElementById("hm-bar-chart").innerHTML = bHtml;
+  html += "</div>";
+  document.getElementById("dash-section").innerHTML = html;
 }
 
-function parseHour(timeStr) {
-  var parts = timeStr.split(" ");
-  var hm = parts[0].split(":");
-  var h = parseInt(hm[0]);
-  var ampm = parts[1];
-  if (ampm === "PM" && h !== 12) h += 12;
-  if (ampm === "AM" && h === 12) h = 0;
-  return h;
-}
-
-function fmtH(h) {
-  if (h === 0) return "12 AM";
-  if (h < 12) return h + " AM";
-  if (h === 12) return "12 PM";
-  return (h - 12) + " PM";
-}
-
-function fmtP(v) {
-  return (v >= 0 ? "+$" : "-$") + Math.abs(v).toFixed(0);
-}
-
-function hmColor(pnl, count) {
-  if (count === 0) return null;
-  if (pnl >= 400) return "#0F6E56";
-  if (pnl >= 200) return "#1D9E75";
-  if (pnl >= 50)  return "#5DCAA5";
-  if (pnl >= 0)   return "#9FE1CB";
-  if (pnl >= -100) return "#F0997B";
-  if (pnl >= -200) return "#D85A30";
-  return "#993C1D";
-}
-
-function hmTextColor(pnl, count) {
-  if (count === 0) return "#8b949e";
-  if (pnl >= 200) return "#E1F5EE";
-  if (pnl >= 0)   return "#0F6E56";
-  if (pnl >= -150) return "#993C1D";
-  return "#FAECE7";
+function getDayMap() {
+  var map = {};
+  for (var i = 0; i < trades.length; i++) { map[trades[i].date] = true; }
+  return map;
 }
 </script>
 </body>
