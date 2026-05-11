@@ -12,8 +12,6 @@
   .filters { padding: 20px 40px; display: flex; gap: 10px; flex-wrap: wrap; }
   .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
-
-  /* Dashboard */
   .dash-section { margin: 0 40px 32px; }
   .dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
   .dash-card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border: 1px solid #21262d; position: relative; overflow: hidden; }
@@ -23,8 +21,6 @@
   .dash-card-value.neg { color: #e05c5c; }
   .dash-card-sub { font-size: 12px; color: #8b949e; }
   .dash-card-accent { position: absolute; top: 0; right: 0; width: 4px; height: 100%; }
-
-  /* Week blocks */
   .week-block { margin: 0 40px 24px; border: 1px solid #21262d; border-radius: 10px; overflow: hidden; }
   .week-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #0d1117; cursor: pointer; user-select: none; }
   .week-header:hover { background: #111820; }
@@ -41,14 +37,12 @@
   .week-stat-value.neg { color: #e05c5c; }
   .week-body { display: none; border-top: 1px solid #21262d; padding: 20px; }
   .week-body.open { display: block; }
-
-  /* Day grid inside week */
   .day-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
   .day-tile { background: #080c10; border-radius: 10px; border: 1px solid #21262d; padding: 16px; cursor: pointer; transition: border-color 0.15s, transform 0.15s; min-height: 120px; display: flex; flex-direction: column; }
   .day-tile:hover { border-color: #444; transform: translateY(-2px); }
-  .day-tile.has-trades { border-color: #21262d; }
   .day-tile.no-trades { cursor: default; opacity: 0.4; }
   .day-tile.no-trades:hover { transform: none; border-color: #21262d; }
+  .day-tile.active-day { border-color: #00e676; }
   .day-tile-name { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
   .day-tile-date { font-size: 12px; color: #c9d1d9; font-weight: 700; margin-bottom: 12px; }
   .day-tile-setups { display: flex; flex-direction: column; gap: 6px; flex: 1; }
@@ -59,17 +53,10 @@
   .day-tile-pnl { font-size: 13px; font-weight: 700; margin-top: auto; padding-top: 10px; }
   .day-tile-pnl.pos { color: #00e676; }
   .day-tile-pnl.neg { color: #e05c5c; }
-
-  /* Trade card drill-down view */
-  .drill-view { display: none; padding: 0 20px 20px; border-top: 1px solid #21262d; }
+  .drill-view { display: none; margin-top: 20px; border-top: 1px solid #21262d; padding-top: 20px; }
   .drill-view.open { display: block; }
-  .drill-back { display: flex; align-items: center; gap: 8px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 16px 0 20px; }
-  .drill-back:hover { color: #c9d1d9; }
-  .drill-back-arrow { font-size: 16px; }
   .drill-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 16px; }
   .drill-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
-
-  /* Cards */
   .card { background: #0d1117; border-radius: 10px; padding: 20px 24px; border-left: 3px solid #00e676; }
   .card.loss { border-left-color: #e05c5c; }
   .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -112,10 +99,8 @@
   .img-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
   .img-overlay.open { display: flex; }
   .img-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 1px solid #21262d; }
-
-  /* Calendar */
   .cal-section { margin: 40px 40px 60px; }
-  .cal-section-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em; padding: 20px 0 16px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
+  .cal-section-title { font-size: 15px; font-weight: 700; color: #fff; padding: 20px 0 16px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
   .cal-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
   .cal-nav-btn { background: transparent; border: 1px solid #21262d; color: #8b949e; font-family: 'Courier New', monospace; font-size: 13px; padding: 4px 12px; border-radius: 6px; cursor: pointer; }
   .cal-nav-btn:hover { border-color: #444; color: #c9d1d9; }
@@ -135,7 +120,7 @@
   .cal-cell.week-red { background: rgba(224,92,92,0.05); border-color: rgba(181,123,238,0.4); }
   .cal-day-num { font-size: 11px; color: #8b949e; margin-bottom: 4px; }
   .cal-cell.has-trades .cal-day-num { color: #c9d1d9; font-weight: 700; }
-  .cal-week-label { font-size: 10px; color: #b57bee; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.05em; }
+  .cal-week-label { font-size: 10px; color: #b57bee; font-weight: 700; margin-bottom: 4px; }
   .cal-pnl { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
   .cal-pnl.pos { color: #00e676; }
   .cal-pnl.neg { color: #e05c5c; }
@@ -211,7 +196,9 @@ var trades = [
   {
     id: 10, date: "05/10/2026", entryTime: "6:25 PM", entryPrice: 7397.50, stopPrice: 7395.50,
     setup: "FBD", result: "loss", contracts: 10, tradeLabel: "7391 Failed Breakdown",
-    targets: [{ label: "T1", price: 7395.50, contracts: 10, status: "stopped", pnl: -90.00, exitTime: "6:42 PM", exitPrice: 7395.50 }],
+    targets: [
+      { label: "T1", price: 7395.50, contracts: 10, status: "stopped", pnl: -90.00, exitTime: "6:42 PM", exitPrice: 7395.50 }
+    ],
     times: [{ label: "Entry", value: "6:25 PM" }, { label: "Stopped", value: "16m 48s" }],
     totalPts: -2.00, totalPnl: -90.00, exitNote: "Stopped out", journal: ""
   },
@@ -219,20 +206,20 @@ var trades = [
     id: 9, date: "05/10/2026", entryTime: "6:44 PM", entryPrice: 7398.50, stopPrice: 7391.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7391 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7401.75, contracts: 4, status: "hit",  pnl: 65.00,  exitTime: "6:50 PM" },
-      { label: "T2", price: 7406.25, contracts: 3, status: "hit",  pnl: 116.25, exitTime: "7:02 PM" },
-      { label: "T3", price: 7408.75, contracts: 2, status: "hit",  pnl: 102.50, exitTime: "9:23 PM" },
-      { label: "T4", price: 7422.00, contracts: 1, status: "miss", pnl: 0,      exitTime: null }
+      { label: "T1", price: 7401.75, contracts: 4, status: "hit", pnl: 65.00, exitTime: "6:50 PM" },
+      { label: "T2", price: 7406.25, contracts: 3, status: "hit", pnl: 116.25, exitTime: "7:02 PM" },
+      { label: "T3", price: 7408.75, contracts: 2, status: "hit", pnl: 102.50, exitTime: "9:23 PM" },
+      { label: "T4", price: 7421.50, contracts: 1, status: "hit", pnl: 115.00, exitTime: "9:32 AM" }
     ],
-    times: [{ label: "Entry", value: "6:44 PM" }, { label: "T1", value: "5m 57s" }, { label: "T2", value: "18m 8s" }, { label: "T3", value: "2h 39m" }, { label: "T4", value: "open" }],
-    totalPts: 44.25, totalPnl: 283.75, exitNote: "1 contract still open — target 7422", journal: ""
+    times: [{ label: "Entry", value: "6:44 PM" }, { label: "T1", value: "5m 57s" }, { label: "T2", value: "18m 8s" }, { label: "T3", value: "2h 39m" }, { label: "T4", value: "16h 48m" }],
+    totalPts: 67.25, totalPnl: 398.75, exitNote: "Position fully exited", journal: ""
   },
   {
     id: 8, date: "05/04/2026", entryTime: "12:20 PM", entryPrice: 7222.25, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7214 Failed Breakdown",
     targets: [
       { label: "T1", price: 7227.25, contracts: 7, status: "hit", pnl: 175.00, exitTime: "12:22 PM" },
-      { label: "T2", price: 7225.75, contracts: 3, status: "eod", pnl: 52.50,  exitTime: "1:11 PM", exitPrice: 7225.75 }
+      { label: "T2", price: 7225.75, contracts: 3, status: "eod", pnl: 52.50, exitTime: "1:11 PM", exitPrice: 7225.75 }
     ],
     times: [{ label: "Entry", value: "12:20 PM" }, { label: "T1", value: "1m 47s" }, { label: "T2", value: "50m 32s" }],
     totalPts: 44.50, totalPnl: 227.50, exitNote: "Position fully exited", journal: ""
@@ -241,8 +228,8 @@ var trades = [
     id: 7, date: "05/04/2026", entryTime: "12:39 PM", entryPrice: 7219.75, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 3, tradeLabel: "7214 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50,  exitTime: "1:17 PM" },
-      { label: "T2", price: 7225.50, contracts: 2, status: "eod", pnl: 57.50,  exitTime: "4:05 PM", exitPrice: 7225.50 }
+      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50, exitTime: "1:17 PM" },
+      { label: "T2", price: 7225.50, contracts: 2, status: "eod", pnl: 57.50, exitTime: "4:05 PM", exitPrice: 7225.50 }
     ],
     times: [{ label: "Entry", value: "12:39 PM" }, { label: "T1", value: "38m 15s" }, { label: "T2", value: "3h 25m" }],
     totalPts: 18.25, totalPnl: 120.00, exitNote: "Position fully exited", journal: ""
@@ -252,7 +239,7 @@ var trades = [
     setup: "LEVEL_RECLAIM", result: "win", contracts: 7, tradeLabel: "7240 Level Reclaim",
     targets: [
       { label: "T1", price: 7247.75, contracts: 6, status: "hit", pnl: 211.25, exitTime: "2:55 AM" },
-      { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25,  exitTime: "6:39 AM" }
+      { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25, exitTime: "6:39 AM" }
     ],
     times: [{ label: "Entry", value: "11:27 PM" }, { label: "T1", value: "3h 28m" }, { label: "T2", value: "7h 11m" }],
     totalPts: 60.75, totalPnl: 297.50, exitNote: "Position fully exited", journal: ""
@@ -272,7 +259,7 @@ var trades = [
     id: 4, date: "05/06/2026", entryTime: "9:48 AM", entryPrice: 7343.50, stopPrice: 7325.00,
     setup: "LEVEL_RECLAIM", result: "win", contracts: 3, tradeLabel: "7340 Level Reclaim",
     targets: [
-      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00,  exitTime: "10:25 AM" },
+      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00, exitTime: "10:25 AM" },
       { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00, exitTime: "10:41 AM" }
     ],
     times: [{ label: "Entry", value: "9:48 AM" }, { label: "T1", value: "36m 59s" }, { label: "T2", value: "53m 12s" }],
@@ -293,9 +280,9 @@ var trades = [
     id: 2, date: "05/07/2026", entryTime: "1:40 PM", entryPrice: 7363.50, stopPrice: 7344.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7355 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7368.50, contracts: 7, status: "hit",     pnl: 175.00, exitTime: "2:08 PM" },
-      { label: "T2", price: 7383.00, contracts: 2, status: "eod",     pnl: 55.00,  exitTime: "4:02 PM", exitPrice: 7369.00 },
-      { label: "T3", price: null,    contracts: 1, status: "stopped", pnl: -35.00, exitTime: "4:50 PM", exitPrice: 7356.50 }
+      { label: "T1", price: 7368.50, contracts: 7, status: "hit", pnl: 175.00, exitTime: "2:08 PM" },
+      { label: "T2", price: 7383.00, contracts: 2, status: "eod", pnl: 55.00, exitTime: "4:02 PM", exitPrice: 7369.00 },
+      { label: "T3", price: null, contracts: 1, status: "stopped", pnl: -35.00, exitTime: "4:50 PM", exitPrice: 7356.50 }
     ],
     times: [{ label: "Entry", value: "1:40 PM" }, { label: "T1", value: "27m 34s" }, { label: "T2", value: "2h 22m" }, { label: "T3", value: "3h 9m" }],
     totalPts: 46.50, totalPnl: 195.00, exitNote: "Position fully exited", journal: ""
@@ -305,7 +292,7 @@ var trades = [
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7345 Failed Breakdown",
     targets: [
       { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00, exitTime: "6:21 PM" },
-      { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00,  exitTime: "8:03 PM" },
+      { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00, exitTime: "8:03 PM" },
       { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50, exitTime: "1:13 AM" },
       { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50, exitTime: "5:28 AM" }
     ],
@@ -407,7 +394,6 @@ function renderAll(list) {
       for (var i = 0; i < wt.length; i++) { if (wt[i].date === day.date) dt.push(wt[i]); }
       var dp = 0;
       for (var i = 0; i < dt.length; i++) { dp += dt[i].totalPnl; }
-
       if (dt.length === 0) {
         dayTilesHtml += "<div class='day-tile no-trades'><div class='day-tile-name'>" + day.name + "</div><div class='day-tile-date'>" + day.date.slice(0,5) + "</div></div>";
       } else {
@@ -421,7 +407,7 @@ function renderAll(list) {
         }
         var dpStr = (dp >= 0 ? "+$" : "-$") + Math.abs(dp).toFixed(2);
         var dpCls = dp >= 0 ? "pos" : "neg";
-        dayTilesHtml += "<div class='day-tile has-trades' onclick='openDrillDown(" + week.num + ", \"" + day.date + "\")'>" +
+        dayTilesHtml += "<div class='day-tile has-trades' id='tile-" + week.num + "-" + day.date.replace(/\//g,"-") + "' onclick='openDrillDown(" + week.num + ", \"" + day.date + "\")'>" +
           "<div class='day-tile-name'>" + day.name + "</div>" +
           "<div class='day-tile-date'>" + day.date.slice(0,5) + "</div>" +
           "<div class='day-tile-setups'>" + badgesHtml + "</div>" +
@@ -463,16 +449,18 @@ function openDrillDown(weekNum, date) {
   for (var i = 0; i < list.length; i++) { if (list[i].date === date) dayTrades.push(list[i]); }
   if (!dayTrades.length) return;
 
+  // Highlight active tile
+  var allTiles = document.querySelectorAll(".day-tile");
+  for (var i = 0; i < allTiles.length; i++) { allTiles[i].classList.remove("active-day"); }
+  var activeTile = document.getElementById("tile-" + weekNum + "-" + date.replace(/\//g, "-"));
+  if (activeTile) activeTile.classList.add("active-day");
+
   var cardsHtml = "";
   for (var i = 0; i < dayTrades.length; i++) { cardsHtml += renderCard(dayTrades[i]); }
 
   var drill = document.getElementById("drill-" + weekNum);
-  var wasOpen = drill.classList.contains("open");
   drill.innerHTML = "<div class='drill-title'>" + date + " — Trade Cards</div><div class='drill-cards'>" + cardsHtml + "</div>";
   drill.classList.add("open");
-  if (!wasOpen) {
-    drill.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
 }
 
 function filterTrades(type, btn) {
@@ -535,37 +523,35 @@ function renderDashboard() {
 var calYear = 2026;
 var calMonth = 4;
 
-function buildTimelineMap() {
-  var map = {};
-  var allEvents = [
-    { date: "05/04/2026", events: [
-      { type: "entry", time: "12:20 PM" }, { type: "exit", time: "12:22 PM" }, { type: "exit", time: "1:11 PM" },
-      { type: "entry", time: "12:39 PM" }, { type: "exit", time: "1:17 PM" }, { type: "exit", time: "4:05 PM" },
-      { type: "entry", time: "11:27 PM" }
-    ]},
-    { date: "05/05/2026", events: [
-      { type: "exit", time: "2:55 AM" }, { type: "exit", time: "6:39 AM" },
-      { type: "entry", time: "7:15 PM" }, { type: "exit", time: "8:15 PM" }
-    ]},
-    { date: "05/06/2026", events: [
-      { type: "entry", time: "9:48 AM" }, { type: "exit", time: "10:25 AM" }, { type: "exit", time: "10:41 AM" }
-    ]},
-    { date: "05/07/2026", events: [
-      { type: "entry", time: "12:32 PM" }, { type: "exit", time: "12:57 PM" },
-      { type: "entry", time: "1:40 PM" }, { type: "exit", time: "2:08 PM" }, { type: "exit", time: "4:02 PM" }, { type: "exit", time: "4:50 PM" },
-      { type: "entry", time: "6:20 PM" }, { type: "exit", time: "6:21 PM" }, { type: "exit", time: "8:03 PM" }
-    ]},
-    { date: "05/08/2026", events: [
-      { type: "exit", time: "1:13 AM" }, { type: "exit", time: "5:28 AM" }
-    ]},
-    { date: "05/10/2026", events: [
-      { type: "entry", time: "6:25 PM" }, { type: "exit", time: "6:42 PM" },
-      { type: "entry", time: "6:44 PM" }, { type: "exit", time: "6:50 PM" }, { type: "exit", time: "7:02 PM" }, { type: "exit", time: "9:23 PM" }
-    ]}
-  ];
-  for (var i = 0; i < allEvents.length; i++) { map[allEvents[i].date] = allEvents[i].events; }
-  return map;
-}
+var timelineEvents = {
+  "05/04/2026": [
+    { type: "entry", time: "12:20 PM" }, { type: "exit", time: "12:22 PM" }, { type: "exit", time: "1:11 PM" },
+    { type: "entry", time: "12:39 PM" }, { type: "exit", time: "1:17 PM" }, { type: "exit", time: "4:05 PM" },
+    { type: "entry", time: "11:27 PM" }
+  ],
+  "05/05/2026": [
+    { type: "exit", time: "2:55 AM" }, { type: "exit", time: "6:39 AM" },
+    { type: "entry", time: "7:15 PM" }, { type: "exit", time: "8:15 PM" }
+  ],
+  "05/06/2026": [
+    { type: "entry", time: "9:48 AM" }, { type: "exit", time: "10:25 AM" }, { type: "exit", time: "10:41 AM" }
+  ],
+  "05/07/2026": [
+    { type: "entry", time: "12:32 PM" }, { type: "exit", time: "12:57 PM" },
+    { type: "entry", time: "1:40 PM" }, { type: "exit", time: "2:08 PM" }, { type: "exit", time: "4:02 PM" }, { type: "exit", time: "4:50 PM" },
+    { type: "entry", time: "6:20 PM" }, { type: "exit", time: "6:21 PM" }, { type: "exit", time: "8:03 PM" }
+  ],
+  "05/08/2026": [
+    { type: "exit", time: "1:13 AM" }, { type: "exit", time: "5:28 AM" }
+  ],
+  "05/10/2026": [
+    { type: "entry", time: "6:25 PM" }, { type: "exit", time: "6:42 PM" },
+    { type: "entry", time: "6:44 PM" }, { type: "exit", time: "6:50 PM" }, { type: "exit", time: "7:02 PM" }, { type: "exit", time: "9:23 PM" }
+  ],
+  "05/11/2026": [
+    { type: "exit", time: "9:32 AM" }
+  ]
+};
 
 function timeToOffset(timeStr) {
   var parts = timeStr.split(" ");
@@ -582,11 +568,11 @@ function timeToOffset(timeStr) {
   return diff / (24 * 60);
 }
 
-function buildTimelinePopup(dateStr, eventsMap) {
-  var events = eventsMap[dateStr];
+function buildTimelinePopup(dateStr) {
+  var events = timelineEvents[dateStr];
   if (!events || events.length === 0) return "";
   var tickHtml = "";
-  var ticks = ["6 PM","12 AM","6 AM","12 PM","6 PM"];
+  var ticks = ["6PM","12AM","6AM","12PM","6PM"];
   for (var t = 0; t < ticks.length; t++) { tickHtml += "<span class='cal-timeline-tick'>" + ticks[t] + "</span>"; }
   var posMap = {};
   for (var i = 0; i < events.length; i++) {
@@ -623,7 +609,6 @@ var monthNames = ["January","February","March","April","May","June","July","Augu
 
 function renderCalendar() {
   var map = buildDayMap();
-  var tlMap = buildTimelineMap();
   document.getElementById("cal-month-label").textContent = monthNames[calMonth] + " " + calYear;
   var firstDow = new Date(calYear, calMonth, 1).getDay();
   var daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
@@ -646,7 +631,7 @@ function renderCalendar() {
     var dateStr = mm + "/" + dd + "/" + calYear;
     var data = map[key];
     var isToday = (today.getFullYear() === calYear && today.getMonth() === calMonth && today.getDate() === day);
-    var tl = data ? buildTimelinePopup(dateStr, tlMap) : "";
+    var tl = buildTimelinePopup(dateStr);
     if (data) {
       weekPnl += data.pnl; weekCount += data.count; weekWins += data.wins;
       var pnlStr = (data.pnl >= 0 ? "+$" : "-$") + Math.abs(data.pnl).toFixed(2);
@@ -655,7 +640,7 @@ function renderCalendar() {
       var wr = Math.round(data.wins / data.count * 100);
       html += "<div class='cal-cell has-trades" + bgCls + (isToday ? " today" : "") + "'>" + tl + "<div class='cal-day-num'>" + day + "</div><div class='cal-pnl " + pnlCls + "'>" + pnlStr + "</div><div class='cal-meta'>Trades: " + data.count + "<br>Win%: " + wr + "</div></div>";
     } else {
-      html += "<div class='cal-cell" + (isToday ? " today" : "") + "'><div class='cal-day-num'>" + day + "</div></div>";
+      html += "<div class='cal-cell" + (isToday ? " today" : "") + "'>" + tl + "<div class='cal-day-num'>" + day + "</div></div>";
     }
     if (dow === 5) {
       var wtBg = weekCount > 0 ? (weekPnl >= 0 ? " week-green" : " week-red") : "";
