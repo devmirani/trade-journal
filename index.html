@@ -16,55 +16,77 @@
   .filters { padding: 20px 40px; display: flex; gap: 10px; flex-wrap: wrap; }
   .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
-  .day-section { padding: 0 40px 40px; }
-  .day-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 14px; border-bottom: 1px solid #21262d; margin-bottom: 20px; }
-  .day-title { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
-  .day-date { font-size: 12px; color: #8b949e; margin-left: 12px; }
-  .day-pnl { font-size: 14px; font-weight: 700; }
+
+  /* Week blocks */
+  .week-block { margin: 0 40px 32px; border: 1px solid #21262d; border-radius: 10px; overflow: hidden; }
+  .week-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #0d1117; cursor: pointer; user-select: none; }
+  .week-header:hover { background: #111820; }
+  .week-left { display: flex; align-items: center; gap: 12px; }
+  .week-toggle-icon { font-size: 12px; color: #8b949e; transition: transform 0.2s; }
+  .week-toggle-icon.open { transform: rotate(90deg); }
+  .week-title { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+  .week-dates { font-size: 11px; color: #8b949e; }
+  .week-right { display: flex; gap: 24px; align-items: center; }
+  .week-stat { text-align: right; }
+  .week-stat-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; }
+  .week-stat-value { font-size: 13px; font-weight: 700; margin-top: 1px; }
+  .week-stat-value.pos { color: #00e676; }
+  .week-stat-value.neg { color: #e05c5c; }
+  .week-body { display: none; border-top: 1px solid #21262d; }
+  .week-body.open { display: block; }
+
+  /* Day rows inside week */
+  .day-section { padding: 0 20px 24px; }
+  .day-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 12px; border-bottom: 1px solid #161b22; margin-bottom: 16px; }
+  .day-title { font-size: 13px; font-weight: 700; color: #c9d1d9; }
+  .day-date { font-size: 11px; color: #8b949e; margin-left: 10px; }
+  .day-pnl { font-size: 13px; font-weight: 700; }
   .day-pnl.pos { color: #00e676; }
   .day-pnl.neg { color: #e05c5c; }
-  .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
-  .no-trades { color: #8b949e; font-size: 13px; padding: 10px 0; }
-  .card { background: #0d1117; border-radius: 12px; padding: 24px 28px; border-left: 3px solid #00e676; }
+  .day-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 16px; }
+  .no-trades { color: #8b949e; font-size: 12px; font-style: italic; padding: 4px 0 8px; }
+
+  /* Cards */
+  .card { background: #080c10; border-radius: 10px; padding: 20px 24px; border-left: 3px solid #00e676; }
   .card.loss { border-left-color: #e05c5c; }
   .card-header-row { display: flex; justify-content: space-between; align-items: flex-start; }
-  .card-price { font-size: 24px; font-weight: 700; color: #00e676; }
+  .card-price { font-size: 22px; font-weight: 700; color: #00e676; }
   .card.loss .card-price { color: #e05c5c; }
-  .card-label { font-size: 14px; color: #c9d1d9; margin-left: 10px; }
-  .card-timestamp { font-size: 12px; color: #8b949e; }
-  .badge { display: inline-block; margin-top: 10px; padding: 3px 12px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
-  .time-row { margin: 14px 0; padding-bottom: 14px; border-bottom: 1px solid #21262d; }
+  .card-label { font-size: 13px; color: #c9d1d9; margin-left: 8px; }
+  .card-timestamp { font-size: 11px; color: #8b949e; }
+  .badge { display: inline-block; margin-top: 8px; padding: 2px 10px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
+  .time-row { margin: 12px 0; padding-bottom: 12px; border-bottom: 1px solid #21262d; }
   .time-row-inner { display: flex; gap: 6px; flex-wrap: wrap; }
-  .time-chip { padding: 4px 10px; background: #161b22; border-radius: 4px; font-size: 11px; color: #8b949e; }
+  .time-chip { padding: 3px 8px; background: #0d1117; border-radius: 4px; font-size: 10px; color: #8b949e; }
   .time-chip span { color: #c9d1d9; font-weight: 700; }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px 8px; margin-bottom: 14px; }
-  .field-label { font-size: 11px; color: #8b949e; margin-bottom: 3px; }
-  .field-value { font-size: 14px; font-weight: 700; color: #c9d1d9; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px 8px; margin-bottom: 12px; }
+  .field-label { font-size: 10px; color: #8b949e; margin-bottom: 2px; }
+  .field-value { font-size: 13px; font-weight: 700; color: #c9d1d9; }
   .field-value.win { color: #00e676; }
   .field-value.loss { color: #e05c5c; }
-  .sub { font-size: 11px; color: #8b949e; font-weight: 400; }
-  .targets-inner { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
-  .tp-btn { flex: 1; min-width: 80px; padding: 8px 4px; border-radius: 6px; font-size: 12px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; background: transparent; line-height: 1.5; position: relative; cursor: default; }
+  .sub { font-size: 10px; color: #8b949e; font-weight: 400; }
+  .targets-inner { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tp-btn { flex: 1; min-width: 70px; padding: 7px 4px; border-radius: 6px; font-size: 11px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; background: transparent; line-height: 1.5; position: relative; cursor: default; }
   .tp-hit { border: 1.5px solid #00e676; color: #00e676; }
   .tp-eod { border: 1.5px solid #f0a500; color: #f0a500; }
   .tp-stopped { border: 1.5px solid #e05c5c; color: #e05c5c; }
   .tp-miss { border: 1.5px solid #444; color: #555; }
-  .tp-return { font-size: 10px; font-weight: 400; display: block; }
-  .tp-tooltip { display: none; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: #161b22; border: 1px solid #21262d; border-radius: 4px; padding: 4px 8px; font-size: 10px; font-weight: 400; color: #c9d1d9; white-space: nowrap; z-index: 10; }
+  .tp-return { font-size: 9px; font-weight: 400; display: block; }
+  .tp-tooltip { display: none; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: #161b22; border: 1px solid #21262d; border-radius: 4px; padding: 3px 8px; font-size: 10px; font-weight: 400; color: #c9d1d9; white-space: nowrap; z-index: 10; }
   .tp-btn:hover .tp-tooltip { display: block; }
-  .divider { border: none; border-top: 1px solid #21262d; margin: 14px 0; }
+  .divider { border: none; border-top: 1px solid #21262d; margin: 12px 0; }
   .card-footer { display: flex; justify-content: space-between; align-items: flex-end; }
-  .footer-label { font-size: 12px; color: #8b949e; }
-  .pts { font-size: 22px; font-weight: 700; color: #00e676; display: block; text-align: right; }
+  .footer-label { font-size: 11px; color: #8b949e; }
+  .pts { font-size: 20px; font-weight: 700; color: #00e676; display: block; text-align: right; }
   .pts.neg { color: #e05c5c; }
-  .dollars { font-size: 18px; font-weight: 700; color: #00e676; display: block; text-align: right; }
+  .dollars { font-size: 16px; font-weight: 700; color: #00e676; display: block; text-align: right; }
   .dollars.neg { color: #e05c5c; }
-  .journal-toggle { margin-top: 14px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 12px; cursor: pointer; padding: 0; }
+  .journal-toggle { margin-top: 12px; background: none; border: none; color: #8b949e; font-family: 'Courier New', monospace; font-size: 11px; cursor: pointer; padding: 0; }
   .journal-toggle:hover { color: #c9d1d9; }
-  .journal-body { display: none; margin-top: 10px; font-size: 12px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
+  .journal-body { display: none; margin-top: 10px; font-size: 11px; color: #8b949e; line-height: 1.75; border-left: 2px solid #21262d; padding-left: 12px; }
   .journal-body.open { display: block; }
-  .chart-img { width: 100%; border-radius: 6px; margin-top: 12px; border: 1px solid #21262d; cursor: zoom-in; }
-  .img-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
+  .chart-img { width: 100%; border-radius: 6px; margin-top: 10px; border: 1px solid #21262d; cursor: zoom-in; }
+  .img-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 999; align-items: center; justify-content: center; cursor: zoom-out; }
   .img-overlay.open { display: flex; }
   .img-overlay img { max-width: 90%; max-height: 90%; border-radius: 8px; border: 1px solid #21262d; }
 </style>
@@ -74,9 +96,9 @@
 <header>
   <div><h1>// TRADE JOURNAL</h1></div>
   <div class="header-stats">
-    <div><div class="stat-label">Total P&L</div><div class="stat-value" id="total-pnl">—</div></div>
-    <div><div class="stat-label">Win Rate</div><div class="stat-value" id="win-rate">—</div></div>
-    <div><div class="stat-label">Trades</div><div class="stat-value" id="trade-count">—</div></div>
+    <div><div class="stat-label">Total P&L</div><div class="stat-value" id="total-pnl">--</div></div>
+    <div><div class="stat-label">Win Rate</div><div class="stat-value" id="win-rate">--</div></div>
+    <div><div class="stat-label">Trades</div><div class="stat-value" id="trade-count">--</div></div>
   </div>
 </header>
 
@@ -96,17 +118,41 @@
 <div id="journal"></div>
 
 <script>
-var chartMap = {
-  1: "https://i.imgur.com/go0WawU.png"
-};
+var chartMap = { 1: "https://i.imgur.com/go0WawU.png" };
 
-var days = [
-  { name: "Sunday",    date: "05/03/2026" },
-  { name: "Monday",    date: "05/04/2026" },
-  { name: "Tuesday",   date: "05/05/2026" },
-  { name: "Wednesday", date: "05/06/2026" },
-  { name: "Thursday",  date: "05/07/2026" },
-  { name: "Friday",    date: "05/08/2026" }
+var weeks = [
+  { num: 1, label: "Week 1", dates: "04/27 - 05/03", days: [
+    { name: "Sunday",    date: "04/27/2026" },
+    { name: "Monday",    date: "04/28/2026" },
+    { name: "Tuesday",   date: "04/29/2026" },
+    { name: "Wednesday", date: "04/30/2026" },
+    { name: "Thursday",  date: "05/01/2026" },
+    { name: "Friday",    date: "05/02/2026" }
+  ]},
+  { num: 2, label: "Week 2", dates: "05/04 - 05/10", days: [
+    { name: "Sunday",    date: "05/03/2026" },
+    { name: "Monday",    date: "05/04/2026" },
+    { name: "Tuesday",   date: "05/05/2026" },
+    { name: "Wednesday", date: "05/06/2026" },
+    { name: "Thursday",  date: "05/07/2026" },
+    { name: "Friday",    date: "05/08/2026" }
+  ]},
+  { num: 3, label: "Week 3", dates: "05/11 - 05/17", days: [
+    { name: "Sunday",    date: "05/10/2026" },
+    { name: "Monday",    date: "05/11/2026" },
+    { name: "Tuesday",   date: "05/12/2026" },
+    { name: "Wednesday", date: "05/13/2026" },
+    { name: "Thursday",  date: "05/14/2026" },
+    { name: "Friday",    date: "05/15/2026" }
+  ]},
+  { num: 4, label: "Week 4", dates: "05/18 - 05/24", days: [
+    { name: "Sunday",    date: "05/17/2026" },
+    { name: "Monday",    date: "05/18/2026" },
+    { name: "Tuesday",   date: "05/19/2026" },
+    { name: "Wednesday", date: "05/20/2026" },
+    { name: "Thursday",  date: "05/21/2026" },
+    { name: "Friday",    date: "05/22/2026" }
+  ]}
 ];
 
 var trades = [
@@ -114,8 +160,8 @@ var trades = [
     id: 8, date: "05/04/2026", entryTime: "12:20:29 PM", entryPrice: 7222.25, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7214 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7227.25, contracts: 7, status: "hit",  pnl: 175.00, exitTime: "12:22 PM" },
-      { label: "T2", price: 7225.75, contracts: 3, status: "eod",  pnl: 52.50,  exitTime: "1:11 PM", exitPrice: 7225.75 }
+      { label: "T1", price: 7227.25, contracts: 7, status: "hit", pnl: 175.00, exitTime: "12:22 PM" },
+      { label: "T2", price: 7225.75, contracts: 3, status: "eod", pnl: 52.50, exitTime: "1:11 PM", exitPrice: 7225.75 }
     ],
     times: [{ label: "Entry", value: "12:20:29 PM" }, { label: "T1", value: "1m 47s" }, { label: "T2", value: "50m 32s" }],
     totalPts: 44.50, totalPnl: 227.50, exitNote: "Position fully exited", journal: ""
@@ -124,8 +170,8 @@ var trades = [
     id: 7, date: "05/04/2026", entryTime: "12:39:04 PM", entryPrice: 7219.75, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 3, tradeLabel: "7214 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50,  exitTime: "1:17 PM" },
-      { label: "T2", price: 7225.50, contracts: 2, status: "eod", pnl: 57.50,  exitTime: "4:05 PM", exitPrice: 7225.50 }
+      { label: "T1", price: 7232.25, contracts: 1, status: "hit", pnl: 62.50, exitTime: "1:17 PM" },
+      { label: "T2", price: 7225.50, contracts: 2, status: "eod", pnl: 57.50, exitTime: "4:05 PM", exitPrice: 7225.50 }
     ],
     times: [{ label: "Entry", value: "12:39:04 PM" }, { label: "T1", value: "38m 15s" }, { label: "T2", value: "3h 25m" }],
     totalPts: 18.25, totalPnl: 120.00, exitNote: "Position fully exited", journal: ""
@@ -135,7 +181,7 @@ var trades = [
     setup: "LEVEL_RECLAIM", result: "win", contracts: 7, tradeLabel: "7240 Level Reclaim",
     targets: [
       { label: "T1", price: 7247.75, contracts: 6, status: "hit", pnl: 211.25, exitTime: "2:55 AM" },
-      { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25,  exitTime: "6:39 AM" }
+      { label: "T2", price: 7257.75, contracts: 1, status: "hit", pnl: 86.25, exitTime: "6:39 AM" }
     ],
     times: [{ label: "Entry", value: "11:27:02 PM" }, { label: "T1", value: "3h 28m" }, { label: "T2", value: "7h 11m" }],
     totalPts: 60.75, totalPnl: 297.50, exitNote: "Position fully exited", journal: ""
@@ -155,7 +201,7 @@ var trades = [
     id: 4, date: "05/06/2026", entryTime: "9:48:04 AM", entryPrice: 7343.50, stopPrice: 7325.00,
     setup: "LEVEL_RECLAIM", result: "win", contracts: 3, tradeLabel: "7340 Level Reclaim",
     targets: [
-      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00,  exitTime: "10:25 AM" },
+      { label: "T1", price: 7352.50, contracts: 2, status: "hit", pnl: 90.00, exitTime: "10:25 AM" },
       { label: "T2", price: 7365.50, contracts: 1, status: "hit", pnl: 110.00, exitTime: "10:41 AM" }
     ],
     times: [{ label: "Entry", value: "9:48:04 AM" }, { label: "T1", value: "36m 59s" }, { label: "T2", value: "53m 12s" }],
@@ -176,8 +222,8 @@ var trades = [
     id: 2, date: "05/07/2026", entryTime: "1:40:15 PM", entryPrice: 7363.50, stopPrice: 7344.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7355 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7368.50, contracts: 7, status: "hit",     pnl: 175.00, exitTime: "2:08 PM" },
-      { label: "T2", price: 7383.00, contracts: 2, status: "eod",     pnl: 55.00,  exitTime: "4:02 PM", exitPrice: 7369.00 },
+      { label: "T1", price: 7368.50, contracts: 7, status: "hit", pnl: 175.00, exitTime: "2:08 PM" },
+      { label: "T2", price: 7383.00, contracts: 2, status: "eod", pnl: 55.00, exitTime: "4:02 PM", exitPrice: 7369.00 },
       { label: "T3", price: null,    contracts: 1, status: "stopped", pnl: -35.00, exitTime: "4:50 PM", exitPrice: 7356.50 }
     ],
     times: [{ label: "Entry", value: "1:40:15 PM" }, { label: "T1", value: "27m 34s" }, { label: "T2", value: "2h 22m" }, { label: "T3", value: "3h 9m" }],
@@ -187,10 +233,10 @@ var trades = [
     id: 1, date: "05/07/2026", entryTime: "6:20:35 PM", entryPrice: 7353.50, stopPrice: 7335.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7345 Failed Breakdown",
     targets: [
-      { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00,  exitTime: "6:21 PM" },
-      { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00,   exitTime: "8:03 PM" },
-      { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50,  exitTime: "1:13 AM" },
-      { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50,  exitTime: "5:28 AM" }
+      { label: "T1", price: 7358.50, contracts: 7, status: "hit", pnl: 175.00, exitTime: "6:21 PM" },
+      { label: "T2", price: 7366.50, contracts: 1, status: "hit", pnl: 65.00,  exitTime: "8:03 PM" },
+      { label: "T3", price: 7380.00, contracts: 1, status: "hit", pnl: 132.50, exitTime: "1:13 AM" },
+      { label: "T4", price: 7402.00, contracts: 1, status: "hit", pnl: 242.50, exitTime: "5:28 AM" }
     ],
     times: [{ label: "Entry", value: "6:20:35 PM" }, { label: "T1", value: "33s" }, { label: "T2", value: "1h 42m" }, { label: "T3", value: "6h 52m" }, { label: "T4", value: "11h 7m" }],
     totalPts: 123.50, totalPnl: 615.00, exitNote: "Position fully exited",
@@ -230,29 +276,26 @@ function renderCard(tr) {
     var t = tr.targets[i];
     tpInfo += "<div><div class='field-label'>" + t.label + ":</div><div class='field-value'>" + (t.price ? t.price.toFixed(2) : "--") + " <span class='sub'>(" + t.contracts + "x)</span></div></div>";
   }
-  var pneg = tr.totalPts < 0;
-  var dneg = tr.totalPnl < 0;
   var pStr = (tr.totalPts >= 0 ? "+" : "") + tr.totalPts.toFixed(2) + " pts";
   var dStr = (tr.totalPnl >= 0 ? "+$" : "-$") + Math.abs(tr.totalPnl).toFixed(2);
   var hasChart = chartMap[tr.id] ? true : false;
-  var hasJournal = tr.journal ? true : false;
   var dropContent = "";
   if (hasChart) {
     dropContent += "<img class='chart-img' src='" + chartMap[tr.id] + "' alt='chart' onclick='openImg(\"" + chartMap[tr.id] + "\")' />";
   }
-  if (hasJournal) {
+  if (tr.journal) {
     dropContent += "<p style='margin-top:10px;'>" + tr.journal + "</p>";
   }
-  var toggle = (hasChart || hasJournal) ? "<button class='journal-toggle' onclick='toggleJournal(" + tr.id + ")'>&#9658; chart &amp; journal</button><div class='journal-body' id='journal-" + tr.id + "'>" + dropContent + "</div>" : "";
+  var toggle = (hasChart || tr.journal) ? "<button class='journal-toggle' onclick='toggleJournal(" + tr.id + ")'>&#9658; chart &amp; journal</button><div class='journal-body' id='journal-" + tr.id + "'>" + dropContent + "</div>" : "";
 
-  return "<div class='card" + (win ? "" : " loss") + "' data-result='" + tr.result + "' data-setup='" + tr.setup + "'>" +
+  return "<div class='card" + (win ? "" : " loss") + "'>" +
     "<div class='card-header-row'><div><span class='card-price'>" + tr.entryPrice.toFixed(2) + "</span><span class='card-label'>" + tr.tradeLabel + "</span></div><span class='card-timestamp'>" + tr.entryTime + "</span></div>" +
     "<div class='badge'>" + tr.setup + "</div>" +
     "<div class='time-row'><div class='time-row-inner'>" + chips + "</div></div>" +
     "<div class='info-grid'><div><div class='field-label'>Entry:</div><div class='field-value'>" + tr.entryPrice.toFixed(2) + "</div></div><div><div class='field-label'>Stop:</div><div class='field-value'>" + tr.stopPrice.toFixed(2) + "</div></div><div><div class='field-label'>Result:</div><div class='field-value " + tr.result + "'>" + (win ? "Win" : "Loss") + "</div></div><div><div class='field-label'>Contracts:</div><div class='field-value'>" + tr.contracts + "</div></div>" + tpInfo + "</div>" +
     "<div class='targets-inner'>" + tps + "</div>" +
     "<hr class='divider'>" +
-    "<div class='card-footer'><div class='footer-label'>" + tr.exitNote + "</div><div><span class='pts" + (pneg ? " neg" : "") + "'>" + pStr + "</span><span class='dollars" + (dneg ? " neg" : "") + "'>" + dStr + "</span></div></div>" +
+    "<div class='card-footer'><div class='footer-label'>" + tr.exitNote + "</div><div><span class='pts" + (tr.totalPts < 0 ? " neg" : "") + "'>" + pStr + "</span><span class='dollars" + (tr.totalPnl < 0 ? " neg" : "") + "'>" + dStr + "</span></div></div>" +
     toggle + "</div>";
 }
 
@@ -260,28 +303,80 @@ function renderAll(list) {
   var html = "";
   var total = 0;
   var wins = 0;
-  for (var d = 0; d < days.length; d++) {
-    var day = days[d];
-    var dt = [];
+  var totalCount = list.length;
+
+  for (var w = 0; w < weeks.length; w++) {
+    var week = weeks[w];
+    var weekTrades = [];
     for (var i = 0; i < list.length; i++) {
-      if (list[i].date === day.date) dt.push(list[i]);
+      for (var d = 0; d < week.days.length; d++) {
+        if (list[i].date === week.days[d].date) { weekTrades.push(list[i]); break; }
+      }
     }
-    var dp = 0;
-    for (var i = 0; i < dt.length; i++) { dp += dt[i].totalPnl; }
-    total += dp;
-    for (var i = 0; i < dt.length; i++) { if (dt[i].result === "win") wins++; }
-    var pnlStr = dt.length ? (dp >= 0 ? "+$" : "-$") + Math.abs(dp).toFixed(2) : "";
-    var pnlCls = dp >= 0 ? "day-pnl pos" : "day-pnl neg";
-    var cards = dt.length ? "" : "<div class='no-trades'>No trades</div>";
-    for (var i = 0; i < dt.length; i++) { cards += renderCard(dt[i]); }
-    html += "<div class='day-section'><div class='day-header'><div><span class='day-title'>" + day.name + "</span><span class='day-date'>" + day.date + "</span></div>" + (pnlStr ? "<span class='" + pnlCls + "'>" + pnlStr + "</span>" : "") + "</div><div class='day-grid'>" + cards + "</div></div>";
+    var weekPnl = 0;
+    var weekWins = 0;
+    for (var i = 0; i < weekTrades.length; i++) {
+      weekPnl += weekTrades[i].totalPnl;
+      if (weekTrades[i].result === "win") weekWins++;
+    }
+    total += weekPnl;
+    wins += weekWins;
+
+    var weekWr = weekTrades.length ? Math.round(weekWins / weekTrades.length * 100) + "%" : "--";
+    var weekPnlStr = weekTrades.length ? (weekPnl >= 0 ? "+$" : "-$") + Math.abs(weekPnl).toFixed(2) : "--";
+    var weekPnlCls = weekPnl >= 0 ? "pos" : "neg";
+
+    var dayHtml = "";
+    for (var d = 0; d < week.days.length; d++) {
+      var day = week.days[d];
+      var dayTrades = [];
+      for (var i = 0; i < weekTrades.length; i++) {
+        if (weekTrades[i].date === day.date) dayTrades.push(weekTrades[i]);
+      }
+      var dayPnl = 0;
+      for (var i = 0; i < dayTrades.length; i++) { dayPnl += dayTrades[i].totalPnl; }
+      var dayPnlStr = dayTrades.length ? (dayPnl >= 0 ? "+$" : "-$") + Math.abs(dayPnl).toFixed(2) : "";
+      var cards = dayTrades.length ? "" : "<div class='no-trades'>No trades</div>";
+      for (var i = 0; i < dayTrades.length; i++) { cards += renderCard(dayTrades[i]); }
+      dayHtml += "<div class='day-section'><div class='day-header'><div><span class='day-title'>" + day.name + "</span><span class='day-date'>" + day.date + "</span></div>" + (dayPnlStr ? "<span class='day-pnl " + (dayPnl >= 0 ? "pos" : "neg") + "'>" + dayPnlStr + "</span>" : "") + "</div><div class='day-grid'>" + cards + "</div></div>";
+    }
+
+    html += "<div class='week-block'>" +
+      "<div class='week-header' onclick='toggleWeek(" + week.num + ")'>" +
+        "<div class='week-left'>" +
+          "<span class='week-toggle-icon' id='icon-" + week.num + "'>&#9658;</span>" +
+          "<span class='week-title'>" + week.label + "</span>" +
+          "<span class='week-dates'>" + week.dates + "</span>" +
+        "</div>" +
+        "<div class='week-right'>" +
+          "<div class='week-stat'><div class='week-stat-label'>P&amp;L</div><div class='week-stat-value " + weekPnlCls + "'>" + weekPnlStr + "</div></div>" +
+          "<div class='week-stat'><div class='week-stat-label'>Win Rate</div><div class='week-stat-value " + weekPnlCls + "'>" + weekWr + "</div></div>" +
+          "<div class='week-stat'><div class='week-stat-label'>Trades</div><div class='week-stat-value'>" + weekTrades.length + "</div></div>" +
+        "</div>" +
+      "</div>" +
+      "<div class='week-body' id='week-" + week.num + "'>" + dayHtml + "</div>" +
+    "</div>";
   }
+
   document.getElementById("journal").innerHTML = html;
+
   var tel = document.getElementById("total-pnl");
   tel.textContent = (total >= 0 ? "+$" : "-$") + Math.abs(total).toFixed(2);
   tel.className = "stat-value" + (total < 0 ? " neg" : "");
-  document.getElementById("win-rate").textContent = list.length ? Math.round(wins / list.length * 100) + "%" : "--";
-  document.getElementById("trade-count").textContent = list.length;
+  document.getElementById("win-rate").textContent = totalCount ? Math.round(wins / totalCount * 100) + "%" : "--";
+  document.getElementById("trade-count").textContent = totalCount;
+}
+
+function toggleWeek(num) {
+  var body = document.getElementById("week-" + num);
+  var icon = document.getElementById("icon-" + num);
+  if (body.classList.contains("open")) {
+    body.classList.remove("open");
+    icon.classList.remove("open");
+  } else {
+    body.classList.add("open");
+    icon.classList.add("open");
+  }
 }
 
 function filterTrades(type, btn) {
