@@ -137,7 +137,7 @@ var weeks = [
     { name: "Thursday",  date: "05/07/2026" },
     { name: "Friday",    date: "05/08/2026" }
   ]},
-  { num: 3, label: "Week 3", dates: "05/11 - 05/17", days: [
+  { num: 3, label: "Week 3", dates: "05/10 - 05/15", days: [
     { name: "Sunday",    date: "05/10/2026" },
     { name: "Monday",    date: "05/11/2026" },
     { name: "Tuesday",   date: "05/12/2026" },
@@ -156,6 +156,27 @@ var weeks = [
 ];
 
 var trades = [
+  {
+    id: 10, date: "05/10/2026", entryTime: "6:25:24 PM", entryPrice: 7397.50, stopPrice: 7395.50,
+    setup: "FBD", result: "loss", contracts: 10, tradeLabel: "7391 Failed Breakdown",
+    targets: [
+      { label: "T1", price: 7395.50, contracts: 10, status: "stopped", pnl: -90.00, exitTime: "6:42 PM", exitPrice: 7395.50 }
+    ],
+    times: [{ label: "Entry", value: "6:25:24 PM" }, { label: "Stopped", value: "16m 48s" }],
+    totalPts: -2.00, totalPnl: -90.00, exitNote: "Stopped out", journal: ""
+  },
+  {
+    id: 9, date: "05/10/2026", entryTime: "6:44:01 PM", entryPrice: 7398.50, stopPrice: 7391.00,
+    setup: "FBD", result: "win", contracts: 10, tradeLabel: "7391 Failed Breakdown",
+    targets: [
+      { label: "T1", price: 7401.75, contracts: 4, status: "hit",  pnl: 65.00,  exitTime: "6:50 PM" },
+      { label: "T2", price: 7406.25, contracts: 3, status: "hit",  pnl: 116.25, exitTime: "7:02 PM" },
+      { label: "T3", price: 7408.75, contracts: 2, status: "hit",  pnl: 102.50, exitTime: "9:23 PM" },
+      { label: "T4", price: 7422.00, contracts: 1, status: "miss", pnl: 0,      exitTime: null }
+    ],
+    times: [{ label: "Entry", value: "6:44:01 PM" }, { label: "T1", value: "5m 57s" }, { label: "T2", value: "18m 8s" }, { label: "T3", value: "2h 39m" }, { label: "T4", value: "open" }],
+    totalPts: 44.25, totalPnl: 283.75, exitNote: "1 contract still open — target 7422", journal: ""
+  },
   {
     id: 8, date: "05/04/2026", entryTime: "12:20:29 PM", entryPrice: 7222.25, stopPrice: 7198.00,
     setup: "FBD", result: "win", contracts: 10, tradeLabel: "7214 Failed Breakdown",
