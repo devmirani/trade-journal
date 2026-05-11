@@ -9,6 +9,12 @@
   body { background: #080c10; font-family: 'Courier New', monospace; color: #c9d1d9; min-height: 100vh; }
   header { padding: 32px 40px 20px; border-bottom: 1px solid #21262d; }
   header h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.05em; }
+  .nav-tabs { display: flex; gap: 4px; padding: 0 40px; border-bottom: 1px solid #21262d; }
+  .nav-tab { padding: 12px 20px; font-size: 13px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: none; background: transparent; color: #8b949e; border-bottom: 2px solid transparent; margin-bottom: -1px; letter-spacing: 0.04em; }
+  .nav-tab:hover { color: #c9d1d9; }
+  .nav-tab.active { color: #fff; border-bottom-color: #00e676; }
+  .page { display: none; }
+  .page.active { display: block; }
   .filters { padding: 20px 40px; display: flex; gap: 10px; flex-wrap: wrap; }
   .filter-btn { padding: 6px 16px; border-radius: 6px; font-size: 12px; font-weight: 600; font-family: 'Courier New', monospace; cursor: pointer; border: 1.5px solid #21262d; background: transparent; color: #8b949e; letter-spacing: 0.05em; }
   .filter-btn.active { border-color: #00e676; color: #00e676; }
@@ -134,32 +140,78 @@
   .cal-timeline-dot.exit { background: #e05c5c; }
   .cal-timeline-ticks { display: flex; justify-content: space-between; margin-top: 4px; }
   .cal-timeline-tick { font-size: 8px; color: #8b949e; }
+  .setup-cal-section { margin: 40px 40px 20px; }
+  .setup-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .setup-cal-dow { text-align: center; font-size: 10px; color: #8b949e; padding: 6px 0; text-transform: uppercase; letter-spacing: 0.08em; }
+  .setup-cal-cell { background: #0d1117; border-radius: 6px; min-height: 80px; padding: 8px; border: 1px solid #21262d; cursor: default; }
+  .setup-cal-cell.has-setups { cursor: pointer; border-color: rgba(181,123,238,0.3); background: rgba(181,123,238,0.04); }
+  .setup-cal-cell.has-setups:hover { border-color: #b57bee; }
+  .setup-cal-cell.active-setup-day { border-color: #b57bee; background: rgba(181,123,238,0.1); }
+  .setup-cal-cell.empty { background: transparent; border-color: transparent; }
+  .setup-cal-day-num { font-size: 11px; color: #8b949e; margin-bottom: 6px; }
+  .setup-cal-cell.has-setups .setup-cal-day-num { color: #c9d1d9; font-weight: 700; }
+  .setup-cal-badge-count { font-size: 10px; color: #b57bee; font-weight: 700; margin-bottom: 4px; }
+  .setup-cal-titles { font-size: 9px; color: #8b949e; line-height: 1.6; }
+  .setup-drill { display: none; margin: 0 40px 60px; }
+  .setup-drill.open { display: block; }
+  .setup-drill-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 20px; padding-top: 24px; border-top: 1px solid #21262d; }
+  .setup-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+  .setup-card { background: #0d1117; border-radius: 10px; padding: 20px 24px; border-left: 3px solid #b57bee; }
+  .setup-card.priority-aplus { border-left-color: #00e676; }
+  .setup-card.priority-a { border-left-color: #f0a500; }
+  .setup-card.priority-b { border-left-color: #8b949e; }
+  .setup-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .setup-card-level { font-size: 26px; font-weight: 700; color: #fff; }
+  .setup-card-priority { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; }
+  .priority-aplus .setup-card-priority { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
+  .priority-a .setup-card-priority { background: rgba(240,165,0,0.1); color: #f0a500; border: 1px solid rgba(240,165,0,0.3); }
+  .priority-b .setup-card-priority { background: rgba(139,148,158,0.1); color: #8b949e; border: 1px solid rgba(139,148,158,0.3); }
+  .setup-card-type { display: inline-block; margin-bottom: 12px; padding: 2px 10px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 11px; font-weight: 600; }
+  .setup-card-notes-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .setup-card-notes { font-size: 12px; color: #c9d1d9; line-height: 1.7; }
 </style>
 </head>
 <body>
 
 <header><h1>TRADE JOURNAL</h1></header>
 
-<div class="filters">
-  <button class="filter-btn active" onclick="filterTrades('all', this)">ALL</button>
-  <button class="filter-btn" onclick="filterTrades('win', this)">WINS</button>
-  <button class="filter-btn" onclick="filterTrades('loss', this)">LOSSES</button>
-  <button class="filter-btn" onclick="filterTrades('FBD', this)">FBD</button>
-  <button class="filter-btn" onclick="filterTrades('SUPPORT_BOUNCE', this)">SUPPORT BOUNCE</button>
-  <button class="filter-btn" onclick="filterTrades('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchTab('journal-page', this)">Journal</button>
+  <button class="nav-tab" onclick="switchTab('setups-page', this)">Setups</button>
 </div>
 
-<div class="dash-section" id="dash-section"></div>
-<div id="journal"></div>
-
-<div class="cal-section">
-  <div class="cal-section-title">P&amp;L CALENDAR</div>
-  <div class="cal-nav">
-    <button class="cal-nav-btn" onclick="prevMonth()">&#8592;</button>
-    <div class="cal-month-label" id="cal-month-label"></div>
-    <button class="cal-nav-btn" onclick="nextMonth()">&#8594;</button>
+<div id="journal-page" class="page active">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterTrades('all', this)">ALL</button>
+    <button class="filter-btn" onclick="filterTrades('win', this)">WINS</button>
+    <button class="filter-btn" onclick="filterTrades('loss', this)">LOSSES</button>
+    <button class="filter-btn" onclick="filterTrades('FBD', this)">FBD</button>
+    <button class="filter-btn" onclick="filterTrades('SUPPORT_BOUNCE', this)">SUPPORT BOUNCE</button>
+    <button class="filter-btn" onclick="filterTrades('LEVEL_RECLAIM', this)">LEVEL RECLAIM</button>
   </div>
-  <div class="cal-grid" id="cal-grid"></div>
+  <div class="dash-section" id="dash-section"></div>
+  <div id="journal"></div>
+  <div class="cal-section">
+    <div class="cal-section-title">P&amp;L CALENDAR</div>
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="prevMonth()">&#8592;</button>
+      <div class="cal-month-label" id="cal-month-label"></div>
+      <button class="cal-nav-btn" onclick="nextMonth()">&#8594;</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+</div>
+
+<div id="setups-page" class="page">
+  <div class="setup-cal-section">
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="prevSetupMonth()">&#8592;</button>
+      <div class="cal-month-label" id="setup-cal-month-label"></div>
+      <button class="cal-nav-btn" onclick="nextSetupMonth()">&#8594;</button>
+    </div>
+    <div class="setup-cal-grid" id="setup-cal-grid"></div>
+  </div>
+  <div class="setup-drill" id="setup-drill"></div>
 </div>
 
 <div id="img-overlay" class="img-overlay" onclick="closeImg()">
@@ -167,8 +219,14 @@
 </div>
 
 <script>
+// ============================================================
+// CHART MAP
+// ============================================================
 var chartMap = { 1: "https://i.imgur.com/go0WawU.png" };
 
+// ============================================================
+// WEEKS
+// ============================================================
 var weeks = [
   { num: 1, label: "Week 1", dates: "04/27 - 05/03", days: [
     { name: "Sun", date: "04/27/2026" }, { name: "Mon", date: "04/28/2026" },
@@ -192,13 +250,14 @@ var weeks = [
   ]}
 ];
 
+// ============================================================
+// TRADES
+// ============================================================
 var trades = [
   {
     id: 10, date: "05/10/2026", entryTime: "6:25 PM", entryPrice: 7397.50, stopPrice: 7395.50,
     setup: "FBD", result: "loss", contracts: 10, tradeLabel: "7391 Failed Breakdown",
-    targets: [
-      { label: "T1", price: 7395.50, contracts: 10, status: "stopped", pnl: -90.00, exitTime: "6:42 PM", exitPrice: 7395.50 }
-    ],
+    targets: [{ label: "T1", price: 7395.50, contracts: 10, status: "stopped", pnl: -90.00, exitTime: "6:42 PM", exitPrice: 7395.50 }],
     times: [{ label: "Entry", value: "6:25 PM" }, { label: "Stopped", value: "16m 48s" }],
     totalPts: -2.00, totalPnl: -90.00, exitNote: "Stopped out", journal: ""
   },
@@ -302,8 +361,64 @@ var trades = [
   }
 ];
 
-var currentFilter = "all";
+// ============================================================
+// SETUPS DATA — add new days at the top
+// ============================================================
+var setupDays = [
+  {
+    date: "05/11/2026",
+    setups: [
+      { level: 7391, type: "FBD", priority: "aplus", notes: "Shelf of lows formed 5:50AM-8:50AM. Primary long for Monday. Wait for 7378 to recover before entering. Clear, well-defined shelf — this is the A+ setup of the day." },
+      { level: 7337, type: "FBD", priority: "a", notes: "Failed Breakdown of yesterday's daily low. Quality long if we get down there. Elevator down sell required first before engaging." },
+      { level: 7345, type: "FBD", priority: "b", notes: "May have a bounce left but only on a slow, controlled sell. Do not take if ES is knifing down on a headline. Was major support yesterday." },
+      { level: 7402, type: "BACKTEST", priority: "b", notes: "Resistance shelf from last Thursday that broke out this morning. Backtest long possible on slow grind down only. Mancini will not personally take this — too close to local highs after a large run up." }
+    ]
+  }
+];
 
+// ============================================================
+// STATE
+// ============================================================
+var currentFilter = "all";
+var calYear = 2026;
+var calMonth = 4;
+var setupCalYear = 2026;
+var setupCalMonth = 4;
+var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+var timelineEvents = {
+  "05/04/2026": [
+    { type: "entry", time: "12:20 PM" }, { type: "exit", time: "12:22 PM" }, { type: "exit", time: "1:11 PM" },
+    { type: "entry", time: "12:39 PM" }, { type: "exit", time: "1:17 PM" }, { type: "exit", time: "4:05 PM" },
+    { type: "entry", time: "11:27 PM" }
+  ],
+  "05/05/2026": [
+    { type: "exit", time: "2:55 AM" }, { type: "exit", time: "6:39 AM" },
+    { type: "entry", time: "7:15 PM" }, { type: "exit", time: "8:15 PM" }
+  ],
+  "05/06/2026": [
+    { type: "entry", time: "9:48 AM" }, { type: "exit", time: "10:25 AM" }, { type: "exit", time: "10:41 AM" }
+  ],
+  "05/07/2026": [
+    { type: "entry", time: "12:32 PM" }, { type: "exit", time: "12:57 PM" },
+    { type: "entry", time: "1:40 PM" }, { type: "exit", time: "2:08 PM" }, { type: "exit", time: "4:02 PM" }, { type: "exit", time: "4:50 PM" },
+    { type: "entry", time: "6:20 PM" }, { type: "exit", time: "6:21 PM" }, { type: "exit", time: "8:03 PM" }
+  ],
+  "05/08/2026": [
+    { type: "exit", time: "1:13 AM" }, { type: "exit", time: "5:28 AM" }
+  ],
+  "05/10/2026": [
+    { type: "entry", time: "6:25 PM" }, { type: "exit", time: "6:42 PM" },
+    { type: "entry", time: "6:44 PM" }, { type: "exit", time: "6:50 PM" }, { type: "exit", time: "7:02 PM" }, { type: "exit", time: "9:23 PM" }
+  ],
+  "05/11/2026": [
+    { type: "exit", time: "9:32 AM" }
+  ]
+};
+
+// ============================================================
+// HELPERS
+// ============================================================
 function getFilteredTrades() {
   var f = [];
   for (var i = 0; i < trades.length; i++) {
@@ -329,6 +444,24 @@ function scLabel(t) {
   return t.label + " --";
 }
 
+function getDayMap() {
+  var map = {};
+  for (var i = 0; i < trades.length; i++) { map[trades[i].date] = true; }
+  return map;
+}
+
+function switchTab(pageId, btn) {
+  var pages = document.querySelectorAll(".page");
+  for (var i = 0; i < pages.length; i++) { pages[i].classList.remove("active"); }
+  var tabs = document.querySelectorAll(".nav-tab");
+  for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove("active"); }
+  document.getElementById(pageId).classList.add("active");
+  btn.classList.add("active");
+}
+
+// ============================================================
+// TRADE CARD
+// ============================================================
 function renderCard(tr) {
   var win = tr.result === "win";
   var tps = "";
@@ -371,6 +504,9 @@ function setupBadge(setup) {
   return "<span class='day-tile-setup-badge badge-bounce'>SUPPORT BOUNCE</span>";
 }
 
+// ============================================================
+// JOURNAL RENDER
+// ============================================================
 function renderAll(list) {
   var html = "";
   for (var w = 0; w < weeks.length; w++) {
@@ -386,7 +522,6 @@ function renderAll(list) {
     var wr = wt.length ? Math.round(ww / wt.length * 100) + "%" : "--";
     var wps = wt.length ? (wp >= 0 ? "+$" : "-$") + Math.abs(wp).toFixed(2) : "--";
     var wpc = wp >= 0 ? "pos" : "neg";
-
     var dayTilesHtml = "<div class='day-row'>";
     for (var d = 0; d < week.days.length; d++) {
       var day = week.days[d];
@@ -416,17 +551,7 @@ function renderAll(list) {
       }
     }
     dayTilesHtml += "</div>";
-
-    html += "<div class='week-block'>" +
-      "<div class='week-header' onclick='toggleWeek(" + week.num + ")'>" +
-        "<div class='week-left'><span class='week-toggle-icon' id='icon-" + week.num + "'>&#9658;</span><span class='week-title'>" + week.label + "</span><span class='week-dates'>" + week.dates + "</span></div>" +
-        "<div class='week-right'><div class='week-stat'><div class='week-stat-label'>P&amp;L</div><div class='week-stat-value " + wpc + "'>" + wps + "</div></div><div class='week-stat'><div class='week-stat-label'>Win Rate</div><div class='week-stat-value " + wpc + "'>" + wr + "</div></div><div class='week-stat'><div class='week-stat-label'>Trades</div><div class='week-stat-value'>" + wt.length + "</div></div></div>" +
-      "</div>" +
-      "<div class='week-body' id='week-" + week.num + "'>" +
-        dayTilesHtml +
-        "<div class='drill-view' id='drill-" + week.num + "'></div>" +
-      "</div>" +
-    "</div>";
+    html += "<div class='week-block'><div class='week-header' onclick='toggleWeek(" + week.num + ")'><div class='week-left'><span class='week-toggle-icon' id='icon-" + week.num + "'>&#9658;</span><span class='week-title'>" + week.label + "</span><span class='week-dates'>" + week.dates + "</span></div><div class='week-right'><div class='week-stat'><div class='week-stat-label'>P&amp;L</div><div class='week-stat-value " + wpc + "'>" + wps + "</div></div><div class='week-stat'><div class='week-stat-label'>Win Rate</div><div class='week-stat-value " + wpc + "'>" + wr + "</div></div><div class='week-stat'><div class='week-stat-label'>Trades</div><div class='week-stat-value'>" + wt.length + "</div></div></div></div><div class='week-body' id='week-" + week.num + "'>" + dayTilesHtml + "<div class='drill-view' id='drill-" + week.num + "'></div></div></div>";
   }
   document.getElementById("journal").innerHTML = html;
 }
@@ -434,13 +559,8 @@ function renderAll(list) {
 function toggleWeek(num) {
   var body = document.getElementById("week-" + num);
   var icon = document.getElementById("icon-" + num);
-  if (body.classList.contains("open")) {
-    body.classList.remove("open");
-    icon.classList.remove("open");
-  } else {
-    body.classList.add("open");
-    icon.classList.add("open");
-  }
+  if (body.classList.contains("open")) { body.classList.remove("open"); icon.classList.remove("open"); }
+  else { body.classList.add("open"); icon.classList.add("open"); }
 }
 
 function openDrillDown(weekNum, date) {
@@ -448,16 +568,12 @@ function openDrillDown(weekNum, date) {
   var dayTrades = [];
   for (var i = 0; i < list.length; i++) { if (list[i].date === date) dayTrades.push(list[i]); }
   if (!dayTrades.length) return;
-
-  // Highlight active tile
   var allTiles = document.querySelectorAll(".day-tile");
   for (var i = 0; i < allTiles.length; i++) { allTiles[i].classList.remove("active-day"); }
   var activeTile = document.getElementById("tile-" + weekNum + "-" + date.replace(/\//g, "-"));
   if (activeTile) activeTile.classList.add("active-day");
-
   var cardsHtml = "";
   for (var i = 0; i < dayTrades.length; i++) { cardsHtml += renderCard(dayTrades[i]); }
-
   var drill = document.getElementById("drill-" + weekNum);
   drill.innerHTML = "<div class='drill-title'>" + date + " — Trade Cards</div><div class='drill-cards'>" + cardsHtml + "</div>";
   drill.classList.add("open");
@@ -488,12 +604,9 @@ function closeImg() {
   document.getElementById("img-overlay").classList.remove("open");
 }
 
-function getDayMap() {
-  var map = {};
-  for (var i = 0; i < trades.length; i++) { map[trades[i].date] = true; }
-  return map;
-}
-
+// ============================================================
+// DASHBOARD
+// ============================================================
 function renderDashboard() {
   var totalPnl = 0, totalTrades = 0, winTrades = 0;
   for (var i = 0; i < trades.length; i++) {
@@ -519,40 +632,9 @@ function renderDashboard() {
   document.getElementById("dash-section").innerHTML = html;
 }
 
-// Calendar
-var calYear = 2026;
-var calMonth = 4;
-
-var timelineEvents = {
-  "05/04/2026": [
-    { type: "entry", time: "12:20 PM" }, { type: "exit", time: "12:22 PM" }, { type: "exit", time: "1:11 PM" },
-    { type: "entry", time: "12:39 PM" }, { type: "exit", time: "1:17 PM" }, { type: "exit", time: "4:05 PM" },
-    { type: "entry", time: "11:27 PM" }
-  ],
-  "05/05/2026": [
-    { type: "exit", time: "2:55 AM" }, { type: "exit", time: "6:39 AM" },
-    { type: "entry", time: "7:15 PM" }, { type: "exit", time: "8:15 PM" }
-  ],
-  "05/06/2026": [
-    { type: "entry", time: "9:48 AM" }, { type: "exit", time: "10:25 AM" }, { type: "exit", time: "10:41 AM" }
-  ],
-  "05/07/2026": [
-    { type: "entry", time: "12:32 PM" }, { type: "exit", time: "12:57 PM" },
-    { type: "entry", time: "1:40 PM" }, { type: "exit", time: "2:08 PM" }, { type: "exit", time: "4:02 PM" }, { type: "exit", time: "4:50 PM" },
-    { type: "entry", time: "6:20 PM" }, { type: "exit", time: "6:21 PM" }, { type: "exit", time: "8:03 PM" }
-  ],
-  "05/08/2026": [
-    { type: "exit", time: "1:13 AM" }, { type: "exit", time: "5:28 AM" }
-  ],
-  "05/10/2026": [
-    { type: "entry", time: "6:25 PM" }, { type: "exit", time: "6:42 PM" },
-    { type: "entry", time: "6:44 PM" }, { type: "exit", time: "6:50 PM" }, { type: "exit", time: "7:02 PM" }, { type: "exit", time: "9:23 PM" }
-  ],
-  "05/11/2026": [
-    { type: "exit", time: "9:32 AM" }
-  ]
-};
-
+// ============================================================
+// P&L CALENDAR
+// ============================================================
 function timeToOffset(timeStr) {
   var parts = timeStr.split(" ");
   var hm = parts[0].split(":");
@@ -604,8 +686,6 @@ function buildDayMap() {
   }
   return map;
 }
-
-var monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
 function renderCalendar() {
   var map = buildDayMap();
@@ -675,9 +755,71 @@ function renderCalendar() {
 function prevMonth() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
 function nextMonth() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
 
+// ============================================================
+// SETUP CALENDAR
+// ============================================================
+function buildSetupDayMap() {
+  var map = {};
+  for (var i = 0; i < setupDays.length; i++) { map[setupDays[i].date] = setupDays[i]; }
+  return map;
+}
+
+function renderSetupCalendar() {
+  var map = buildSetupDayMap();
+  document.getElementById("setup-cal-month-label").textContent = monthNames[setupCalMonth] + " " + setupCalYear;
+  var firstDow = new Date(setupCalYear, setupCalMonth, 1).getDay();
+  var daysInMonth = new Date(setupCalYear, setupCalMonth + 1, 0).getDate();
+  var html = "";
+  var dowLabels = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  for (var d = 0; d < 7; d++) { html += "<div class='setup-cal-dow'>" + dowLabels[d] + "</div>"; }
+  for (var e = 0; e < firstDow; e++) { html += "<div class='setup-cal-cell empty'></div>"; }
+  for (var day = 1; day <= daysInMonth; day++) {
+    var mm = String(setupCalMonth + 1).padStart(2, "0");
+    var dd = String(day).padStart(2, "0");
+    var dateStr = mm + "/" + dd + "/" + setupCalYear;
+    var data = map[dateStr];
+    if (data) {
+      var titles = "";
+      for (var i = 0; i < data.setups.length; i++) {
+        titles += data.setups[i].level + " " + data.setups[i].type + "<br>";
+      }
+      html += "<div class='setup-cal-cell has-setups' id='setup-cell-" + dateStr.replace(/\//g,"-") + "' onclick='openSetupDrill(\"" + dateStr + "\")'><div class='setup-cal-day-num'>" + day + "</div><div class='setup-cal-badge-count'>" + data.setups.length + " setup" + (data.setups.length > 1 ? "s" : "") + "</div><div class='setup-cal-titles'>" + titles + "</div></div>";
+    } else {
+      html += "<div class='setup-cal-cell'><div class='setup-cal-day-num'>" + day + "</div></div>";
+    }
+  }
+  document.getElementById("setup-cal-grid").innerHTML = html;
+}
+
+function openSetupDrill(dateStr) {
+  var map = buildSetupDayMap();
+  var data = map[dateStr];
+  if (!data) return;
+  var cells = document.querySelectorAll(".setup-cal-cell");
+  for (var i = 0; i < cells.length; i++) { cells[i].classList.remove("active-setup-day"); }
+  var cell = document.getElementById("setup-cell-" + dateStr.replace(/\//g, "-"));
+  if (cell) cell.classList.add("active-setup-day");
+  var cardsHtml = "";
+  for (var i = 0; i < data.setups.length; i++) {
+    var s = data.setups[i];
+    var priorityLabel = s.priority === "aplus" ? "A+" : s.priority === "a" ? "A" : "B";
+    cardsHtml += "<div class='setup-card priority-" + s.priority + "'><div class='setup-card-header'><div class='setup-card-level'>" + s.level + "</div><div class='setup-card-priority'>" + priorityLabel + "</div></div><div class='setup-card-type'>" + s.type + "</div><div class='setup-card-notes-label'>Notes</div><div class='setup-card-notes'>" + s.notes + "</div></div>";
+  }
+  var drill = document.getElementById("setup-drill");
+  drill.innerHTML = "<div class='setup-drill-title'>" + dateStr + " — Pre-Market Setups</div><div class='setup-cards-grid'>" + cardsHtml + "</div>";
+  drill.classList.add("open");
+}
+
+function prevSetupMonth() { setupCalMonth--; if (setupCalMonth < 0) { setupCalMonth = 11; setupCalYear--; } renderSetupCalendar(); }
+function nextSetupMonth() { setupCalMonth++; if (setupCalMonth > 11) { setupCalMonth = 0; setupCalYear++; } renderSetupCalendar(); }
+
+// ============================================================
+// INIT
+// ============================================================
 renderDashboard();
 renderAll(getFilteredTrades());
 renderCalendar();
+renderSetupCalendar();
 </script>
 </body>
 </html>
