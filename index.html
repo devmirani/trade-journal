@@ -357,6 +357,28 @@
   .pts.options { color: #378ADD; }
   .dollars.options { color: #378ADD; }
 
+
+  /* Setup day context — bull/bear/summary */
+  .setup-context { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .setup-context-full { margin-top: 14px; grid-column: 1 / -1; }
+  .setup-context-card { background: #080c10; border-radius: 8px; padding: 16px 18px; border: 1px solid #21262d; }
+  body.light .setup-context-card { background: #f0f2f7; border-color: #d0d7e3; }
+  .setup-context-card.bull { border-left: 3px solid #00e676; }
+  .setup-context-card.bear { border-left: 3px solid #e05c5c; }
+  .setup-context-card.summary { border-left: 3px solid #b57bee; }
+  body.light .setup-context-card.bull { border-left-color: #00a854; }
+  body.light .setup-context-card.bear { border-left-color: #c0392b; }
+  body.light .setup-context-card.summary { border-left-color: #8b5cf6; }
+  .setup-context-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .setup-context-card.bull .setup-context-label { color: #00e676; }
+  .setup-context-card.bear .setup-context-label { color: #e05c5c; }
+  .setup-context-card.summary .setup-context-label { color: #b57bee; }
+  body.light .setup-context-card.bull .setup-context-label { color: #00a854; }
+  body.light .setup-context-card.bear .setup-context-label { color: #c0392b; }
+  body.light .setup-context-card.summary .setup-context-label { color: #8b5cf6; }
+  .setup-context-text { font-size: 11px; color: #8b949e; line-height: 1.75; }
+  body.light .setup-context-text { color: #4b5563; }
+
 </style>
 </head>
 <body>
@@ -529,12 +551,6 @@ var weeks = [
 ];
 
 var trades = [
-  { id:14, date:"05/12/2026", entryTime:"12:05 PM", entryPrice:7377.00, stopPrice:7363.00, setup:"FBD", result:"loss", contracts:5, tradeLabel:"7372 Failed Breakdown",
-    targets:[{label:"T1",price:7383.00,contracts:5,status:"miss",pnl:0,exitTime:null},{label:"T2",price:7390.00,contracts:5,status:"miss",pnl:0,exitTime:null}],
-    times:[{label:"Entry",value:"12:05 PM"},{label:"Stopped",value:"26m"}], totalPts:-8.25, totalPnl:-206.25, exitNote:"Stopped out at 7368.75 on 7372 break", journal:"" },
-  { id:13, date:"05/12/2026", entryTime:"11:45 AM", entryPrice:7380.50, stopPrice:7363.00, setup:"FBD", result:"loss", contracts:5, tradeLabel:"7372 Failed Breakdown",
-    targets:[{label:"T1",price:7383.00,contracts:5,status:"miss",pnl:0,exitTime:null},{label:"T2",price:7390.00,contracts:5,status:"miss",pnl:0,exitTime:null}],
-    times:[{label:"Entry",value:"11:45 AM"},{label:"Stopped",value:"14m"}], totalPts:-11.00, totalPnl:-275.00, exitNote:"Stopped out at 7369.50 on 7372 break", journal:"" },
   { id:12, date:"05/12/2026", entryTime:"12:05 PM", entryPrice:69.00, stopPrice:0, setup:"SPY_CALL", result:"win", contracts:1, tradeLabel:"SPY 734 Call",
     targets:[{label:"T1",price:312.00,contracts:1,status:"hit",pnl:243.00,exitTime:"3:16 PM",exitPrice:312.00}],
     times:[{label:"Entry",value:"12:05 PM"},{label:"Exit",value:"3:11m"}], totalPts:243.00, totalPnl:243.00, exitNote:"Sold near 7416 — knew 7422 was target", journal:"Read the 7363 FBD playing out on MES but was past two-loss rule. Pivoted to SPY 734 Call instead. Bought at $69, rode the squeeze from 7363 to 7416+. Sold slightly early — knew 7422 was the next target and it got there, then 7435. Left money on the table but a $243 win on a brutal CPI day was the right call mentally." },
@@ -583,7 +599,11 @@ var setupDays = [
     {level:7390,type:"LEVEL_RECLAIM",priority:"a",notes:"Strong support. If ES dips to 7390 and recovers 7402, this represents a Level Reclaim long — 7402 is a clear horizontal line from Monday daily low and Tuesday morning lows. Only on a dip to 7390 then recovery of 7402."},
     {level:7377,type:"FBD",priority:"b",notes:"Possible support but only on a controlled, organized sell. If ES is knifing full speed into it, do not buy. Slow grind only."},
     {level:7345,type:"FBD",priority:"b",notes:"Decent support below 7363. Only buy if its a controlled, slow sell — not if free falling. Below there, FBD of last Thursday's 7336 daily low is the next actionable zone."}
-  ]},
+  ],
+  bull:"ES is now rangebound 7428–7363 with 7402 as the pivot. Bulls want ES to mature this range and build sideways structure. Near the top of the range now — may react at 7428 to get entries. When ES is ready to break, upside targets are 7442, 7450, perhaps dip again there, then all time highs at 7464, 7500+. No spots to add on strength — need a sell to get new entries.",
+  bear:"Bear case begins below 7390. If 7390 fails, ES sells down to 7363 range support. For shorts: ideally see a final bounce at 7390 or a FBD that fizzles, then short below the bounce low — trigger around 7387 down. Note: breakdown trades have a 60%+ failure rate — low win rate, high R/R. Not recommended for newer traders.",
+  summary:"The dip was bought yet again. ES rangebound 7428–7363, this will expand further. Lean is bulls fill it out then 7442, 7450, dip again, then off to ATH at 7464, 7500+. If 7390 fails — sell to 7363 range support. ES finally seeing normal two-way tape with multiple FBDs on the sell, then afternoon squeeze. Trade it one setup at a time, level to level, no predictions."
+  },
   { date:"05/12/2026", setups:[
     {level:7422,type:"FBD",priority:"aplus",notes:"Big low set at 10:30AM Monday from which ES rallied to daily highs. Primary A+ setup for Tuesday. Failed Breakdown of this low is the most actionable entry."},
     {level:7402,type:"FBD",priority:"a",notes:"Low of day Monday — most interesting zone. Failed Breakdown of this daily low is actionable. We probably finally get a more proper dip if we fail below 7402 since this was the backtest of last Thursday's breakdown. CPI at 8:30AM — be on guard for traps/FBDs in first 30 min after print."},
@@ -1053,7 +1073,15 @@ function openSetupDrill(dateStr) {
     cards += "<div class='setup-card priority-" + s.priority + "'><div class='setup-card-header'><div class='setup-card-level'>" + s.level + "</div><div class='setup-card-priority'>" + pl + "</div></div><div class='setup-card-type'>" + s.type + "</div><div class='setup-card-notes-label'>Notes</div><div class='setup-card-notes'>" + s.notes + "</div></div>";
   }
   var drill = document.getElementById("setup-drill");
-  drill.innerHTML = "<div class='setup-drill-title'>" + dateStr + " — Pre-Market Setups</div><div class='setup-cards-grid'>" + cards + "</div>";
+  var context = "";
+  if (data.bull || data.bear || data.summary) {
+    context += "<div class='setup-context'>";
+    if (data.bull) context += "<div class='setup-context-card bull'><div class='setup-context-label'>&#9650; Bull Case</div><div class='setup-context-text'>" + data.bull + "</div></div>";
+    if (data.bear) context += "<div class='setup-context-card bear'><div class='setup-context-label'>&#9660; Bear Case</div><div class='setup-context-text'>" + data.bear + "</div></div>";
+    if (data.summary) context += "<div class='setup-context-card summary setup-context-full'><div class='setup-context-label'>&#9654; Mancini Summary</div><div class='setup-context-text'>" + data.summary + "</div></div>";
+    context += "</div>";
+  }
+  drill.innerHTML = "<div class='setup-drill-title'>" + dateStr + " — Pre-Market Setups</div><div class='setup-cards-grid'>" + cards + "</div>" + context;
   drill.classList.add("open");
 }
 
