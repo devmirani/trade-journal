@@ -379,6 +379,46 @@
   .setup-context-text { font-size: 11px; color: #8b949e; line-height: 1.75; }
   body.light .setup-context-text { color: #4b5563; }
 
+
+  /* Watching / tracking cards */
+  .day-tile.watching { cursor: pointer; opacity: 0.6; border-color: #b57bee; border-style: dashed; }
+  .day-tile.watching:hover { opacity: 0.85; border-color: #b57bee; transform: translateY(-2px); }
+  .day-tile.watching.active-day { opacity: 1; border-color: #b57bee; border-style: solid; }
+  .day-tile-watching-label { font-size: 9px; color: #b57bee; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; font-weight: 700; }
+  body.light .day-tile.watching { border-color: #8b5cf6; }
+  body.light .day-tile-watching-label { color: #8b5cf6; }
+
+  .watch-card { background: #0d1117; border-radius: 10px; padding: 20px 24px; border-left: 3px solid #b57bee; border: 1px solid rgba(181,123,238,0.3); position: relative; }
+  body.light .watch-card { background: #fff; border-color: rgba(139,92,246,0.3); }
+  .watch-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .watch-card-priority-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 22px; }
+  .watch-card-level { font-size: 22px; font-weight: 700; color: #b57bee; }
+  body.light .watch-card-level { color: #8b5cf6; }
+  .watch-card-label { font-size: 12px; color: #8b949e; margin-left: 8px; }
+  .watch-card-priority { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; }
+  .watch-priority-aplus { background: rgba(0,230,118,0.1); color: #00e676; border: 1px solid rgba(0,230,118,0.3); }
+  .watch-priority-a { background: rgba(240,165,0,0.1); color: #f0a500; border: 1px solid rgba(240,165,0,0.3); }
+  .watch-priority-b { background: rgba(139,148,158,0.1); color: #8b949e; border: 1px solid rgba(139,148,158,0.3); }
+  .watch-card-badge { display: inline-block; margin-bottom: 12px; padding: 2px 10px; border: 1.5px solid #b57bee; border-radius: 6px; color: #b57bee; font-size: 11px; font-weight: 600; }
+  body.light .watch-card-badge { border-color: #8b5cf6; color: #8b5cf6; }
+  .watch-card-section { margin-bottom: 10px; }
+  .watch-card-section-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+  .watch-card-entry { font-size: 12px; color: #c9d1d9; line-height: 1.7; }
+  body.light .watch-card-entry { color: #374151; }
+  .watch-targets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .watch-tp { flex: 1; min-width: 70px; padding: 7px 4px; border-radius: 6px; font-size: 11px; font-weight: 700; text-align: center; font-family: "Courier New", monospace; background: transparent; border: 1.5px solid #21262d; color: #8b949e; line-height: 1.5; }
+  .watch-card-risk { display: flex; gap: 20px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #21262d; }
+  body.light .watch-card-risk { border-top-color: #d0d7e3; }
+  .watch-risk-item { display: flex; flex-direction: column; gap: 2px; }
+  .watch-risk-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.06em; }
+  .watch-risk-value { font-size: 13px; font-weight: 700; color: #c9d1d9; }
+  body.light .watch-risk-value { color: #1a1f2e; }
+  .watch-card-status { position: absolute; top: 14px; right: 14px; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: rgba(181,123,238,0.1); color: #b57bee; border: 1px solid rgba(181,123,238,0.3); text-transform: uppercase; letter-spacing: 0.06em; }
+  body.light .watch-card-status { color: #8b5cf6; }
+  .drill-watching-title { font-size: 13px; font-weight: 700; color: #b57bee; margin-bottom: 6px; margin-top: 20px; text-transform: uppercase; letter-spacing: 0.06em; }
+  body.light .drill-watching-title { color: #8b5cf6; }
+  .drill-watching-note { font-size: 11px; color: #8b949e; margin-bottom: 16px; line-height: 1.6; }
+
 </style>
 </head>
 <body>
@@ -597,6 +637,44 @@ var trades = [
     targets:[{label:"T1",price:7358.50,contracts:7,status:"hit",pnl:175.00,exitTime:"6:21 PM"},{label:"T2",price:7366.50,contracts:1,status:"hit",pnl:65.00,exitTime:"8:03 PM"},{label:"T3",price:7380.00,contracts:1,status:"hit",pnl:132.50,exitTime:"1:13 AM"},{label:"T4",price:7402.00,contracts:1,status:"hit",pnl:242.50,exitTime:"5:28 AM"}],
     times:[{label:"Entry",value:"6:20 PM"},{label:"T1",value:"33s"},{label:"T2",value:"1h 42m"},{label:"T3",value:"6h 52m"},{label:"T4",value:"11h 7m"}], totalPts:123.50, totalPnl:615.00, exitNote:"Position fully exited",
     journal:"Post market Thursday, after a long grind down all day in ETH, we got the FBD of the Daily RTH Low at 7345. 6pm opened with a gap down below this low. We flushed to about 7337 then quickly recovered 7345 by 6:15pm. I took 10 contracts here using the NAP, entry was at 6:20pm at 7353.50 and I had my TP1 at 7358.50 which hit seconds later. TP2 hit around 8pm at 7366.50. I left my last 2 runners to run overnight. I had my TP3 set at 7380 and my 4th set at 7402. We hit both of these overnight. When I checked price in the morning (Friday), ES was repeatedly testing 7402. Total on this trade was $604.60." }
+];
+
+
+var watchDays = [
+  { date:"05/12/2026", note:"CPI at 8:30AM — be on guard for traps and FBDs in first 30 min after print. Rangebound conditions post-rally. Two-loss rule strictly enforced. EOD eval buffer tight.", watches:[
+    { level:7422, label:"7422 Failed Breakdown", setup:"FBD", priority:"aplus",
+      entry:"Big low set at 10:30AM Monday from which ES rallied to daily highs. Wait for full flush through 7422 then either clear acceptance or NAP (7422+5=7427, hold above 7427 for a few minutes).",
+      stop:"Below 7414.",
+      targets:[{label:"T1",price:7435},{label:"T2",price:7443},{label:"T3",price:7450}],
+      contracts:5, risk:"$400 max (5 contracts to 7414 stop)" },
+    { level:7402, label:"7402 Failed Breakdown", setup:"FBD", priority:"a",
+      entry:"Monday daily low and overnight support. Flush through 7402, recover via NAP (7402+5=7407, hold above 7407 for a few minutes). Most actionable if CPI spike causes the flush.",
+      stop:"Below 7394.",
+      targets:[{label:"T1",price:7415},{label:"T2",price:7422},{label:"T3",price:7435}],
+      contracts:5, risk:"$400 max (5 contracts to 7394 stop)" },
+    { level:7363, label:"7363 Failed Breakdown", setup:"FBD", priority:"b",
+      entry:"Wait for it to defend then recover 7372 to get long. 7372 was a big low set ~11PM last Thursday. Do not just buy 7363 directly.",
+      stop:"Below 7355.",
+      targets:[{label:"T1",price:7377},{label:"T2",price:7390}],
+      contracts:3, risk:"$200 max (3 contracts to 7355 stop)" }
+  ]},
+  { date:"05/13/2026", note:"Rangebound 7363–7428, pivot at 7402. One trade, A+ only. EOD eval buffer: $986. Max 2-3 contracts.", watches:[
+    { level:7363, label:"7363 Failed Breakdown", setup:"FBD", priority:"aplus",
+      entry:"Wait for full flush through 7363, then either: (1) clear acceptance at 7363, or (2) NAP — price recovers 7363 by 5pts (7368) and holds above for a couple minutes. Bonus if ES dips to 7355 on the flush first.",
+      stop:"Below 7355 — do not manually override this stop.",
+      targets:[{label:"T1",price:7377},{label:"T2",price:7390},{label:"T3",price:7402}],
+      contracts:3, risk:"$275 max (3 contracts to 7355 stop)" },
+    { level:7390, label:"7390 Level Reclaim", setup:"LEVEL_RECLAIM", priority:"a",
+      entry:"Only valid if ES dips to 7390 then recovers back above 7402. 7402 is the reclaim trigger line — do not enter until price holds above 7402 for confirmation.",
+      stop:"Below 7385.",
+      targets:[{label:"T1",price:7410},{label:"T2",price:7422},{label:"T3",price:7428}],
+      contracts:3, risk:"$262 max (3 contracts to 7385 stop)" },
+    { level:7377, label:"7377 Support", setup:"FBD", priority:"b",
+      entry:"Controlled, organized sell only. If ES is knifing full speed into 7377, do not take. Slow grind approach only.",
+      stop:"Below 7370.",
+      targets:[{label:"T1",price:7390},{label:"T2",price:7402}],
+      contracts:2, risk:"$175 max (2 contracts to 7370 stop)" }
+  ]}
 ];
 
 var setupDays = [
@@ -829,7 +907,14 @@ function renderAll(list) {
       for (var i = 0; i < wt.length; i++) if (wt[i].date === day.date) dt.push(wt[i]);
       for (var i = 0; i < dt.length; i++) dp += dt[i].totalPnl;
       if (dt.length === 0) {
-        dayTiles += "<div class='day-tile no-trades'><div class='day-tile-name'>" + day.name + "</div><div class='day-tile-date'>" + day.date.slice(0,5) + "</div></div>";
+        // Check if this is a watch day
+        var watchData = null;
+        for (var wi = 0; wi < watchDays.length; wi++) { if (watchDays[wi].date === day.date) { watchData = watchDays[wi]; break; } }
+        if (watchData) {
+          dayTiles += "<div class='day-tile watching' id='tile-" + week.num + "-" + day.date.replace(/\//g,"-") + "' onclick='openDrillDown(" + week.num + ",\"" + day.date + "\")'><div class='day-tile-name'>" + day.name + "</div><div class='day-tile-date'>" + day.date.slice(0,5) + "</div><div class='day-tile-watching-label'>&#9679; Watching</div><div style='font-size:9px;color:#8b949e;'>" + watchData.watches.length + " setup" + (watchData.watches.length>1?"s":"") + " on radar</div></div>";
+        } else {
+          dayTiles += "<div class='day-tile no-trades'><div class='day-tile-name'>" + day.name + "</div><div class='day-tile-date'>" + day.date.slice(0,5) + "</div></div>";
+        }
       } else {
         var seen = {}; var badges = "";
         for (var i = 0; i < dt.length; i++) { if (!seen[dt[i].tradeLabel]) { seen[dt[i].tradeLabel] = true; badges += setupBadge(dt[i].setup) + "<span style='font-size:9px;color:#8b949e;margin-left:4px;'>" + dt[i].tradeLabel + "</span><br>"; } }
@@ -852,15 +937,75 @@ function toggleWeek(num) {
 function openDrillDown(weekNum, date) {
   var list = getFilteredTrades(); var dt = [];
   for (var i = 0; i < list.length; i++) if (list[i].date === date) dt.push(list[i]);
-  if (!dt.length) return;
+
+  // Check for watch day
+  var watchData = null;
+  for (var wi = 0; wi < watchDays.length; wi++) { if (watchDays[wi].date === date) { watchData = watchDays[wi]; break; } }
+
+  if (!dt.length && !watchData) return;
+
   var tiles = document.querySelectorAll(".day-tile");
   for (var i = 0; i < tiles.length; i++) tiles[i].classList.remove("active-day");
   var tile = document.getElementById("tile-" + weekNum + "-" + date.replace(/\//g,"-"));
   if (tile) tile.classList.add("active-day");
+
+  // If watch day with no trades yet
+  if (!dt.length && watchData) {
+    var wcards = "";
+    for (var wi = 0; wi < watchData.watches.length; wi++) {
+      var w = watchData.watches[wi];
+      var pl = w.priority === "aplus" ? "A+" : w.priority === "a" ? "A" : "B";
+      var pclass = "watch-priority-" + w.priority;
+      var tps = "";
+      for (var ti = 0; ti < w.targets.length; ti++) tps += "<div class='watch-tp'>" + w.targets[ti].label + "<br>" + w.targets[ti].price + "</div>";
+      wcards += "<div class='watch-card'><div class='watch-card-status'>&#9679; Watching</div>" +
+        "<div class='watch-card-header'><div><span class='watch-card-level'>" + w.level + "</span><span class='watch-card-label'>" + w.label + "</span></div><div class='watch-card-priority-wrap'><span class='watch-card-priority " + pclass + "'>" + pl + "</span></div></div>" +
+        "<div class='watch-card-badge'>" + w.setup.replace("_"," ") + "</div>" +
+        "<div class='watch-card-section'><div class='watch-card-section-label'>Entry Trigger</div><div class='watch-card-entry'>" + w.entry + "</div></div>" +
+        "<div class='watch-targets'>" + tps + "</div>" +
+        "<div class='watch-card-risk'>" +
+        "<div class='watch-risk-item'><div class='watch-risk-label'>Stop</div><div class='watch-risk-value'>" + w.stop + "</div></div>" +
+        "<div class='watch-risk-item'><div class='watch-risk-label'>Max Size</div><div class='watch-risk-value'>" + w.contracts + " contracts</div></div>" +
+        "<div class='watch-risk-item'><div class='watch-risk-label'>Max Risk</div><div class='watch-risk-value'>" + w.risk + "</div></div>" +
+        "</div></div>";
+    }
+    var drill = document.getElementById("drill-" + weekNum);
+    drill.innerHTML = "<div class='drill-watching-title'>&#9679; Watch List — " + date + "</div><div class='drill-watching-note'>" + watchData.note + "</div><div class='drill-cards'>" + wcards + "</div>";
+    drill.classList.add("open");
+    return;
+  }
+
+  // Has trades — show trade cards first, then collapsible watchlist if watchDay exists
+  var watchSection = "";
+  if (watchData) {
+    var wcards2 = "";
+    for (var wi = 0; wi < watchData.watches.length; wi++) {
+      var w = watchData.watches[wi];
+      var pl2 = w.priority === "aplus" ? "A+" : w.priority === "a" ? "A" : "B";
+      var pclass2 = "watch-priority-" + w.priority;
+      var tps2 = "";
+      for (var ti = 0; ti < w.targets.length; ti++) tps2 += "<div class='watch-tp'>" + w.targets[ti].label + "<br>" + w.targets[ti].price + "</div>";
+      wcards2 += "<div class='watch-card'><div class='watch-card-status'>&#9679; Watching</div>" +
+        "<div class='watch-card-header'><div><span class='watch-card-level'>" + w.level + "</span><span class='watch-card-label'>" + w.label + "</span></div><div class='watch-card-priority-wrap'><span class='watch-card-priority " + pclass2 + "'>" + pl2 + "</span></div></div>" +
+        "<div class='watch-card-badge'>" + w.setup.replace("_"," ") + "</div>" +
+        "<div class='watch-card-section'><div class='watch-card-section-label'>Entry Trigger</div><div class='watch-card-entry'>" + w.entry + "</div></div>" +
+        "<div class='watch-targets'>" + tps2 + "</div>" +
+        "<div class='watch-card-risk'>" +
+        "<div class='watch-risk-item'><div class='watch-risk-label'>Stop</div><div class='watch-risk-value'>" + w.stop + "</div></div>" +
+        "<div class='watch-risk-item'><div class='watch-risk-label'>Max Size</div><div class='watch-risk-value'>" + w.contracts + " contracts</div></div>" +
+        "<div class='watch-risk-item'><div class='watch-risk-label'>Max Risk</div><div class='watch-risk-value'>" + w.risk + "</div></div>" +
+        "</div></div>";
+    }
+    watchSection = "<div style='margin-top:20px;border-top:1px solid #21262d;padding-top:16px;'>" +
+      "<button class='journal-toggle' style='font-size:12px;color:#b57bee;margin-bottom:12px;' onclick=\'toggleWatchlist(\"wl-" + weekNum + "-" + date.replace(/\//g,"-") + "\")\'>" + "&#9658; Pre-Market Watch List (" + watchData.watches.length + " setups)</button>" +
+      "<div id='wl-" + weekNum + "-" + date.replace(/\//g,"-") + "' style='display:none;'>" +
+      "<div class='drill-watching-note' style='margin-bottom:14px;'>" + watchData.note + "</div>" +
+      "<div class='drill-cards'>" + wcards2 + "</div></div></div>";
+  }
   var cards = "";
   for (var i = 0; i < dt.length; i++) cards += renderCard(dt[i]);
   var drill = document.getElementById("drill-" + weekNum);
-  drill.innerHTML = "<div class='drill-title'>" + date + " — Trade Cards</div><div class='drill-cards'>" + cards + "</div>";
+  drill.innerHTML = "<div class='drill-title'>" + date + " — Trade Cards</div><div class='drill-cards'>" + cards + "</div>" + watchSection;
   drill.classList.add("open");
 }
 
@@ -869,6 +1014,19 @@ function filterTrades(type, btn) {
   for (var i = 0; i < btns.length; i++) btns[i].classList.remove("active");
   btn.classList.add("active"); currentFilter = type;
   renderAll(getFilteredTrades());
+}
+
+function toggleWatchlist(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var btn = el.previousElementSibling;
+  if (el.style.display === "none") {
+    el.style.display = "block";
+    if (btn) btn.textContent = btn.textContent.replace("▶", "▼");
+  } else {
+    el.style.display = "none";
+    if (btn) btn.textContent = btn.textContent.replace("▼", "▶");
+  }
 }
 
 function toggleJournal(id) {
