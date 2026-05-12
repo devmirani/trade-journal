@@ -551,6 +551,12 @@ var weeks = [
 ];
 
 var trades = [
+  { id:14, date:"05/12/2026", entryTime:"12:05 PM", entryPrice:7377.00, stopPrice:7363.00, setup:"FBD", result:"loss", contracts:5, tradeLabel:"7372 Failed Breakdown",
+    targets:[{label:"T1",price:7383.00,contracts:5,status:"miss",pnl:0,exitTime:null},{label:"T2",price:7390.00,contracts:5,status:"miss",pnl:0,exitTime:null}],
+    times:[{label:"Entry",value:"12:05 PM"},{label:"Stopped",value:"26m"}], totalPts:-8.25, totalPnl:-206.25, exitNote:"Stopped out at 7368.75 on 7372 break", journal:"" },
+  { id:13, date:"05/12/2026", entryTime:"11:45 AM", entryPrice:7380.50, stopPrice:7363.00, setup:"FBD", result:"loss", contracts:5, tradeLabel:"7372 Failed Breakdown",
+    targets:[{label:"T1",price:7383.00,contracts:5,status:"miss",pnl:0,exitTime:null},{label:"T2",price:7390.00,contracts:5,status:"miss",pnl:0,exitTime:null}],
+    times:[{label:"Entry",value:"11:45 AM"},{label:"Stopped",value:"14m"}], totalPts:-11.00, totalPnl:-275.00, exitNote:"Stopped out at 7369.50 on 7372 break", journal:"" },
   { id:12, date:"05/12/2026", entryTime:"12:05 PM", entryPrice:69.00, stopPrice:0, setup:"SPY_CALL", result:"win", contracts:1, tradeLabel:"SPY 734 Call",
     targets:[{label:"T1",price:312.00,contracts:1,status:"hit",pnl:243.00,exitTime:"3:16 PM",exitPrice:312.00}],
     times:[{label:"Entry",value:"12:05 PM"},{label:"Exit",value:"3:11m"}], totalPts:243.00, totalPnl:243.00, exitNote:"Sold near 7416 — knew 7422 was target", journal:"Read the 7363 FBD playing out on MES but was past two-loss rule. Pivoted to SPY 734 Call instead. Bought at $69, rode the squeeze from 7363 to 7416+. Sold slightly early — knew 7422 was the next target and it got there, then 7435. Left money on the table but a $243 win on a brutal CPI day was the right call mentally." },
