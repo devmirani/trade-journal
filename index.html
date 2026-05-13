@@ -487,6 +487,12 @@ var weeks = [
 ];
 
 var trades = [
+  { id:18, date:"05/13/2026", entryTime:"9:41 AM", entryPrice:40.00, stopPrice:0, setup:"SPY_CALL", result:"win", contracts:2, tradeLabel:"SPY Call",
+    targets:[{label:"T1",price:83.00,contracts:1,status:"hit",pnl:43.00,exitTime:"11:40 AM",exitPrice:83.00},{label:"T2",price:120.00,contracts:1,status:"hit",pnl:80.00,exitTime:"12:13 PM",exitPrice:120.00}],
+    times:[{label:"Entry",value:"9:41 AM"},{label:"T1",value:"1h 59m"},{label:"T2",value:"2h 32m"}], totalPts:123.00, totalPnl:123.00, exitNote:"Sold 1 at $83, 1 at $120", journal:"" },
+  { id:17, date:"05/13/2026", entryTime:"10:05 AM", entryPrice:7415.75, stopPrice:7402.00, setup:"FBD", result:"win", contracts:3, tradeLabel:"7411 Failed Breakdown",
+    targets:[{label:"T1",price:7420.50,contracts:2,status:"hit",pnl:47.50,exitTime:"10:13 AM"},{label:"T2",price:7450.00,contracts:1,status:"hit",pnl:171.25,exitTime:"12:12 PM"}],
+    times:[{label:"Entry",value:"10:05 AM"},{label:"T1",value:"8m"},{label:"Runner",value:"2h 7m"}], totalPts:60.50, totalPnl:218.75, exitNote:"T1 at 7420.50, runner to 7450", journal:"7411 overnight low FBD. Flushed slightly below 7402, bounced back. NAP entry at 7415.75 on 3 contracts. Locked 2 at T1 (7420.50), trailed runner through 7422, 7428, 7435, 7442 — hit 7450 target at 12:12PM." },
   { id:16, date:"05/12/2026", entryTime:"9:58 PM", entryPrice:7429.00, stopPrice:7422.00, setup:"LEVEL_RECLAIM", result:"win", contracts:10, tradeLabel:"7428 Breakout Level Reclaim",
     targets:[{label:"T1",price:7435.00,contracts:7,status:"hit",pnl:210.00,exitTime:"11:36 PM"},{label:"T2",price:7442.00,contracts:2,status:"hit",pnl:130.00,exitTime:"2:15 AM"},{label:"T3",price:7450.00,contracts:1,status:"stopped",pnl:-35.00,exitTime:"8:31 AM",exitPrice:7422.00}],
     times:[{label:"Entry",value:"9:58 PM"},{label:"T1",value:"1h 37m"},{label:"T2",value:"4h 16m"},{label:"T3",value:"10h 32m"}], totalPts:54.00, totalPnl:305.00, exitNote:"T1 and T2 hit, runner stopped at 7422", journal:"Breakout of 7428 range top. Waited for double 30-min close confirmation above 7428 with retest acceptance. Entered at 7429 on 10 MES. Locked 75% at T1 (7435), scaled more at T2 (7442), left 1 runner toward 7450 which cleared but runner eventually stopped at 7422 during RTH." },
