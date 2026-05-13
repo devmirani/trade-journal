@@ -483,6 +483,10 @@ var weeks = [
     { name: "Sun", date: "05/17/2026" }, { name: "Mon", date: "05/18/2026" },
     { name: "Tue", date: "05/19/2026" }, { name: "Wed", date: "05/20/2026" },
     { name: "Thu", date: "05/21/2026" }, { name: "Fri", date: "05/22/2026" }
+  ]},
+  { num: 5, label: "Week 3 cont.", dates: "05/13 - 05/16", days: [
+    { name: "Wed", date: "05/13/2026" }, { name: "Thu", date: "05/14/2026" },
+    { name: "Fri", date: "05/15/2026" }, { name: "Sat", date: "05/16/2026" }
   ]}
 ];
 
@@ -563,6 +567,23 @@ var watchDays = [
       targets:[{label:"T1",price:7377},{label:"T2",price:7390}],
       contracts:3, risk:"$200 max (3 contracts to 7355 stop)" }
   ]},
+  { date:"05/14/2026", note:"Closing at highs again — nothing to do until elevator down sell triggers. EOD eval buffer watch. A+ only. Patience required.", watches:[
+    { level:7450, label:"7450 Failed Breakdown", setup:"FBD", priority:"aplus",
+      entry:"7455-50 was the week's range resistance, now backtest support. Wait for flush below 7450, then either clear acceptance or NAP (7450+5=7455, hold above for a few minutes). Bonus if dips to 7441 on the flush.",
+      stop:"Below 7441.",
+      targets:[{label:"T1",price:7467},{label:"T2",price:7475},{label:"T3",price:7491}],
+      contracts:5, risk:"$225 max (5 contracts to 7441 stop)" },
+    { level:7467, label:"7467 Failed Breakdown", setup:"FBD", priority:"a",
+      entry:"1st support from ATH. Flush and recovery actionable but lower quality — too close to highs. Use NAP protocol only (7467+5=7472). Slow grind only.",
+      stop:"Below 7459.",
+      targets:[{label:"T1",price:7475},{label:"T2",price:7491}],
+      contracts:3, risk:"$120 max (3 contracts to 7459 stop)" },
+    { level:7421, label:"7421 Support", setup:"FBD", priority:"b",
+      entry:"Slow controlled sell only. If flushing full speed wait for flush and recovery before entering.",
+      stop:"Below 7410.",
+      targets:[{label:"T1",price:7435},{label:"T2",price:7450}],
+      contracts:3, risk:"$165 max (3 contracts to 7410 stop)" }
+  ]},
   { date:"05/13/2026", note:"Rangebound 7363–7428, pivot at 7402. One trade, A+ only. EOD eval buffer: $986. Max 2-3 contracts.", watches:[
     { level:7363, label:"7363 Failed Breakdown", setup:"FBD", priority:"aplus",
       entry:"Wait for full flush through 7363, then either: (1) clear acceptance at 7363, or (2) NAP — price recovers 7363 by 5pts (7368) and holds above for a couple minutes. Bonus if ES dips to 7355 on the flush first.",
@@ -583,6 +604,16 @@ var watchDays = [
 ];
 
 var setupDays = [
+  { date:"05/14/2026", setups:[
+    {level:7450,type:"FBD",priority:"aplus",notes:"7455-50 was a big resistance shelf all week and today's range top. Now acting as backtest support after the breakout. A+ if ES flushes below 7450 and recovers — bonus if dips to 7441. Mancini's primary entry for Thursday. Only on slow controlled sell — if knifing on headlines, wait for full FBD trigger."},
+    {level:7467,type:"FBD",priority:"a",notes:"1st support down from ATH. ES defended this at 1:55PM today and rallied 18pts. A flush and recovery here is actionable but risky since still close to highs. Lower quality due to proximity to highs."},
+    {level:7421,type:"FBD",priority:"b",notes:"Decent support. Only try a bid here on a slow controlled sell. If flushing full speed, wait for it to flush and recover before entering."},
+    {level:7392,type:"FBD",priority:"b",notes:"Strong support. If knifing into this zone, do not just buy it — wait for it to defend then put in a Failed Breakdown of today's 7399 daily low. High quality entry if it gets there but a long way down."}
+  ],
+  bull:"ES broke out of the week-long range (7363-7455) today driven by the 7411 FBD at 9:55AM. Bulls want to defend this breakout — 7450-55 on any backtest (or quick flush below and recover). From there price continues higher. Next targets: 7491, 7504, 7526. In extreme bull case ES won't even backtest 7450-55 and just continues up or traps 7467.",
+  bear:"7363 has to fail to even start talking about a real bear case. Possible short below 7450-55 — breakdown trade only. Wait for a final bounce at 7450-55, then short below the lows of that bounce. Trigger around 7440. Note: 60%+ failure rate on breakdown trades. Not recommended for newer traders.",
+  summary:"ATH breakout day. ES was rangebound 7455-7363 all week, today broke out via 7411 FBD at 9:55AM and ripped 50+ points to new all time highs. Closing at the highs again — nothing to do. Wait for elevator down sell into a quality FBD. Patience required after a big green day. First supports after a big rally go 1-2 levels then fail before the real one sticks."
+  },
   { date:"05/13/2026", setups:[
     {level:7363,type:"FBD",priority:"aplus",notes:"Low of day Tuesday. Primary A+ setup for Wednesday. FBD of this level is actionable. Bonus if ES dips to 7355 first on the flush. Mancini's top pick for the day."},
     {level:7390,type:"LEVEL_RECLAIM",priority:"a",notes:"Strong support. If ES dips to 7390 and recovers 7402, this represents a Level Reclaim long — 7402 is a clear horizontal line from Monday daily low and Tuesday morning lows. Only on a dip to 7390 then recovery of 7402."},
