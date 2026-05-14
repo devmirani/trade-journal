@@ -487,6 +487,9 @@ var weeks = [
 ];
 
 var trades = [
+  { id:19, date:"05/14/2026", entryTime:"10:36 PM", entryPrice:7479.25, stopPrice:7486.25, setup:"FBD", result:"loss", contracts:4, tradeLabel:"H&S Neckline Short",
+    targets:[{label:"Add",price:7477.25,contracts:2,status:"hit",pnl:0,exitTime:"1:08 AM",exitPrice:7477.25},{label:"Cover",price:7486.25,contracts:4,status:"stopped",pnl:-164.16,exitTime:"2:17 AM",exitPrice:7486.25}],
+    times:[{label:"Entry 2x",value:"10:36 PM"},{label:"Add 2x",value:"1:08 AM"},{label:"Covered",value:"2:17 AM"}], totalPts:-3.25, totalPnl:-164.16, exitNote:"Added to short at 7477.25, all 4 covered at 7486.25", journal:"H&S pattern short off neckline break at 7479.25. Added 2 more at 7477.25 at 1AM bringing total to 4 short. Price reversed and covered all 4 at 7486.25 at 2:17AM for -$164.16. Breakdown trade against ATH trend in thin ETH — re-entry adding to loser is the key mistake." },
   { id:18, date:"05/13/2026", entryTime:"9:41 AM", entryPrice:40.00, stopPrice:0, setup:"SPY_CALL", result:"win", contracts:2, tradeLabel:"SPY Call",
     targets:[{label:"T1",price:83.00,contracts:1,status:"hit",pnl:43.00,exitTime:"11:40 AM",exitPrice:83.00},{label:"T2",price:120.00,contracts:1,status:"hit",pnl:80.00,exitTime:"12:13 PM",exitPrice:120.00}],
     times:[{label:"Entry",value:"9:41 AM"},{label:"T1",value:"1h 59m"},{label:"T2",value:"2h 32m"}], totalPts:123.00, totalPnl:123.00, exitNote:"Sold 1 at $83, 1 at $120", journal:"" },
