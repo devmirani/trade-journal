@@ -50,7 +50,7 @@
   body.light .dash-card-value.pos { color: #00a854; }
   body.light .dash-card-value.neg { color: #c0392b; }
   .dash-card-sub { font-size: 12px; color: #a0aab8; }
-  .dash-card-accent { position: absolute; top: 0; right: 0; width: 4px; height: 100%; }
+  .dash-card-accent { display: none; }
 
   /* Weeks */
   .week-block { margin: 0 40px 24px; border: 1px solid #21262d; border-radius: 10px; overflow: hidden; }
@@ -495,6 +495,39 @@
   body.light .live-week-stat-value.neg { color: #c0392b; }
   body.light .live-week-stat-value.neu { color: #1a1f2e; }
 
+
+  /* Open Positions Section */
+  .open-pos-section { margin: 32px 40px 0; }
+  .open-pos-title { font-size: 15px; font-weight: 700; color: #fff; padding: 20px 0 16px; border-bottom: 1px solid #21262d; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  body.light .open-pos-title { color: #1a1f2e; border-bottom-color: #d0d7e3; }
+  .open-pos-live-dot { width: 8px; height: 8px; border-radius: 50%; background: #00e676; display: inline-block; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .open-pos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .open-pos-card { background: #0d1117; border-radius: 12px; padding: 20px; border: 1px solid #21262d; border-top: 3px solid #f0a500; position: relative; overflow: hidden; }
+  body.light .open-pos-card { background: #fff; border-color: #d0d7e3; }
+  .open-pos-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .open-pos-emblem { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; font-family: "Courier New", monospace; flex-shrink: 0; }
+  .open-pos-ticker-wrap { flex: 1; }
+  .open-pos-ticker { font-size: 18px; font-weight: 700; color: #fff; line-height: 1; }
+  body.light .open-pos-ticker { color: #1a1f2e; }
+  .open-pos-company { font-size: 11px; color: #8b949e; margin-top: 2px; }
+  .open-pos-status { font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; background: rgba(240,165,0,0.1); color: #f0a500; border: 1px solid rgba(240,165,0,0.3); }
+  .open-pos-divider { border: none; border-top: 1px solid #21262d; margin: 12px 0; }
+  body.light .open-pos-divider { border-top-color: #d0d7e3; }
+  .open-pos-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .open-pos-field-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+  .open-pos-field-value { font-size: 14px; font-weight: 700; color: #e6edf3; }
+  body.light .open-pos-field-value { color: #1a1f2e; }
+  .open-pos-field-value.amber { color: #f0a500; }
+  .open-pos-field-value.green { color: #00e676; }
+  .open-pos-field-value.red { color: #e05c5c; }
+  body.light .open-pos-field-value.green { color: #00a854; }
+  body.light .open-pos-field-value.red { color: #c0392b; }
+  .open-pos-note { font-size: 10px; color: #8b949e; line-height: 1.6; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; border-left: 2px solid #f0a500; }
+  body.light .open-pos-note { background: #f4f6f9; }
+  .open-pos-empty { text-align: center; padding: 40px; color: #8b949e; font-size: 13px; border: 1px dashed #21262d; border-radius: 10px; }
+  body.light .open-pos-empty { border-color: #d0d7e3; }
+
 </style>
 </head>
 <body>
@@ -544,6 +577,60 @@
   </div>
 
 
+
+
+  <!-- Open Positions -->
+  <div class="open-pos-section">
+    <div class="open-pos-title">
+      <span class="open-pos-live-dot"></span>
+      OPEN OPTIONS POSITIONS
+    </div>
+    <div class="open-pos-grid" id="open-pos-grid">
+
+      <!-- CRWV Card -->
+      <div class="open-pos-card">
+        <div class="open-pos-card-header">
+          <div class="open-pos-emblem" style="background: linear-gradient(135deg, #1a0a2e, #3d1a6e); color: #a855f7;">CW</div>
+          <div class="open-pos-ticker-wrap">
+            <div class="open-pos-ticker">CRWV</div>
+            <div class="open-pos-company">CoreWeave, Inc. &mdash; NASDAQ</div>
+          </div>
+          <span class="open-pos-status">&#9679; OPEN</span>
+        </div>
+        <hr class="open-pos-divider">
+        <div class="open-pos-info-grid">
+          <div>
+            <div class="open-pos-field-label">Contract</div>
+            <div class="open-pos-field-value">$116 Call</div>
+          </div>
+          <div>
+            <div class="open-pos-field-label">Expiry</div>
+            <div class="open-pos-field-value amber">May 22, 2026</div>
+          </div>
+          <div>
+            <div class="open-pos-field-label">Entry Price</div>
+            <div class="open-pos-field-value">$100.00</div>
+          </div>
+          <div>
+            <div class="open-pos-field-label">Contracts</div>
+            <div class="open-pos-field-value">1</div>
+          </div>
+          <div>
+            <div class="open-pos-field-label">Entry Time</div>
+            <div class="open-pos-field-value">3:50 PM 05/18</div>
+          </div>
+          <div>
+            <div class="open-pos-field-label">Cost Basis</div>
+            <div class="open-pos-field-value">$100.00</div>
+          </div>
+        </div>
+        <div class="open-pos-note">
+          AI cloud infrastructure play. Stock at ~$103-107 today. $116 strike = OTM. 4 days to expiry. Needs a move above $116 to be ITM. NVIDIA disclosed stake in CRWV on 5/15.
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Macro / Earnings Events -->
   <div class="macro-section">
@@ -713,6 +800,32 @@ var weeks = [
 ];
 
 var trades = [
+  { id:28, date:"05/18/2026", entryTime:"3:50 PM", entryPrice:100.00, stopPrice:0, setup:"SPY_CALL", result:"win", contracts:1, tradeLabel:"CRWV $116 Call (May 22 Exp) — OPEN",
+    targets:[{label:"T1",price:null,contracts:1,status:"miss",pnl:0,exitTime:null}],
+    times:[{label:"Entry",value:"3:50 PM"},{label:"Status",value:"OPEN — Swing"}],
+    totalPts:0, totalPnl:0, exitNote:"Swing position — still open", journal:"CRWV May 22 $116 Call. Swing trade entered at close 3:50PM at $100. Holding overnight." },
+  { id:27, date:"05/18/2026", entryTime:"12:16 PM", entryPrice:52.00, stopPrice:0, setup:"SPY_CALL", result:"loss", contracts:1, tradeLabel:"ONDS $9.5 Call (May 22 Exp)",
+    targets:[{label:"T1",price:42.00,contracts:1,status:"stopped",pnl:-10.00,exitTime:"12:29 PM",exitPrice:42.00}],
+    times:[{label:"Entry",value:"12:16 PM"},{label:"Exit",value:"12:29 PM"},{label:"Duration",value:"13m"}],
+    totalPts:-10.00, totalPnl:-10.00, exitNote:"Sold at $42 for -$10", journal:"" },
+  { id:26, date:"05/18/2026", entryTime:"11:56 AM", entryPrice:103.00, stopPrice:0, setup:"SPY_CALL", result:"loss", contracts:1, tradeLabel:"SPY 750 Call (May 22 Exp)",
+    targets:[{label:"T1",price:72.00,contracts:1,status:"stopped",pnl:-31.00,exitTime:"12:29 PM",exitPrice:72.00}],
+    times:[{label:"Entry",value:"11:56 AM"},{label:"Exit",value:"12:29 PM"},{label:"Duration",value:"33m"}],
+    totalPts:-31.00, totalPnl:-31.00, exitNote:"Sold at $72 for -$31", journal:"" },
+  { id:25, date:"05/18/2026", entryTime:"10:15 AM", entryPrice:7442.25, stopPrice:7432.50, setup:"LEVEL_RECLAIM", result:"win", contracts:3, tradeLabel:"7435 Level Reclaim",
+    targets:[
+      {label:"T1",price:7447.25,contracts:2,status:"hit",pnl:50.00,exitTime:"10:16 AM"},
+      {label:"Runner",price:7432.50,contracts:1,status:"stopped",pnl:-48.75,exitTime:"10:29 AM",exitPrice:7432.50}
+    ],
+    times:[{label:"Entry",value:"10:15 AM"},{label:"T1",value:"1m"},{label:"Runner stopped",value:"14m"}],
+    totalPts:0.25, totalPnl:1.25, exitNote:"T1 +$50 at 7447.25, runner stopped at 7432.50 -$48.75", journal:"" },
+  { id:24, date:"05/18/2026", entryTime:"3:10 PM", entryPrice:7404.00, stopPrice:7398.00, setup:"FBD", result:"win", contracts:3, tradeLabel:"7398 Failed Breakdown NAP",
+    targets:[
+      {label:"T1",price:7412.25,contracts:2,status:"hit",pnl:82.50,exitTime:"3:40 PM"},
+      {label:"Runner",price:7420.00,contracts:1,status:"hit",pnl:80.00,exitTime:"4:11 PM"}
+    ],
+    times:[{label:"Entry",value:"3:10 PM"},{label:"T1",value:"30m"},{label:"Runner",value:"1h 1m"}],
+    totalPts:24.25, totalPnl:162.50, exitNote:"T1 +$82.50 at 7412.25, runner +$80 at 7420", journal:"7398 FBD — the highly actionable setup from the newsletter. NAP entry at 7404. T1 locked at 7412.25, runner to 7420 at close." },
   { id:23, date:"05/18/2026", entryTime:"10:44 AM", entryPrice:22.00, stopPrice:0, setup:"SPY_CALL", result:"win", contracts:4, tradeLabel:"SPY 743 Call",
     targets:[{label:"T1",price:51.00,contracts:4,status:"hit",pnl:116.00,exitTime:"3:01 PM",exitPrice:51.00}],
     times:[{label:"Entry",value:"10:44 AM"},{label:"Exit",value:"3:01 PM"},{label:"Duration",value:"4h 17m"}],
@@ -1306,7 +1419,7 @@ function renderDashboard() {
   var html = "<div class='dash-grid'>";
   for (var i = 0; i < cards.length; i++) {
     var c = cards[i];
-    html += "<div class='dash-card'><div class='dash-card-accent' style='background:" + c.accent + ";'></div><div class='dash-card-label'>" + c.label + "</div><div class='dash-card-value" + (c.cls ? " " + c.cls : "") + "'>" + c.value + "</div><div class='dash-card-sub'>" + c.sub + "</div></div>";
+    html += "<div class='dash-card'><div class='dash-card-label'>" + c.label + "</div><div class='dash-card-value" + (c.cls ? " " + c.cls : "") + "'>" + c.value + "</div><div class='dash-card-sub'>" + c.sub + "</div></div>";
   }
   html += "</div>";
   document.getElementById("dash-section").innerHTML = html;
