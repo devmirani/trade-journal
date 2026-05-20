@@ -48,6 +48,9 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); font-family: 'Inter', 'Courier New', sans-serif; color: var(--text); min-height: 100vh; transition: background 0.25s, color 0.25s; }
+  .site-wrap { max-width: 1400px; margin: 0 auto; }
+  header { max-width: 1400px; margin: 0 auto; }
+  .nav-tabs { max-width: 1400px; margin: 0 auto; }
 
   /* ─── HEADER ─────────────────────────────────────────────── */
   header {
@@ -614,7 +617,7 @@
 </div>
 
 <!-- JOURNAL PAGE -->
-<div id="journal-page" class="page active">
+<div class="site-wrap"><div id="journal-page" class="page active">
   <div class="filters">
     <button class="filter-btn active" onclick="filterTrades('all', this)">ALL</button>
     <button class="filter-btn" onclick="filterTrades('win', this)">WINS</button>
@@ -711,7 +714,7 @@
 </div>
 
 <!-- SETUPS PAGE -->
-<div id="setups-page" class="page">
+</div><div class="site-wrap"><div id="setups-page" class="page">
   <div class="setup-cal-section">
     <div class="cal-nav">
       <button class="cal-nav-btn" onclick="prevSetupMonth()">&#8592;</button>
@@ -724,7 +727,7 @@
 </div>
 
 <!-- LIVE PAGE -->
-<div id="live-page" class="page">
+</div><div class="site-wrap"><div id="live-page" class="page">
 
   <!-- Bias + Primary Setup Hero -->
   <div class="live-page-section">
@@ -838,6 +841,7 @@
 
 
 
+</div>
 <div id="img-overlay" class="img-overlay" onclick="closeImg()">
   <img id="overlay-img" src="" alt="chart" />
 </div>
