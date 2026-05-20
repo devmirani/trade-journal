@@ -799,6 +799,12 @@ var weeks = [
 ];
 
 var trades = [
+  { id:33, date:"05/19/2026", entryTime:"7:35 PM", entryPrice:7392.25, stopPrice:7352.00, setup:"LEVEL_RECLAIM", result:"loss", contracts:5, tradeLabel:"7385 Level Reclaim — Trap",
+    targets:[
+      {label:"Exited",price:7390.75,contracts:5,status:"stopped",pnl:-47.00,exitTime:"3:30 AM",exitPrice:7390.75}
+    ],
+    times:[{label:"Entry",value:"7:35 PM"},{label:"Exit",value:"3:30 AM"},{label:"Duration",value:"7h 55m"}],
+    totalPts:-1.50, totalPnl:-47.00, exitNote:"Stress exit at 3:30AM. Stop was 40pts below — $1,000 exposure on 5 contracts. ES recovered to 7415 by 8AM.", journal:"Took the 7385 reclaim from the newsletter post-market. Bought at 7392.25 — immediately got trapped as ES plummeted back to the lows. Stop was 40pts below with 5 contracts — $1,000 exposure. Stop edged multiple times overnight. Woke up at 3:30AM stressed and just wanted out. Closed at 7390.75 for -$47. ES was at 7415 by 8AM — would have been +$500 if held. Classic stress exit. The detrimental part wasn't the loss — it was carrying a position sized way beyond comfort overnight into a trap." },
   { id:32, date:"05/19/2026", entryTime:"12:30 PM", entryPrice:7384.50, stopPrice:7371.25, setup:"FBD", result:"win", contracts:5, tradeLabel:"7377 Long",
     targets:[
       {label:"T1",price:7389.75,contracts:3,status:"hit",pnl:78.75,exitTime:"12:32 PM"},
