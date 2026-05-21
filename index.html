@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Trade Journal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); font-family: 'Inter', 'Courier New', sans-serif; color: var(--text); min-height: 100vh; transition: background 0.25s, color 0.25s; }
+  body { overflow-x: hidden; background: var(--bg); font-family: 'Inter', 'Courier New', sans-serif; color: var(--text); min-height: 100vh; transition: background 0.25s, color 0.25s; }
   .site-wrap { max-width: 1400px; margin: 0 auto; }
   header { max-width: 1400px; margin: 0 auto; }
   .nav-tabs { max-width: 1400px; margin: 0 auto; }
@@ -594,6 +594,106 @@
   body.light .open-pos-note { background: #f4f6f9; }
   .open-pos-empty { text-align: center; padding: 40px; color: #8b949e; font-size: 13px; border: 1px dashed #21262d; border-radius: 10px; }
   body.light .open-pos-empty { border-color: #d0d7e3; }
+
+
+  /* ─── MOBILE ─────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    header { padding: 0 16px; height: auto; min-height: 60px; flex-wrap: wrap; gap: 8px; padding-top: 10px; padding-bottom: 10px; }
+    header::after { display: none; }
+    .header-left { gap: 10px; }
+    header h1 { font-size: 14px; }
+    .header-subtitle { font-size: 9px; }
+    .logo-img { height: 30px; }
+    .mode-toggle { font-size: 11px; padding: 5px 12px; }
+
+    .nav-tabs { padding: 0 8px; overflow-x: auto; gap: 0; }
+    .nav-tab { padding: 12px 14px; font-size: 10px; white-space: nowrap; }
+
+    .filters { padding: 12px 16px; gap: 6px; }
+    .filter-btn { font-size: 10px; padding: 5px 10px; }
+
+    .dash-section { margin: 0 16px 20px; padding-top: 16px !important; }
+    .dash-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dash-card { padding: 14px 16px 12px; border-radius: 10px; }
+    .dash-card-value { font-size: 26px; }
+    .dash-card-label { font-size: 9px; margin-bottom: 8px; }
+    .dash-card-sub { font-size: 10px; }
+
+    .week-block { margin: 0 16px 14px; border-radius: 10px; }
+    .week-header { padding: 12px 14px; }
+    .week-title { font-size: 12px; }
+    .week-right { gap: 14px; }
+    .week-stat-value { font-size: 12px; }
+    .week-body { padding: 12px; }
+
+    .day-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .day-tile { min-height: 90px; padding: 10px; border-radius: 8px; }
+    .day-tile-date { font-size: 11px; margin-bottom: 6px; }
+    .day-tile-pnl { font-size: 11px; }
+
+    .drill-cards { grid-template-columns: 1fr; }
+    .card { padding: 14px 16px; }
+    .info-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card-price { font-size: 16px; }
+    .pts { font-size: 16px; }
+    .dollars { font-size: 13px; }
+    .targets-inner { flex-wrap: wrap; }
+    .tp-btn { min-width: 60px; font-size: 9px; }
+
+    .cal-section { margin: 20px 16px; }
+    .cal-section-title { font-size: 11px; }
+    .cal-cell { min-height: 56px; padding: 5px; }
+    .cal-pnl { font-size: 10px; }
+    .cal-meta { font-size: 8px; }
+    .cal-day-num { font-size: 9px; }
+
+    .macro-section { margin: 16px 16px 40px; }
+    .macro-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .macro-card { padding: 10px 12px; }
+
+    .setup-cal-section { margin: 20px 16px; }
+    .setup-cal-cell { min-height: 60px; padding: 6px; }
+    .setup-drill { margin: 0 16px 40px; }
+    .setup-cards-grid { grid-template-columns: 1fr; }
+
+    .live-strip { margin: 16px 16px 0; }
+    .live-strip-grid { grid-template-columns: 1fr 1fr; }
+
+    .live-page-section { margin: 16px 16px 0; }
+    .live-hero { grid-template-columns: 1fr; gap: 10px; }
+    .live-hero-bias-value { font-size: 32px; }
+    .live-hero-setup-level { font-size: 32px; }
+
+    .live-targets-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .live-target-card { padding: 12px 14px; }
+    .live-target-card-value { font-size: 20px; }
+    .live-target-card-value.dim { font-size: 14px; }
+
+    .live-levels-grid { grid-template-columns: 1fr; gap: 10px; }
+    .live-level-price { font-size: 13px; }
+    .live-level-note { font-size: 9px; max-width: 140px; }
+
+    .live-week-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .live-week-stat { padding: 10px 12px; }
+    .live-week-stat-value { font-size: 14px; }
+
+    .open-pos-section { margin: 16px 16px 0; }
+    .open-pos-grid { grid-template-columns: 1fr; }
+
+    .setup-context { grid-template-columns: 1fr; }
+
+    .watch-card { padding: 14px 16px; }
+    .watch-card-level { font-size: 18px; }
+  }
+
+  @media (max-width: 420px) {
+    .dash-grid { grid-template-columns: 1fr 1fr; }
+    .day-row { grid-template-columns: 1fr 1fr; }
+    .live-targets-grid { grid-template-columns: 1fr 1fr; }
+    .live-week-stats { grid-template-columns: 1fr 1fr; }
+    .macro-grid { grid-template-columns: 1fr; }
+    .week-right { display: none; }
+  }
 
 </style>
 </head>
